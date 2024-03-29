@@ -1,0 +1,65 @@
+* {
+   font-family: Helvetica, sans-serif;
+}
+
+#scrumMain {
+   display: flex;
+   flex-direction: row;
+
+   height: 87.5vh;
+   gap: 15px;
+}
+body {
+   background-color: rgba(5, 16, 46, 0.9);
+   height: 100%;
+}
+
+input {
+   padding: 10px;
+   border-radius: 5px;
+}
+#logo {
+   max-width: 88px;
+   height: auto;
+   display: flex;
+   margin-right: 20px;
+   margin-left: 20px;
+   cursor: pointer;
+}
+
+#scrum-content {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   padding-top: 5px;
+}
+
+#categories-list-main {
+   display: flex;
+   flex-direction: column;
+   gap: 0px;
+   height: 90%;
+}
+
+.user-item {
+   margin-bottom: 10px;
+   width: 90%;
+   margin-left: 15px;
+   cursor: pointer;
+}
+
+#search-container-homepage {
+   display: flex;
+   flex-direction: row;
+}
+
+#taskSearchHomepage {
+   border-radius: 5px;
+   height: 24px;
+   padding: 0px;
+   border: none;
+   margin-left: 300px;
+   width: 600px;
+   margin-right: 85px;
+   text-align: center;
+}

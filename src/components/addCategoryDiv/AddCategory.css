@@ -1,0 +1,26 @@
+#addCategory-id {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 20px;
+   margin-bottom: 20px;
+   margin: 0;
+}
+
+#addCategory-id input {
+   border-top-right-radius: 0px;
+   border-bottom-right-radius: 0px;
+}
+
+#addCategory-id button {
+   border-top-right-radius: 5px;
+   border-bottom-right-radius: 5px;
+   border: transparent;
+   height: 24px;
+   width: 110px;
+   cursor: pointer;
+}
+
+#addCategory-id button:hover {
+   background-color: rgb(201, 201, 201);
+}

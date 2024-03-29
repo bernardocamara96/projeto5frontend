@@ -1,0 +1,152 @@
+.tasksModal {
+   position: fixed;
+   width: 500px;
+   height: 556px;
+   z-index: 10;
+   background-color: grey;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -55%);
+   padding-top: 10px;
+   padding-bottom: 10px;
+   padding-left: 20px;
+   padding-right: 10px;
+   border-radius: 10px;
+   text-align: left;
+   box-shadow: 0 0 8px 0px rgba(0, 0, 0);
+}
+
+#tasksModalCreate {
+   height: 510px;
+}
+
+#taskForm {
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+}
+
+.modalBackground {
+   position: fixed;
+   height: 100%;
+   width: 100%;
+   border-radius: 8px;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: #1b1b1bae;
+   z-index: 2;
+}
+
+#description {
+   resize: none;
+   width: 467px !important;
+   height: 200px !important;
+   border-radius: 5px;
+   padding: 10px;
+   margin-top: 5px;
+}
+
+#dates {
+   display: flex;
+   gap: 30px;
+}
+
+#priority {
+   height: 25px;
+}
+.input-label {
+   margin-right: 8px;
+   margin-left: 12px;
+}
+
+label {
+   font-weight: bold;
+}
+
+#category-type {
+   height: 25px;
+}
+.tasksModal button {
+   background-color: rgb(142, 142, 142);
+   border: solid;
+   cursor: pointer;
+   padding: 4px;
+   border-radius: 5px;
+   width: 200px;
+   height: 40px;
+}
+
+#cancel-task {
+   width: 100%;
+}
+
+button:hover {
+   background-color: rgb(114, 114, 114);
+}
+
+#save-task {
+   height: 40px;
+}
+
+.row-submit {
+   width: 70%;
+}
+
+.row-cancel {
+   width: 30%;
+}
+.btns-div {
+   display: flex;
+   gap: 12px;
+   width: 490px;
+}
+
+select {
+   cursor: pointer;
+}
+
+#cancel-edit-task,
+#save-edit-task,
+#delete-task {
+   width: 100%;
+   height: 40px;
+   margin-top: 8px;
+}
+
+.row-submit-edit {
+   width: 46%;
+}
+
+.row-delete,
+.row-cancel-edit {
+   width: 27%;
+}
+
+#edit-icon {
+   cursor: pointer;
+   width: 14px;
+   height: 14px;
+   border: none;
+}
+
+#edit-btn {
+   background-color: transparent;
+   border: none;
+   width: 20px; /* Ou qualquer tamanho que se adeque ao seu design */
+   height: 23px;
+   position: absolute;
+   right: 10px;
+   transform: translate(0, -20px);
+}
+
+#edit-btn:hover {
+   background-color: rgb(94, 94, 94);
+}
+
+.tasksModal input:disabled,
+.tasksModal select:disabled,
+.tasksModal textarea:disabled {
+   color: rgb(48, 48, 48);
+   background-color: rgba(223, 223, 223, 0.568);
+}

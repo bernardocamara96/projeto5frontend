@@ -1,0 +1,25 @@
+.user-item {
+   margin-bottom: 10px;
+   width: 90%;
+   margin-left: 15px;
+   cursor: pointer;
+   border-radius: 12px;
+   border: 2px;
+}
+
+#usercard-content {
+   display: flex;
+   padding: 5px;
+}
+
+.user-role {
+   margin-top: 5px;
+   margin-left: 15px;
+   font-weight: bold;
+   font-size: 15px;
+}
+
+.banner h3 {
+   font-size: 17px;
+   margin-left: 10px;
+}

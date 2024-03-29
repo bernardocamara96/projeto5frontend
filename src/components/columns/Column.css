@@ -1,0 +1,87 @@
+.col-todo {
+   background-color: rgba(233, 233, 233, 0.707);
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   flex: 1;
+   padding: 0px;
+   margin-bottom: 20px;
+   text-align: center;
+   height: 580px;
+   max-width: 350px;
+   min-width: 350px;
+   display: flex;
+   flex-direction: column;
+}
+
+.scrolable-ul {
+   overflow-y: auto;
+   height: 100%;
+}
+/* Personaliza a barra de rolagem para elementos com .scrolable-ul */
+.scrolable-ul::-webkit-scrollbar {
+   width: 8px; /* Espessura da barra de rolagem */
+}
+
+.scrolable-ul::-webkit-scrollbar-track {
+   background: var(--tertiary-color); /* Cor do trilho da barra de rolagem */
+   border-radius: 8px;
+}
+
+.scrolable-ul::-webkit-scrollbar-thumb {
+   background: #888; /* Cor da barra de rolagem */
+   border-radius: 8px; /*Arredonda os cantos*/
+}
+
+.scrolable-ul::-webkit-scrollbar-thumb:hover {
+   background: #555; /* Cor da barra de rolagem ao passar o mouse */
+}
+
+ul {
+   padding: 0;
+}
+
+.header-list {
+   display: flex;
+   align-items: center;
+   justify-items: center;
+   margin-bottom: 10px;
+}
+
+#col-todo-text {
+   flex-grow: 1;
+   margin-left: 50px;
+}
+
+.count-div-circle {
+   background-color: rgba(250, 250, 250, 0.707);
+   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+   height: 30px;
+   width: 40px;
+   border-radius: 20px;
+   margin-right: 7px;
+}
+
+#add-task-btn:hover {
+   background-color: rgba(74, 74, 74, 0.707);
+}
+
+#add-task-btn {
+   background-color: rgba(114, 114, 114, 0.707);
+   border-bottom-right-radius: 5px;
+   border-bottom-left-radius: 5px;
+   cursor: pointer;
+   padding: 6px;
+   font-weight: bold;
+}
+
+.ul-tasks {
+   min-height: 456.5px;
+   list-style-type: none;
+   padding-left: 20px;
+   padding-right: 20px;
+   margin-top: 11px;
+}
+
+#todo-count {
+   transform: translate(0px, -14px);
+}

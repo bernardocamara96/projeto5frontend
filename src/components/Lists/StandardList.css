@@ -1,0 +1,330 @@
+.mainBoard-settings {
+   display: flex;
+   justify-self: center;
+   justify-content: center;
+   flex-direction: row;
+   width: 80%;
+   height: 100%;
+   flex-grow: 1;
+   margin-left: 130px;
+}
+
+.user-list {
+   flex-grow: 1;
+   padding: 0px;
+   margin-bottom: 0px; /* Espaçamento na parte inferior */
+   text-align: center;
+   width: 78vw;
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   margin-left: 10px;
+}
+
+.col-user-list {
+   background-color: var(--tertiary-color);
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   flex: 1;
+   padding: 0px;
+   margin-bottom: 20px; /* Espaçamento na parte inferior */
+   text-align: center;
+   width: 23vw;
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   flex-grow: 1;
+   justify-self: center;
+}
+
+.col-user-list {
+   flex-grow: 1;
+   justify-self: center;
+   display: flex;
+}
+#col-users {
+   width: 10%;
+}
+.box-container {
+   display: flex;
+   gap: 15px;
+   flex-direction: row;
+
+   padding: 20px;
+   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+   border-radius: 10px;
+   height: calc(100% - 90px);
+   max-height: calc(100% - 90px);
+   background-color: rgba(233, 233, 233, 0.707);
+   transform: translate(0, -15px);
+}
+
+#box-deletedTasks {
+   display: flex;
+   flex-wrap: wrap;
+   overflow-y: auto;
+   text-align: center;
+   align-content: flex-start;
+   transform: translate(170px, -20px);
+}
+
+.search-container {
+   display: flex;
+   justify-content: center;
+   width: 100%;
+   overflow: hidden;
+   border-top-left-radius: 10px;
+   border-top-right-radius: 10px;
+   margin-bottom: 13px;
+}
+#search-container-deleted {
+   border-radius: 10px;
+}
+
+#taskSearch {
+   margin-right: 20px;
+}
+
+.search-container input[type="text"] {
+   width: 70%;
+   margin: 0;
+   text-align: center;
+   border: 0px;
+}
+
+#DELETED_COLUMN {
+   width: 96%;
+   display: grid;
+   grid-column-gap: 20px;
+   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+#scrollable-div {
+   overflow-y: auto;
+   max-height: 480px;
+   width: 100%;
+}
+
+#scrollable-div::-webkit-scrollbar {
+   width: 8px; /* Espessura da barra de rolagem */
+}
+
+#scrollable-div::-webkit-scrollbar-track {
+   background: var(--tertiary-color); /* Cor do trilho da barra de rolagem */
+   border-radius: 8px;
+}
+
+#scrollable-div::-webkit-scrollbar-thumb {
+   background: #888; /* Cor da barra de rolagem */
+   border-radius: 8px; /*Arredonda os cantos*/
+}
+
+#scrollable-div::-webkit-scrollbar-thumb:hover {
+   background: #555; /* Cor da barra de rolagem ao passar o mouse */
+}
+
+#title-deleted-tasks {
+   width: 100%;
+}
+
+#title-deleted-tasks h3 {
+   margin: 0;
+}
+
+.mainBoard-settings-users {
+   margin-left: 300px;
+   transform: translate(0, -5px);
+}
+
+#individual-user-info {
+   width: 100%;
+   height: 500px;
+}
+
+#editProfileForm {
+   height: 576px;
+   width: 100%;
+   padding: 10px;
+   box-sizing: border-box;
+   background-image: url("../../assets/placeholderform.png");
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   border-radius: 20px;
+}
+
+#editProfileForm .content {
+   max-height: 100%;
+   overflow-y: auto; /* Habilita a rolagem vertical */
+   display: flex;
+   flex-direction: column;
+   padding: 10px; /* Espaçamento interno */
+   border-radius: 8px; /* Bordas arredondadas */
+   background: var(--form-background); /* Fundo levemente transparente */
+}
+
+#editProfileForm label {
+   margin-bottom: 10px;
+   font-weight: 600;
+   color: #333; /* Cor mais escura para o texto */
+}
+
+#editProfileForm input[type="text"],
+#editProfileForm select {
+   margin-bottom: 5px;
+   padding: 5px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   box-sizing: border-box;
+   transition: border-color 0.3s ease; /* Transição suave */
+}
+
+#editProfileForm input[type="text"]:focus,
+#editProfileForm select:focus {
+   border-color: #007bff; /* Destaque ao focar */
+   outline: none;
+}
+
+#editProfileForm input[type="submit"] {
+   padding: 5px 9px;
+   background-color: #0070e9;
+   color: white;
+   border: none;
+   border-radius: 8px;
+   cursor: pointer;
+   font-size: 14px;
+   transition: background-color 0.3s ease; /* Transição suave */
+}
+
+#editProfileForm input[type="submit"]:hover {
+   background-color: #0056b3; /* Cor mais escura ao passar o mouse */
+}
+
+.user-list {
+   background-color: var(--secondary-color);
+   border-radius: 8px;
+   flex-grow: 1;
+   padding: 0px;
+   margin-bottom: 0px; /* Espaçamento na parte inferior */
+   text-align: center;
+   width: 78vw;
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   margin-left: 10px;
+}
+
+.scrolable-ul {
+   overflow-y: auto;
+   height: 100%;
+}
+
+.scrolable-ul::-webkit-scrollbar {
+   width: 8px; /* Espessura da barra de rolagem */
+}
+
+.scrolable-ul::-webkit-scrollbar-track {
+   background: var(--tertiary-color); /* Cor do trilho da barra de rolagem */
+   border-radius: 8px;
+}
+
+.scrolable-ul::-webkit-scrollbar-thumb {
+   background: #888; /* Cor da barra de rolagem */
+   border-radius: 8px; /*Arredonda os cantos*/
+}
+
+.scrolable-ul::-webkit-scrollbar-thumb:hover {
+   background: #555; /* Cor da barra de rolagem ao passar o mouse */
+}
+#User_COLUMN .banner {
+   background-color: grey;
+   color: black;
+}
+
+#User_COLUMN {
+   min-height: calc(100% - 45px); /* Altura mínima da ul para tornar dragable mesmo que vazio*/
+   width: 100%;
+   max-height: 490px;
+}
+
+.centralform {
+   display: flex;
+   height: 100%;
+   flex-grow: 1;
+   width: 15%;
+}
+#centralform {
+   width: 20%;
+}
+
+.ul-users {
+   list-style-type: none;
+}
+
+#title-deleted-tasks {
+   margin-bottom: 8px;
+}
+
+.other-functions-byUser {
+   display: flex;
+   flex-direction: column;
+   gap: 25px;
+}
+
+.other-functions-byUser button {
+   height: 40px;
+   border-radius: 10px;
+   cursor: pointer;
+   border: none;
+   background-color: rgba(233, 233, 233, 0.707);
+   font-weight: bold;
+}
+
+.other-functions-byUser button:hover {
+   background-color: rgb(198, 198, 198);
+}
+
+.other-options-user {
+   width: 20%;
+   margin-top: 150px;
+}
+
+#edit-submit {
+   height: 40px;
+   width: 100%;
+   border-radius: 10px;
+   border: none;
+   cursor: pointer;
+   background-color: rgba(233, 233, 233, 0.707);
+   margin-top: 10px;
+   font-weight: bold;
+}
+
+#edit-submit:hover {
+   background-color: rgb(198, 198, 198);
+}
+
+#content::-webkit-scrollbar {
+   width: 8px; /* Espessura da barra de rolagem */
+}
+
+#content::-webkit-scrollbar-track {
+   background: var(--tertiary-color); /* Cor do trilho da barra de rolagem */
+   border-radius: 8px;
+}
+
+#content::-webkit-scrollbar-thumb {
+   background: #888; /* Cor da barra de rolagem */
+   border-radius: 8px; /*Arredonda os cantos*/
+}
+
+#content::-webkit-scrollbar-thumb:hover {
+   background: #555; /* Cor da barra de rolagem ao passar o mouse */
+}
+.ul-tasks {
+   min-height: 448px;
+}
+
+#role-field {
+   height: 28.4px;
+}

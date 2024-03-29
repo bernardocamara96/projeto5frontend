@@ -1,0 +1,106 @@
+.task-item {
+   border-radius: 10px;
+   list-style-type: none; /* Remove o ponto */
+   background-color: var(--quinary-color);
+   padding: 0px;
+
+   overflow: hidden;
+   margin-bottom: 6px;
+   width: 100%;
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-item:hover {
+   cursor: pointer;
+}
+
+.task-item h3,
+.task-item p {
+   margin: 0px 8px; /* Espaçamento entre titulo*/
+   word-wrap: break-word; /* Quebra palavras longas para não ultrapassar a largura */
+   font-size: 15px;
+}
+
+.task-item h3 {
+   white-space: nowrap; /* Não deixa o texto quebrar linha */
+}
+
+.content {
+   background-color: rgb(250, 250, 250);
+   border-bottom-left-radius: 10px;
+   border-bottom-right-radius: 10px;
+}
+.task-item button {
+   width: 25px;
+   height: 25px;
+   background-color: transparent;
+   color: black;
+   border-radius: 25px;
+   border: none;
+   cursor: pointer;
+   font-size: 11px;
+   font-weight: bold;
+}
+
+.task-item button:hover {
+   background-color: rgb(218, 218, 218);
+}
+.task-item button img {
+   width: 9px; /* Ou qualquer tamanho que se adeque ao seu design */
+   height: auto;
+}
+
+.banner {
+   background-color: rgb(0, 60, 255, 0.7); /* Cor de fundo ligeiramente diferente */
+   text-align: center;
+   border-top-left-radius: 10px;
+   border-top-right-radius: 10px;
+   margin-bottom: 0px; /* Espaço entre o banner e o content */
+   display: flex; /* Alinha ícone e texto na mesma linha */
+   align-items: center; /* Centraliza verticalmente */
+   height: 20px;
+   padding: 1px;
+}
+
+.category_author {
+   margin-right: 10px;
+   font-size: 11px;
+   text-align: right;
+   width: 100%;
+}
+
+.lower-side-task {
+   border-bottom-left-radius: 10px;
+   border-bottom-right-radius: 10px;
+   padding-bottom: 2px;
+   background-color: rgb(250, 250, 250);
+   margin-bottom: 5px;
+   min-height: 48px;
+}
+.content {
+   padding: 2px;
+}
+
+.priority-div {
+   max-width: 30px;
+   min-width: 15px;
+   max-height: 30px;
+   min-height: 15px;
+   float: left;
+   padding: 1px 1px;
+   margin: 4px 5px 0px 5px;
+   font-size: 8px;
+   border-radius: 10px;
+   overflow: hidden;
+   background-color: green;
+   border: solid black 1px;
+}
+
+.content_buttons {
+   display: flex;
+   margin-left: 225px;
+}
+
+#description-task {
+   padding-top: 1px;
+}

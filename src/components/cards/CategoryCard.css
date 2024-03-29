@@ -1,0 +1,83 @@
+.task-item-deleted {
+   border-radius: 10px;
+   list-style-type: none; /* Remove o ponto */
+   background-color: white;
+   padding: 0px;
+   overflow: hidden;
+   margin: 5px auto;
+   width: 80%;
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
+   height: 75px;
+}
+.task-item-deleted {
+   width: 100%;
+}
+
+.task-item-deleted {
+   padding-top: 10px;
+}
+
+.contentCategories {
+   max-height: 95%;
+   overflow-y: auto; /* Habilita a rolagem vertical */
+   display: flex;
+   flex-direction: row;
+   padding: 10px; /* Espaçamento interno */
+   border-radius: 8px; /* Bordas arredondadas */
+   background: var(--form-background); /* Fundo levemente transparente */
+}
+
+.categoriesTitle-style {
+   vertical-align: middle;
+   text-align: center;
+   font-size: 16px;
+   border-radius: 5px;
+   background-color: rgb(200, 200, 200);
+   transform: translate(10px, 0px);
+   border: 2px black solid;
+   width: 80%;
+}
+
+.numberOfTasks {
+   float: left;
+   margin-left: 10px;
+   color: grey;
+   width: 19px;
+}
+
+.button-edit {
+   width: 25px;
+   height: 25px;
+   padding: 0px;
+   border-radius: 25px;
+   cursor: pointer;
+   transform: translate(15px, 2px);
+   background-color: white;
+   border: white;
+}
+
+#imgTrash {
+   width: 13px;
+   height: auto;
+   padding: 0px;
+   border-radius: 5px;
+   cursor: pointer;
+   transform: translate(0px, 2px);
+}
+
+#deleteBtn {
+   width: 25px;
+   height: 25px;
+   padding: 0px;
+   border: white;
+   border-radius: 25px;
+   cursor: pointer;
+   transform: translate(99px, -5px);
+   background-color: white;
+}
+
+#deleteBtn:hover,
+.button-edit:hover {
+   box-shadow: 0 0 1px 0px rgba(0, 0, 0);
+   background-color: rgb(225, 225, 225);
+}
