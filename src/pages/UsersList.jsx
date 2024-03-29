@@ -2,7 +2,7 @@ import HeaderScrum from "../components/Headers/HeaderScrum";
 import AsideMenu from "../components/Menus/AsideMenu";
 import { userStore } from "../stores/userStore";
 import Footer from "../components/Footers/Footer";
-import ListUsers from "../components/Lists/ListUsers";
+import StandardList from "../components/Lists/StandardList";
 import AlertsMessage from "../components/somemodals/messagesModal/AlertsMessage";
 
 export default function UsersList() {
@@ -13,7 +13,7 @@ export default function UsersList() {
          <HeaderScrum />
          <div id="main-taskList">
             <AsideMenu type={user.role} />
-            <ListUsers />
+            <StandardList type="usersList" />
          </div>
          <Footer />
          <AlertsMessage />

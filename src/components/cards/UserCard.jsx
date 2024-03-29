@@ -1,8 +1,12 @@
 import "./UserCard.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import userProfileTypeStore from "../../stores/userProfileTypeStore";
 
 export default function UserCard({ username, role, isDeleted, photoURL, handleClick, activeTrigger, searchTerm }) {
    const [isActive, setIsActive] = useState(false);
+   const navigate = useNavigate();
+   const updateUserProfileType = userProfileTypeStore((state) => state.updateUserProfileType);
 
    // Function to handle the click on the user card, it will fetch the user data and set the user active so the black border appears
    function handleClickDiv() {
@@ -41,6 +45,10 @@ export default function UserCard({ username, role, isDeleted, photoURL, handleCl
                className="user-item"
                onClick={handleClickDiv}
                style={{ border: isActive ? "solid black" : "solid transparent" }}
+               onDoubleClick={() => {
+                  updateUserProfileType("userCard");
+                  navigate(`/userProfile/${username}`, { replace: true });
+               }}
             >
                <div className="banner" style={{ backgroundColor: isDeleted ? "red" : "rgb(0, 60, 255)" }}>
                   <h3>{username}</h3>

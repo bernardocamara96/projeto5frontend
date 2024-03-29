@@ -441,13 +441,13 @@ async function deleteTasksByUser(token, userToDeleteUsername) {
 
 //function to fetch user data
 
-async function fetchUserData(token) {
+async function fetchUserData(username) {
    return await fetch(`${baseURL}users/info`, {
       method: "GET",
       headers: {
          Accept: "application/json",
          "Content-Type": "application/json",
-         token: token,
+         username: username,
       },
    });
 }

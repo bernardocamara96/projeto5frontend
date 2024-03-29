@@ -2,8 +2,9 @@
    display: flex;
    justify-content: center;
    align-items: center;
-   margin-top: 60px;
+   margin-top: 50px;
    margin-bottom: 58px;
+   margin-left: 20%;
 }
 
 .editForm {
@@ -26,20 +27,16 @@
    width: 90%;
 }
 
-.content_register {
-   display: flex;
-   flex-direction: column;
-   gap: 5px;
-   width: 90%;
-   background-color: rgb(142, 142, 142);
-   padding-left: 5%;
+.content_editProfile {
+   padding-top: 0px;
    padding-right: 5%;
    padding-bottom: 25px;
-   padding-top: 25px;
-   border-bottom-left-radius: 5px;
-   border-bottom-right-radius: 5px;
+   padding-left: 5%;
 }
 
+#content_pass {
+   padding-top: 11%;
+}
 input {
    padding: 4px;
 }
@@ -68,4 +65,36 @@ input {
 
 #registration {
    margin-top: 15px;
+}
+
+#editProfile-icon {
+   cursor: pointer;
+   width: 14px;
+   height: 14px;
+   border: none;
+}
+
+#editProfile-btn {
+   background-color: transparent;
+   border: none;
+   width: 20px;
+   height: 23px;
+   cursor: pointer;
+   margin-left: 94%;
+   margin-top: 2%;
+   padding: 4px;
+   border-radius: 5px;
+}
+
+#editProfile-btn:hover {
+   background-color: rgb(94, 94, 94);
+}
+
+input:disabled {
+   color: rgb(19, 19, 19);
+}
+
+#inactivate-field {
+   height: 28.4px;
+   border-radius: 5px;
 }

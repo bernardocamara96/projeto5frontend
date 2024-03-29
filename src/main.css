@@ -63,3 +63,48 @@ input {
    margin-right: 85px;
    text-align: center;
 }
+
+.content_register {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+   width: 90%;
+   background-color: rgb(142, 142, 142);
+
+   border-bottom-left-radius: 5px;
+   border-bottom-right-radius: 5px;
+}
+
+#container-userProfile {
+   display: flex;
+   flex-direction: row;
+   gap: 50px;
+   margin-left: 17%;
+}
+
+#container-btns-userProfile {
+   display: flex;
+   flex-direction: column;
+   gap: 50px;
+   margin-top: 240px;
+   width: 13%;
+}
+
+#container-btns-userProfile button {
+   height: 40px;
+   border-radius: 10px;
+   cursor: pointer;
+   border: none;
+   background-color: rgba(233, 233, 233, 0.707);
+   font-weight: bold;
+}
+
+#container-btns-userProfile button:hover {
+   background-color: rgb(142, 142, 142);
+}
+
+#userInformation {
+   display: flex;
+   flex-direction: row;
+   gap: 10px;
+}

@@ -46,7 +46,7 @@ export default function AddCategory({ setCategoryList }) {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                />
-               <button data-testid="add-category-button" onClick={handleClick}>
+               <button data-testid="add-category-button" id="addCategory-btn" onClick={handleClick}>
                   Add Category
                </button>
             </div>

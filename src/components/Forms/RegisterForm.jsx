@@ -99,11 +99,11 @@ export default function RegisterForm({ type }) {
    return (
       <div id="register_container">
          <form id="registrationForm" onSubmit={handleSubmit}>
-            <div className="banner_register">
+            <div className="banner_register" id="banner-registerform">
                <img name="img_user" id="login-icon" src={userPNG} alt="IMG" />
                <p id="member-registration-banner">Member Registration</p>
             </div>
-            <div className="content_register">
+            <div className="content_register" id="content-register">
                {type === "productOwnerRegister" && (
                   <>
                      <label id="role-label" htmlFor="role-field">

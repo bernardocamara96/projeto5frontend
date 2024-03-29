@@ -13,6 +13,7 @@ export default function Login() {
    const { updateUsernameFilter, updateCategoryFilter } = filterStore.getState();
    const [username, setUsername] = useState("");
    const [password, setPassword] = useState("");
+   const updateRole = userStore((state) => state.updateRole);
 
    const navigate = useNavigate();
    const handleClick = (e) => {
@@ -57,9 +58,7 @@ export default function Login() {
 
    // Clear filters and user storage
    useEffect(() => {
-      updateUsernameFilter("default");
-      updateCategoryFilter("default");
-      sessionStorage.removeItem("user-storage");
+      sessionStorage.clear();
    }, []);
    return (
       <>

@@ -2,7 +2,7 @@
    display: flex;
    justify-content: center;
    align-items: center;
-   margin-top: 25px;
+   margin-top: 15px;
    margin-bottom: 3px;
 }
 
@@ -10,32 +10,12 @@
    width: 300px;
 }
 
-.banner_register {
-   background-color: rgb(114, 114, 114);
-   padding: 15px;
-   text-align: center;
-   border-top-left-radius: 10px;
-   border-top-right-radius: 10px;
-   padding-bottom: 10px;
-   display: flex;
-   align-items: center;
-   width: 90%;
-}
-
-.content_register {
-   display: flex;
-   flex-direction: column;
-   gap: 5px;
-   width: 90%;
-   background-color: rgb(142, 142, 142);
+#content-register {
    padding-left: 5%;
    padding-right: 5%;
    padding-bottom: 25px;
-   padding-top: 25px;
-   border-bottom-left-radius: 5px;
-   border-bottom-right-radius: 5px;
+   padding-top: 20px;
 }
-
 input {
    padding: 4px;
    border: none;
@@ -44,4 +24,9 @@ input {
 #role-field {
    height: 24px;
    border-radius: 5px;
+}
+
+#banner-registerform {
+   padding-top: 8px;
+   padding-bottom: 8px;
 }

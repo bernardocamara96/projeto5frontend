@@ -9,7 +9,7 @@ import Scrum from "./pages/Scrum.jsx";
 import UsersList from "./pages/UsersList.jsx";
 import TaskList from "./pages/TaskList.jsx";
 import CategoriesList from "./pages/CategoriesList.jsx";
-import OwnUserEdit from "./pages/OwnUserEdit.jsx";
+import UserProfile from "./pages/UserProfile.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
    <Router>
@@ -18,9 +18,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
          <Route path="/register" element={<Register />} />
          <Route path="/scrum" element={<Scrum />} />
          <Route path="/users" element={<UsersList />} />
+         <Route path="/userProfile/:username" element={<UserProfile />} />
          <Route path="/tasks" element={<TaskList />} />
          <Route path="/categories" element={<CategoriesList />} />
-         <Route path="/editProfile" element={<OwnUserEdit />} />
       </Routes>
    </Router>
 );

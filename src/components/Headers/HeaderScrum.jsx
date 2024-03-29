@@ -7,6 +7,8 @@ import alertStore from "../../stores/alertStore";
 import { useState, useEffect } from "react";
 import { fetchPhotoNameAndRedirect } from "../../utilities/services";
 import ConfirmMessage from "../somemodals/messagesModal/ConfirmMessage";
+import { usernameStore } from "../../stores/userStore";
+import userProfileTypeStore from "../../stores/userProfileTypeStore";
 
 export default function HeaderScrum() {
    const navigate = useNavigate();
@@ -16,6 +18,9 @@ export default function HeaderScrum() {
    const [userPhoto, setUserPhoto] = useState("");
    const updateRole = userStore((state) => state.updateRole);
    const user = userStore.getState().user;
+   const usernameStorage = usernameStore.getState().username;
+   usernameStore((state) => state.updateUsername);
+   const updateUserProfileType = userProfileTypeStore((state) => state.updateUserProfileType);
 
    //if the token exists it will fetch the photo and name of the user and set it to the state to put in the Header
    useEffect(() => {
@@ -51,10 +56,8 @@ export default function HeaderScrum() {
    // Function to handle the exit of the app
    function clickOnExit() {
       handleAction("Are you sure you want to exit the app?", () => {
-         updateUsernameFilter("default");
-         updateCategoryFilter("default");
          navigate("/", { replace: true });
-         sessionStorage.removeItem("user-storage");
+         sessionStorage.clear();
       });
    }
    return (
@@ -78,7 +81,10 @@ export default function HeaderScrum() {
                      <span
                         id="usernameDisplay"
                         data-testid="usernameDisplay"
-                        onClick={() => navigate("/editProfile", { replace: true })}
+                        onClick={() => {
+                           updateUserProfileType("header");
+                           navigate(`/userProfile/${usernameStorage}`, { replace: true });
+                        }}
                      >
                         {username}
                      </span>
@@ -86,7 +92,13 @@ export default function HeaderScrum() {
                </a>
             </div>
 
-            <a id="userPhotolink" onClick={() => navigate("/editProfile", { replace: true })}>
+            <a
+               id="userPhotolink"
+               onClick={() => {
+                  updateUserProfileType("header");
+                  navigate(`/userProfile/${usernameStorage}`, { replace: true });
+               }}
+            >
                <div className="user-photo-div">
                   <img id="userPhoto" src={userPhoto} alt="" />
                </div>

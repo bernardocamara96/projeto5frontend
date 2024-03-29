@@ -328,3 +328,16 @@
 #role-field {
    height: 28.4px;
 }
+
+#addUser-btn {
+   width: 15%;
+   border-radius: 5px;
+   cursor: pointer;
+   border: none;
+   background-color: rgba(233, 233, 233);
+   font-weight: bold;
+}
+
+#addUser-btn:hover {
+   background-color: rgb(198, 198, 198);
+}

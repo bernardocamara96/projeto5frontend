@@ -16,6 +16,8 @@ aside {
 
 a {
    cursor: pointer;
+   text-decoration: none;
+   color: black;
 }
 
 a:hover {

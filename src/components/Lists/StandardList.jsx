@@ -1,11 +1,13 @@
 import "./StandardList.css";
 import { useEffect, useState } from "react";
-import { loadDeletedTasks, loadCategories } from "../../utilities/services";
+import { loadDeletedTasks, loadCategories, loadUsers } from "../../utilities/services";
 import { userStore } from "../../stores/userStore";
 import NonDraggableTask from "../cards/NonDraggableTask";
 import CategoryCard from "../cards/CategoryCard";
 import AddCategory from "../addCategoryDiv/AddCategory";
 import ModalEditTask from "../somemodals/ModalEditTask";
+import UserCard from "../cards/UserCard";
+import { useNavigate } from "react-router-dom";
 
 export default function StandardList({ type }) {
    const user = userStore.getState().user;
@@ -16,6 +18,9 @@ export default function StandardList({ type }) {
    const [modalEditVisibility, setModalEditVisibility] = useState(false);
    const [searchTerm, setSearchTerm] = useState("");
    const [searchCategory, setSearchCategory] = useState("");
+   const [searchUser, setSearchUser] = useState("");
+   const [userCards, setUserCards] = useState([]);
+   const navigate = useNavigate();
 
    //fetch the deleted tasks or categories, depending on the page
    useEffect(() => {
@@ -35,6 +40,15 @@ export default function StandardList({ type }) {
             }
             return response.json().then((data) => {
                setCategoryList(data);
+            });
+         });
+      } else if (type === "usersList") {
+         loadUsers(user.token).then((response) => {
+            if (!response.ok) {
+               throw new Error("Network response was not ok");
+            }
+            return response.json().then((data) => {
+               setUserCards(data);
             });
          });
       }
@@ -68,7 +82,7 @@ export default function StandardList({ type }) {
                         />
                      </div>
                   </>
-               ) : (
+               ) : type === "categoriesList" ? (
                   <>
                      <div id="title-deleted-tasks">
                         <h3 id="user-list">List of Categories</h3>
@@ -84,6 +98,29 @@ export default function StandardList({ type }) {
                         <AddCategory setCategoryList={setCategoryList} />
                      </div>
                   </>
+               ) : (
+                  type === "usersList" && (
+                     <>
+                        <div id="title-deleted-tasks">
+                           <h3 id="user-list">List of Users</h3>
+                        </div>
+                        <div className="search-container" id="search-container-deleted">
+                           <input
+                              type="text"
+                              id="taskSearch"
+                              placeholder="🔍 Search users by username"
+                              value={searchUser}
+                              onChange={(e) => setSearchUser(e.target.value)}
+                           />
+                           <button
+                              id="addUser-btn"
+                              onClick={() => navigate("/register", { state: { type: "productOwnerRegister" } })}
+                           >
+                              Add User
+                           </button>
+                        </div>
+                     </>
+                  )
                )}
                <div id="scrollable-div">
                   <ul className="ul-tasks" id="DELETED_COLUMN">
@@ -117,6 +154,24 @@ export default function StandardList({ type }) {
                                  setFetchTrigger={setFetchTrigger}
                                  searchTerm={searchCategory}
                               />
+                           );
+                        })}
+                     {type === "usersList" &&
+                        userCards.map((user) => {
+                           return (
+                              user.username !== "admin" &&
+                              user.username !== "deletedTasks" &&
+                              user.username !== "developerTest" &&
+                              user.username !== "scrumMasterTest" && (
+                                 <UserCard
+                                    key={user.id}
+                                    username={user.username}
+                                    role={user.role}
+                                    isDeleted={user.isDeleted}
+                                    photoURL={user.photoURL}
+                                    searchTerm={searchUser}
+                                 />
+                              )
                            );
                         })}
                   </ul>

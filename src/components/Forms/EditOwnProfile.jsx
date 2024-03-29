@@ -4,24 +4,29 @@ import { fetchUserData, editUserData, editPassword } from "../../utilities/servi
 import { userStore } from "../../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import alertStore from "../../stores/alertStore";
+import { usernameStore } from "../../stores/userStore";
+import editPNG from "../../assets/edit.png";
+import userProfileTypeStore from "../../stores/userProfileTypeStore";
 
-export default function EditOwnProfile() {
+export default function EditOwnProfile({ username }) {
    const [passwordActive, setPasswordActive] = useState(false);
-   const [username, setUsername] = useState("");
    const [phone, setPhone] = useState("");
    const [email, setEmail] = useState("");
    const [firstname, setFirstname] = useState("");
    const [lastname, setLastname] = useState("");
    const [photo, setPhoto] = useState("");
-   const { token } = userStore.getState().user;
+   const { token, role } = userStore.getState().user;
    const [oldPassword, setOldPassword] = useState("");
    const [newPassword, setNewPassword] = useState("");
    const [repeatPassword, setRepeatPassword] = useState("");
+   const usernameStorage = usernameStore.getState().username;
+   const [inputsDisabled, setInputsDisabled] = useState(true);
    const navigate = useNavigate();
+   const userProfileType = userProfileTypeStore.getState().userProfileType;
 
    //function to fetch the user data to fill the form
    useEffect(() => {
-      fetchUserData(token)
+      fetchUserData(username)
          .then((response) => {
             if (!response.ok) {
                throw new Error("Network response was not ok");
@@ -29,7 +34,6 @@ export default function EditOwnProfile() {
             return response.json();
          })
          .then(function (data) {
-            setUsername(data.username);
             setPhone(data.phoneNumber);
             setEmail(data.email);
             setFirstname(data.firstName);
@@ -39,7 +43,7 @@ export default function EditOwnProfile() {
          .catch((error) => {
             console.error("Error fetching data:", error);
          });
-   }, []);
+   }, [username]);
 
    // Function to set the alert messages
    function handleAlert(message, error) {
@@ -123,7 +127,16 @@ export default function EditOwnProfile() {
                   <img name="img_user" id="login-icon" alt="IMG" src={photo} />
                   <p id="member-registration-banner">Edit Profile</p>
                </div>
-               <div className="content_register">
+               <div
+                  className="content_register content_editProfile"
+                  style={{ paddingTop: usernameStorage !== username && role !== "productOwner" && "11%" }}
+               >
+                  {(usernameStorage === username || role === "productOwner") && (
+                     <button id="editProfile-btn" type="button" onClick={() => setInputsDisabled((prev) => !prev)}>
+                        <img id="editProfile-icon" src={editPNG} alt="Edit" />
+                     </button>
+                  )}
+
                   <label id="username-label" htmlFor="username-field">
                      Username
                   </label>
@@ -134,7 +147,7 @@ export default function EditOwnProfile() {
                      maxLength="25"
                      placeholder="Enter your username"
                      value={username}
-                     disabled
+                     disabled={inputsDisabled}
                   />
 
                   <label id="phone-label" htmlFor="phone-field">
@@ -149,6 +162,7 @@ export default function EditOwnProfile() {
                      value={phone}
                      onChange={(e) => setPhone(e.target.value)}
                      required
+                     disabled={inputsDisabled}
                   />
                   <label id="email-label" htmlFor="email-field">
                      Email
@@ -162,6 +176,7 @@ export default function EditOwnProfile() {
                      value={email}
                      onChange={(e) => setEmail(e.target.value)}
                      required
+                     disabled={inputsDisabled}
                   />
                   <label id="first-name-label" htmlFor="firstname-field">
                      First Name
@@ -175,6 +190,7 @@ export default function EditOwnProfile() {
                      value={firstname}
                      onChange={(e) => setFirstname(e.target.value)}
                      required
+                     disabled={inputsDisabled}
                   />
                   <label id="last-name-label" htmlFor="lastname-field">
                      Last Name
@@ -188,6 +204,7 @@ export default function EditOwnProfile() {
                      value={lastname}
                      onChange={(e) => setLastname(e.target.value)}
                      required
+                     disabled={inputsDisabled}
                   />
                   <label id="URL" htmlFor="photo-field">
                      Photography
@@ -201,17 +218,61 @@ export default function EditOwnProfile() {
                      value={photo}
                      onChange={(e) => setPhoto(e.target.value)}
                      required
+                     disabled={inputsDisabled}
                   />
-                  <button
-                     className="btnChangePassword"
-                     onClick={(e) => {
-                        e.preventDefault();
-                        setPasswordActive(!passwordActive);
-                     }}
-                  >
-                     Change Password
-                  </button>
-                  <input type="submit" id="registration" value="Submit" />
+
+                  {userProfileType === "userCard" && role === "productOwner" && (
+                     <>
+                        <label id="role-label" htmlFor="role-field">
+                           Role
+                        </label>
+                        <select
+                           name="role"
+                           id="role-field"
+                           value={role}
+                           onChange={(e) => {
+                              setRole(e.target.value);
+                              setChangeTrigger(true);
+                              setStatusChange(true);
+                           }}
+                           disabled
+                        >
+                           <option value="developer">Developer</option>
+                           <option value="scrumMaster">Scrum Master</option>
+                           <option value="productOwner">Product Owner</option>
+                        </select>
+                        <label id="inactivate-label" htmlFor="inactivate-field">
+                           State
+                        </label>
+                        <select
+                           name="inactivate"
+                           id="inactivate-field"
+                           onChange={(e) => {
+                              setIsDeleted(e.target.value);
+                              setChangeTrigger(true);
+                              setStatusChange(true);
+                           }}
+                           disabled
+                        >
+                           <option value="false">Active</option>
+                           <option value="true">Inactive</option>
+                        </select>
+                     </>
+                  )}
+                  {usernameStorage === username && !inputsDisabled && (
+                     <button
+                        className="btnChangePassword"
+                        onClick={(e) => {
+                           e.preventDefault();
+                           setPasswordActive(!passwordActive);
+                        }}
+                     >
+                        Change Password
+                     </button>
+                  )}
+                  {!inputsDisabled && (usernameStorage === username || role === "productOwner") && (
+                     <input type="submit" id="registration" value="Submit" />
+                  )}
                </div>
             </form>
          )}
@@ -221,7 +282,7 @@ export default function EditOwnProfile() {
                <div className="banner_register">
                   <p id="member-registration-banner">Change Password</p>
                </div>
-               <div className="content_register">
+               <div className="content_register content_editProfile" id="content_pass">
                   <label id="oldPassword-label" htmlFor="oldPassword-field">
                      Old Password
                   </label>
