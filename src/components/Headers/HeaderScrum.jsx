@@ -5,10 +5,9 @@ import { userStore } from "../../stores/userStore";
 import filterStore from "../../stores/filterStore";
 import alertStore from "../../stores/alertStore";
 import { useState, useEffect } from "react";
-import { fetchPhotoNameAndRedirect } from "../../utilities/services";
+import { fetchPhotoNameAndRedirect, logoutAttempt } from "../../utilities/services";
 import ConfirmMessage from "../somemodals/messagesModal/ConfirmMessage";
 import { usernameStore } from "../../stores/userStore";
-import userProfileTypeStore from "../../stores/userProfileTypeStore";
 
 export default function HeaderScrum() {
    const navigate = useNavigate();
@@ -20,7 +19,6 @@ export default function HeaderScrum() {
    const user = userStore.getState().user;
    const usernameStorage = usernameStore.getState().username;
    usernameStore((state) => state.updateUsername);
-   const updateUserProfileType = userProfileTypeStore((state) => state.updateUserProfileType);
 
    //if the token exists it will fetch the photo and name of the user and set it to the state to put in the Header
    useEffect(() => {
@@ -56,6 +54,7 @@ export default function HeaderScrum() {
    // Function to handle the exit of the app
    function clickOnExit() {
       handleAction("Are you sure you want to exit the app?", () => {
+         logoutAttempt(user.token);
          navigate("/", { replace: true });
          sessionStorage.clear();
       });
@@ -70,6 +69,10 @@ export default function HeaderScrum() {
                   Homepage
                </a>
 
+               <a id="nav-users" className="active" onClick={() => navigate("/users", { replace: true })}>
+                  Users
+               </a>
+
                <a id="nav-exit" onClick={clickOnExit}>
                   Exit
                </a>
@@ -81,10 +84,7 @@ export default function HeaderScrum() {
                      <span
                         id="usernameDisplay"
                         data-testid="usernameDisplay"
-                        onClick={() => {
-                           updateUserProfileType("header");
-                           navigate(`/userProfile/${usernameStorage}`, { replace: true });
-                        }}
+                        onClick={() => navigate(`/userProfile/${usernameStorage}`, { replace: true })}
                      >
                         {username}
                      </span>

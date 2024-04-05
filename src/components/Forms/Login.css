@@ -10,9 +10,10 @@ main {
    flex-direction: column;
    align-items: center;
    justify-content: center;
-   margin-top: 50%;
+   margin-top: 40%;
    width: 300px;
    margin-bottom: 16px;
+   box-shadow: 0px 0px 10px 0px black;
 }
 
 .banner_login {
@@ -55,20 +56,27 @@ input[type="submit"] {
    cursor: pointer;
 }
 
+.content_login input[type="submit"] {
+   margin-top: 10px;
+}
+
 input[type="submit"]:hover {
    background-color: rgb(114, 114, 114);
 }
 
-#signup {
+#login-footer {
+   display: flex;
+   gap: 10px;
+   flex-direction: column;
    color: white;
-   margin-bottom: 162px;
 }
 
-#a_registration {
+.a_login {
    color: grey;
    cursor: pointer;
 }
 
-#a_registration:hover {
+.a_login:hover {
    color: rgb(165, 165, 165);
+   background-color: transparent;
 }

@@ -4,27 +4,14 @@ const baseURL = "http://localhost:8080/projeto5backend/rest/";
 
 //function to register a user
 async function registerUser(user) {
-   try {
-      const response = await fetch(`${baseURL}users/`, {
-         method: "POST",
-         headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-         },
-         body: JSON.stringify(user),
-      });
-
-      if (response.ok) {
-         // Resolve with the parsed JSON data
-         return response;
-      } else {
-         // If the response status is not in the success range, reject the promise with the status code
-         return Promise.reject(response.status);
-      }
-   } catch (error) {
-      // Handle network errors or other exceptions
-      return Promise.reject(error);
-   }
+   return await fetch(`${baseURL}users/`, {
+      method: "POST",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+   });
 }
 
 //function to login a user
@@ -41,6 +28,17 @@ async function loginAttempt(username, password) {
          "Content-Type": "application/json",
       },
       body: JSON.stringify(userLogin),
+   });
+}
+//function to fetch the photo and name of the user
+async function logoutAttempt(token) {
+   return await fetch(`${baseURL}users/logout`, {
+      method: "POST",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
    });
 }
 
@@ -483,6 +481,89 @@ async function editPassword(oldPassword, newPassword, token) {
    });
 }
 
+async function recoverPassword(newPassword, token) {
+   let newPass = encryptation.encryptPassword(newPassword);
+
+   return await fetch(`${baseURL}users/recoverpassword`, {
+      method: "POST",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         newPass: newPass,
+         token: token,
+      },
+   });
+}
+
+//function to get the number of tasks by username and status
+async function tasksNumberByUsernameAndStatus(username, status, token) {
+   return await fetch(`${baseURL}tasks/number/${username}/${status}`, {
+      method: "GET",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   });
+}
+
+async function confirmUser(confirmed, pass, token) {
+   let passEncrypted = encryptation.encryptPassword(pass);
+
+   return await fetch(`${baseURL}users/confirmed/${confirmed}`, {
+      method: "PATCH",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+         pass: passEncrypted,
+      },
+   });
+}
+
+async function userRole(token) {
+   return await fetch(`${baseURL}users/role`, {
+      method: "GET",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   });
+}
+
+async function resendEmail(token) {
+   return await fetch(`${baseURL}users/resendemail`, {
+      method: "POST",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   });
+}
+
+async function newPassEmail(email) {
+   return await fetch(`${baseURL}users/newpassemail`, {
+      method: "POST",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         email: email,
+      },
+   });
+}
+
+async function auxiliarTokenValidator(token) {
+   return await fetch(`${baseURL}users/auxiliartokenvalidator`, {
+      method: "GET",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   });
+}
 /*function orderTasks(tasks) {
    tasks.sort((a, b) => {
       if (a.priority > b.priority) {
@@ -554,4 +635,12 @@ export {
    fetchUserData,
    editUserData,
    editPassword,
+   tasksNumberByUsernameAndStatus,
+   confirmUser,
+   userRole,
+   resendEmail,
+   newPassEmail,
+   logoutAttempt,
+   recoverPassword,
+   auxiliarTokenValidator,
 };

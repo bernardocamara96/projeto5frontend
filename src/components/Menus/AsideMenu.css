@@ -13,6 +13,10 @@ aside {
    left: 10px;
    top: 70px;
 }
+#difSettings-dashboard {
+   border-top-left-radius: 8px;
+   border-top-right-radius: 8px;
+}
 
 a {
    cursor: pointer;

@@ -14,8 +14,8 @@ export default function Login() {
    const [username, setUsername] = useState("");
    const [password, setPassword] = useState("");
    const updateRole = userStore((state) => state.updateRole);
-
    const navigate = useNavigate();
+
    const handleClick = (e) => {
       e.preventDefault();
       navigate("/register", { state: { type: "normalRegister" } });
@@ -45,14 +45,20 @@ export default function Login() {
             }
          })
          .then((response) => {
-            updateUserToken(response.token);
             updateUsername(username);
-            //alert("Login successful");
-            alertStore.getState().setMessage("Login successful");
+            if (response.confirmed === "true") {
+               updateUserToken(response.token);
 
-            handleAlert("Login successful", false);
+               //alert("Login successful");
+               alertStore.getState().setMessage("Login successful");
 
-            navigate("/scrum", { replace: true });
+               handleAlert("Login successful", false);
+
+               navigate("/scrum", { replace: true });
+            } else {
+               updateUserToken(response.auxiliarToken);
+               navigate("/confirmEmail/notconfirmed", { replace: true });
+            }
          });
    };
 
@@ -97,11 +103,19 @@ export default function Login() {
                   <input type="submit" id="login" value="Login" onClick={handleSubmit} />
                </div>
             </form>
-            <div id="signup">
-               Don't have an account?{" "}
-               <a id="a_registration" onClick={handleClick}>
-                  Sign up
-               </a>
+            <div id="login-footer">
+               <div id="signup">
+                  Don't have an account?{" "}
+                  <a className="a_login" id="a_registration" onClick={handleClick}>
+                     Sign up
+                  </a>
+               </div>
+               <div>
+                  Reset Password{" "}
+                  <a className="a_login" id="a_forgot" href="/resetPass">
+                     in here
+                  </a>
+               </div>
             </div>
          </main>
       </>

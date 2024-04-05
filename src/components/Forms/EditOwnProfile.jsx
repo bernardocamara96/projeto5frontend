@@ -1,18 +1,20 @@
 import "./EditOwnProfile.css";
 import { useState, useEffect } from "react";
-import { fetchUserData, editUserData, editPassword } from "../../utilities/services";
+import { fetchUserData, editUserData, editPassword, editOtherUser } from "../../utilities/services";
 import { userStore } from "../../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import alertStore from "../../stores/alertStore";
 import { usernameStore } from "../../stores/userStore";
 import editPNG from "../../assets/edit.png";
-import userProfileTypeStore from "../../stores/userProfileTypeStore";
 
-export default function EditOwnProfile({ username }) {
+export default function EditOwnProfile({ username, selectedUserRole, inputsDisabled, setInputsDisabled }) {
    const [passwordActive, setPasswordActive] = useState(false);
    const [phone, setPhone] = useState("");
    const [email, setEmail] = useState("");
+   const [oldEmail, setOldEmail] = useState("");
    const [firstname, setFirstname] = useState("");
+   const [userRole, setUserRole] = useState(selectedUserRole);
+   const [isDeleted, setIsDeleted] = useState("");
    const [lastname, setLastname] = useState("");
    const [photo, setPhoto] = useState("");
    const { token, role } = userStore.getState().user;
@@ -20,9 +22,8 @@ export default function EditOwnProfile({ username }) {
    const [newPassword, setNewPassword] = useState("");
    const [repeatPassword, setRepeatPassword] = useState("");
    const usernameStorage = usernameStore.getState().username;
-   const [inputsDisabled, setInputsDisabled] = useState(true);
+
    const navigate = useNavigate();
-   const userProfileType = userProfileTypeStore.getState().userProfileType;
 
    //function to fetch the user data to fill the form
    useEffect(() => {
@@ -36,9 +37,12 @@ export default function EditOwnProfile({ username }) {
          .then(function (data) {
             setPhone(data.phoneNumber);
             setEmail(data.email);
+            setOldEmail(data.email);
             setFirstname(data.firstName);
             setLastname(data.lastName);
             setPhoto(data.photoURL);
+            setUserRole(data.role);
+            setIsDeleted(data.deleted);
          })
          .catch((error) => {
             console.error("Error fetching data:", error);
@@ -63,7 +67,26 @@ export default function EditOwnProfile({ username }) {
       if (lastname !== "") user.lastName = lastname;
       if (photo !== "") user.photoURL = photo;
 
-      if (phone.length >= 7 && phone.length <= 20) {
+      user.role = userRole;
+      user.deleted = isDeleted;
+
+      editOtherUser(token, username, userRole, firstname, lastname, email, oldEmail, phone, photo, isDeleted).then(
+         (response) => {
+            if (response.ok) {
+               handleAlert("User updated successfully :)", false);
+
+               navigate("/users", { replace: true });
+            } else if (response.status === 409) {
+               handleAlert("Email already exists :(", true);
+            } else if (response.status === 400) {
+               handleAlert("Invalid data :(", true);
+            } else if (response.status === 401) {
+               navigate("/", { replace: true });
+            }
+         }
+      );
+
+      /*if (phone.length >= 7 && phone.length <= 20) {
          if (isValidURL(photo)) {
             if (firstname.length >= 1 && firstname.length <= 25 && lastname.length >= 1 && lastname.length <= 25) {
                editUserData(user, token).then((response) => {
@@ -87,7 +110,7 @@ export default function EditOwnProfile({ username }) {
          }
       } else {
          handleAlert("Phone must have between 7 and 20 characters :(", true);
-      }
+      }*/
    };
 
    function isValidURL(url) {
@@ -120,7 +143,15 @@ export default function EditOwnProfile({ username }) {
    };
 
    return (
-      <div id="edit_container">
+      <div
+         id="edit_container"
+         style={{
+            marginTop:
+               usernameStorage !== username && !inputsDisabled
+                  ? "37px"
+                  : usernameStorage === username && !inputsDisabled && "93.6px",
+         }}
+      >
          {!passwordActive && (
             <form className="editForm" onSubmit={handleSubmit}>
                <div className="banner_register">
@@ -147,7 +178,7 @@ export default function EditOwnProfile({ username }) {
                      maxLength="25"
                      placeholder="Enter your username"
                      value={username}
-                     disabled={inputsDisabled}
+                     disabled
                   />
 
                   <label id="phone-label" htmlFor="phone-field">
@@ -221,7 +252,7 @@ export default function EditOwnProfile({ username }) {
                      disabled={inputsDisabled}
                   />
 
-                  {userProfileType === "userCard" && role === "productOwner" && (
+                  {role === "productOwner" && usernameStorage !== username && (
                      <>
                         <label id="role-label" htmlFor="role-field">
                            Role
@@ -229,13 +260,13 @@ export default function EditOwnProfile({ username }) {
                         <select
                            name="role"
                            id="role-field"
-                           value={role}
+                           value={userRole}
                            onChange={(e) => {
-                              setRole(e.target.value);
+                              setUserRole(e.target.value);
                               setChangeTrigger(true);
                               setStatusChange(true);
                            }}
-                           disabled
+                           disabled={inputsDisabled}
                         >
                            <option value="developer">Developer</option>
                            <option value="scrumMaster">Scrum Master</option>
@@ -247,12 +278,13 @@ export default function EditOwnProfile({ username }) {
                         <select
                            name="inactivate"
                            id="inactivate-field"
+                           value={isDeleted}
                            onChange={(e) => {
                               setIsDeleted(e.target.value);
                               setChangeTrigger(true);
                               setStatusChange(true);
                            }}
-                           disabled
+                           disabled={inputsDisabled}
                         >
                            <option value="false">Active</option>
                            <option value="true">Inactive</option>

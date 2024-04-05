@@ -5,17 +5,17 @@ import { useNavigate } from "react-router-dom";
 import * as encryptation from "../../utilities/encryptation.js";
 import { registerUser } from "../../utilities/services.js";
 import alertStore from "../../stores/alertStore";
+import { userStore } from "../../stores/userStore.js";
 
 export default function RegisterForm({ type }) {
    const [role, setRole] = useState("developer");
    const [username, setUsername] = useState("");
-   const [password, setPassword] = useState("");
-   const [password2, setPassword2] = useState("");
    const [phone, setPhone] = useState("");
    const [email, setEmail] = useState("");
    const [firstname, setFirstname] = useState("");
    const [lastname, setLastname] = useState("");
    const [photo, setPhoto] = useState("");
+   const { updateToken, updateRole } = userStore();
    const navigate = useNavigate();
 
    // Function to set the alert messages
@@ -38,61 +38,51 @@ export default function RegisterForm({ type }) {
    async function handleSubmit(e) {
       e.preventDefault();
       if (username.length >= 2 && username.length <= 25) {
-         if (password.length >= 4) {
-            if (phone.length >= 7 && phone.length <= 20) {
-               if (password === password2) {
-                  if (isValidURL(photo)) {
-                     if (
-                        firstname.length >= 1 &&
-                        firstname.length <= 25 &&
-                        lastname.length >= 1 &&
-                        lastname.length <= 25
-                     ) {
-                        let user = {
-                           firstName: firstname,
-                           lastName: lastname,
-                           password: encryptation.encryptPassword(password),
-                           phoneNumber: phone,
-                           photoURL: photo,
-                           email: email,
-                           username: username,
-                           role: role,
-                        };
+         if (phone.length >= 7 && phone.length <= 20) {
+            if (isValidURL(photo)) {
+               if (firstname.length >= 1 && firstname.length <= 25 && lastname.length >= 1 && lastname.length <= 25) {
+                  let user = {
+                     firstName: firstname,
+                     lastName: lastname,
+                     phoneNumber: phone,
+                     photoURL: photo,
+                     email: email,
+                     username: username,
+                     role: role,
+                  };
 
-                        registerUser(user)
-                           .then((response) => {
-                              if (response.ok) {
-                                 handleAlert("user created successfully :)", false);
+                  registerUser(user).then((response) => {
+                     if (response.ok) {
+                        handleAlert("user created successfully :)", false);
 
-                                 if (type === "productOwnerRegister") {
-                                    navigate("/users", { replace: true });
-                                 } else navigate("/", { replace: true });
-                              }
-                           })
-                           .catch((status) => {
-                              if (status == 409) {
-                                 handleAlert("username or email already exists :)", true);
-                              } else {
-                                 handleAlert("something went wrong :(", true);
-                              }
+                        if (type === "productOwnerRegister") {
+                           navigate("/users", { replace: true });
+                        } else
+                           return response.json().then((data) => {
+                              updateToken(data.token);
+                              updateRole(role);
+
+                              handleAlert("Account created successfully :)", false);
+
+                              navigate("/confirmEmail/notconfirmed", { replace: true });
                            });
+                     } else if (response.status === 409) {
+                        handleAlert("username or email already exists :)", true);
                      } else {
-                        handleAlert("First Name and Last Name must have between 1 and 25 characters :(", true);
+                        handleAlert("something went wrong :(", true);
                      }
-                  } else {
-                     handleAlert("Invalid photo url :(", true);
-                  }
+                  });
                } else {
-                  handleAlert("Passwords do not match :(", true);
+                  handleAlert("First Name and Last Name must have between 1 and 25 characters :(", true);
                }
             } else {
-               handleAlert("Phone must have between 7 and 20 characters :(", true);
+               handleAlert("Invalid photo url :(", true);
             }
          } else {
-            handleAlert("Password must have at least 4 characters :(", true);
+            handleAlert("Phone must have between 7 and 20 characters :(", true);
          }
       } else {
-         handleAlert("Username must have between 2 and 25 characters :(", true);
+         handleAlert("Password must have at least 4 characters :(", true);
       }
    }
 
@@ -128,32 +118,6 @@ export default function RegisterForm({ type }) {
                   placeholder="Enter your username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  required
-               />
-               <label id="password-label" htmlFor="password-field">
-                  Password
-               </label>
-               <input
-                  type="password"
-                  name="password"
-                  id="password-field"
-                  maxLength="25"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-               />
-               <label id="password-label2" htmlFor="password2-field">
-                  Repeat Password
-               </label>
-               <input
-                  type="password"
-                  name="password2"
-                  id="password2-field"
-                  maxLength="25"
-                  placeholder="Enter your password"
-                  value={password2}
-                  onChange={(e) => setPassword2(e.target.value)}
                   required
                />
                <label id="phone-label" htmlFor="phone-field">

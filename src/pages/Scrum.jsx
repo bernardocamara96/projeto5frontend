@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { userStore } from "../stores/userStore";
 import Filters from "../components/Filters/Filters.jsx";
 import AlertsMessage from "../components/somemodals/messagesModal/AlertsMessage.jsx";
+import { userRole } from "../utilities/services.js";
+import { useNavigate } from "react-router-dom";
 
 export default function Scrum() {
    const user = userStore.getState().user;
@@ -16,13 +18,26 @@ export default function Scrum() {
    const [TODOtasks, setTODOtasks] = useState([]);
    const [DOINGtasks, setDOINGtasks] = useState([]);
    const [DONEtasks, setDONEtasks] = useState([]);
+   const [role, setRole] = useState("developer");
+   const navigate = useNavigate();
+
+   useEffect(() => {
+      userRole(user.token).then((response) => {
+         if (response.ok) {
+            response.json().then((data) => {
+               setRole(data.role);
+            });
+         } else {
+            navigate("/", { replace: true });
+         }
+      });
+   });
 
    return (
       <>
          <HeaderScrum />
          <main id="scrumMain">
-            {console.log("type " + user.role)}
-            <AsideMenu type={user.role} />
+            {role !== "developer" && <AsideMenu />}
             <div id="scrum-content">
                <div className="search-container-homepage" id="search-container-homepage">
                   <input
@@ -50,6 +65,7 @@ export default function Scrum() {
                   fetchTrigger={fetchTrigger}
                   setFetchTrigger={setFetchTrigger}
                   searchTerm={searchTermHome}
+                  style={{ marginLeft: role !== "developer" && "390px" }}
                />
             </div>
          </main>

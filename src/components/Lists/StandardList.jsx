@@ -1,7 +1,7 @@
 import "./StandardList.css";
 import { useEffect, useState } from "react";
 import { loadDeletedTasks, loadCategories, loadUsers } from "../../utilities/services";
-import { userStore } from "../../stores/userStore";
+import { userStore, usernameStore } from "../../stores/userStore";
 import NonDraggableTask from "../cards/NonDraggableTask";
 import CategoryCard from "../cards/CategoryCard";
 import AddCategory from "../addCategoryDiv/AddCategory";
@@ -21,6 +21,7 @@ export default function StandardList({ type }) {
    const [searchUser, setSearchUser] = useState("");
    const [userCards, setUserCards] = useState([]);
    const navigate = useNavigate();
+   const usernameStorage = usernameStore.getState().username;
 
    //fetch the deleted tasks or categories, depending on the page
    useEffect(() => {
@@ -61,7 +62,11 @@ export default function StandardList({ type }) {
    };
 
    return (
-      <div className="mainBoard-settings" id="mainBoard-settings">
+      <div
+         className="mainBoard-settings"
+         id="mainBoard-settings"
+         style={{ marginLeft: user.role === "developer" && "0px" }}
+      >
          <div className="user-list">
             <br />
 
@@ -112,12 +117,14 @@ export default function StandardList({ type }) {
                               value={searchUser}
                               onChange={(e) => setSearchUser(e.target.value)}
                            />
-                           <button
-                              id="addUser-btn"
-                              onClick={() => navigate("/register", { state: { type: "productOwnerRegister" } })}
-                           >
-                              Add User
-                           </button>
+                           {user.role !== "developer" && (
+                              <button
+                                 id="addUser-btn"
+                                 onClick={() => navigate("/register", { state: { type: "productOwnerRegister" } })}
+                              >
+                                 Add User
+                              </button>
+                           )}
                         </div>
                      </>
                   )
@@ -157,18 +164,23 @@ export default function StandardList({ type }) {
                            );
                         })}
                      {type === "usersList" &&
-                        userCards.map((user) => {
+                        userCards.map((userCard) => {
                            return (
-                              user.username !== "admin" &&
-                              user.username !== "deletedTasks" &&
-                              user.username !== "developerTest" &&
-                              user.username !== "scrumMasterTest" && (
+                              userCard.username !== "admin" &&
+                              userCard.username !== "deletedTasks" &&
+                              userCard.username !== "developerTest" &&
+                              userCard.username !== "scrumMasterTest" &&
+                              userCard.username !== usernameStorage &&
+                              (((userCard.deleted || !userCard.confirmed) &&
+                                 (user.role === "productOwner" || user.role === "scrumMaster")) ||
+                                 (!userCard.deleted && userCard.confirmed)) && (
                                  <UserCard
-                                    key={user.id}
-                                    username={user.username}
-                                    role={user.role}
-                                    isDeleted={user.isDeleted}
-                                    photoURL={user.photoURL}
+                                    key={userCard.username}
+                                    username={userCard.username}
+                                    role={userCard.role}
+                                    isDeleted={userCard.deleted}
+                                    photoURL={userCard.photoURL}
+                                    isConfirmed={userCard.confirmed}
                                     searchTerm={searchUser}
                                  />
                               )

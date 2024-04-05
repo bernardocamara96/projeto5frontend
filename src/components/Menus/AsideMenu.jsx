@@ -1,25 +1,18 @@
 import "./AsideMenu.css";
 import { useNavigate } from "react-router-dom";
 
-export default function AsideMenu({ type }) {
+export default function AsideMenu() {
    const navigate = useNavigate();
-
-   {
-      console.log(type);
-   }
-   if (type === "developer") {
-      return null; // Don't render anything if type is not productOwner or scrumMaster
-   }
 
    return (
       <aside className="col-leftMenu" id="aside-menu">
          <>
             <a
                className="menu-item set-pro"
-               id="difSettings-users"
-               onClick={() => navigate("/users", { replace: true })}
+               id="difSettings-dashboard"
+               onClick={() => navigate("/dashboard", { replace: true })}
             >
-               <h4>Users</h4>
+               <h4>App Dashboard</h4>
             </a>
             <a
                className="menu-item set-pro"

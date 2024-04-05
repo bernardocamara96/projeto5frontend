@@ -1,0 +1,36 @@
+#confirmationAccount_div {
+   height: 50%;
+   width: 48%;
+   margin-left: 50%;
+   margin-top: 6%;
+   transform: translate(-50%, 0);
+   background-color: rgb(142, 142, 142);
+   padding: 25px;
+   padding-top: 15px;
+   border-radius: 10px;
+   box-shadow: 0px 0px 10px 0px black;
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+}
+
+#confirmationAccount_div p {
+   margin-top: 0px;
+}
+
+#confirmationAccount_div button {
+   background-color: rgb(142, 142, 142);
+   border: solid;
+   cursor: pointer;
+   padding: 4px;
+   border-radius: 5px;
+   width: 25%;
+}
+
+#confirmationAccount_div button:hover {
+   background-color: rgb(114, 114, 114);
+}
+
+#redirect_p {
+   font-size: 14px;
+}

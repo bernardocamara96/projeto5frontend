@@ -1,20 +1,19 @@
 import "./UserCard.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import userProfileTypeStore from "../../stores/userProfileTypeStore";
 
-export default function UserCard({ username, role, isDeleted, photoURL, handleClick, activeTrigger, searchTerm }) {
+export default function UserCard({
+   username,
+   role,
+   isDeleted,
+   photoURL,
+   isConfirmed,
+   handleClick,
+   activeTrigger,
+   searchTerm,
+}) {
    const [isActive, setIsActive] = useState(false);
    const navigate = useNavigate();
-   const updateUserProfileType = userProfileTypeStore((state) => state.updateUserProfileType);
-
-   // Function to handle the click on the user card, it will fetch the user data and set the user active so the black border appears
-   function handleClickDiv() {
-      handleClick(username);
-      setTimeout(() => {
-         setIsActive(true);
-      }, 0.1);
-   }
 
    // Function to set the user as non active, so the black border disappears
    useEffect(
@@ -43,14 +42,19 @@ export default function UserCard({ username, role, isDeleted, photoURL, handleCl
          {userVisibility && (
             <li
                className="user-item"
-               onClick={handleClickDiv}
                style={{ border: isActive ? "solid black" : "solid transparent" }}
-               onDoubleClick={() => {
-                  updateUserProfileType("userCard");
-                  navigate(`/userProfile/${username}`, { replace: true });
-               }}
+               onDoubleClick={() => navigate(`/userProfile/${username}`, { replace: true })}
             >
-               <div className="banner" style={{ backgroundColor: isDeleted ? "red" : "rgb(0, 60, 255)" }}>
+               <div
+                  className="banner"
+                  style={{
+                     backgroundColor: isDeleted
+                        ? "rgba(255,0,0,0.781)"
+                        : !isConfirmed
+                        ? "rgba(255, 255, 0, 0.789)"
+                        : "rgba(0, 60, 255, 0.7)",
+                  }}
+               >
                   <h3>{username}</h3>
                </div>
                <div className="content" id="usercard-content">
