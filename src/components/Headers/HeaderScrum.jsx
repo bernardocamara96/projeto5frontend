@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { fetchPhotoNameAndRedirect, logoutAttempt } from "../../utilities/services";
 import ConfirmMessage from "../somemodals/messagesModal/ConfirmMessage";
 import { usernameStore } from "../../stores/userStore";
+import { useMediaQuery } from "react-responsive";
 
 export default function HeaderScrum() {
    const navigate = useNavigate();
@@ -19,6 +20,8 @@ export default function HeaderScrum() {
    const user = userStore.getState().user;
    const usernameStorage = usernameStore.getState().username;
    usernameStore((state) => state.updateUsername);
+   const isTablet = useMediaQuery({ maxWidth: 450 });
+   const isMobile = useMediaQuery({ maxWidth: 350 });
 
    //if the token exists it will fetch the photo and name of the user and set it to the state to put in the Header
    useEffect(() => {
@@ -62,47 +65,52 @@ export default function HeaderScrum() {
    return (
       <>
          <header>
-            <img id="logo" src={appLogo} alt="IMG" onClick={() => navigate("/scrum", { replace: true })} />
+            <div id="logo-div">
+               <img
+                  className="logo"
+                  id="logo-header"
+                  src={appLogo}
+                  alt="IMG"
+                  onClick={() => navigate("/scrum", { replace: true })}
+               />
+               {!isMobile && (
+                  <span id="app-name" onClick={() => navigate("/scrum", { replace: true })}>
+                     <b>AgileFlow</b>
+                  </span>
+               )}
+            </div>
 
             <div className="topnav">
-               <a id="nav-home" className="active" onClick={() => navigate("/scrum", { replace: true })}>
-                  Homepage
-               </a>
-
-               <a id="nav-users" className="active" onClick={() => navigate("/users", { replace: true })}>
-                  Users
-               </a>
-
+               {!isTablet && (
+                  <a id="nav-home" className="active" onClick={() => navigate("/scrum", { replace: true })}>
+                     Homepage
+                  </a>
+               )}
                <a id="nav-exit" onClick={clickOnExit}>
                   Exit
                </a>
             </div>
 
-            <div id="right-aligned">
+            <div id="right-aligned" onClick={() => navigate(`/userProfile/${usernameStorage}`, { replace: true })}>
                <a>
                   <h4>
-                     <span
-                        id="usernameDisplay"
-                        data-testid="usernameDisplay"
-                        onClick={() => navigate(`/userProfile/${usernameStorage}`, { replace: true })}
-                     >
+                     <span id="usernameDisplay" data-testid="usernameDisplay">
                         {username}
                      </span>
                   </h4>
                </a>
-            </div>
 
-            <a
-               id="userPhotolink"
-               onClick={() => {
-                  updateUserProfileType("header");
-                  navigate(`/userProfile/${usernameStorage}`, { replace: true });
-               }}
-            >
-               <div className="user-photo-div">
-                  <img id="userPhoto" src={userPhoto} alt="" />
-               </div>
-            </a>
+               <a
+                  id="userPhotolink"
+                  onClick={() => {
+                     updateUserProfileType("header");
+                  }}
+               >
+                  <div className="user-photo-div">
+                     <img id="userPhoto" src={userPhoto} alt="" />
+                  </div>
+               </a>
+            </div>
          </header>
          <ConfirmMessage />
       </>

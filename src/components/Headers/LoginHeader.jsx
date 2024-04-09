@@ -1,15 +1,13 @@
 import appLogo from "../../assets/logo.png";
 import "./Header.css";
-import { useNavigate, Link } from "react-router-dom";
 
-export default function RegisterForm() {
-   const navigate = useNavigate();
-   const handleClick = () => {
-      navigate("/");
-   };
+export default function Header() {
    return (
       <header>
-         <img id="logo" src={appLogo} onClick={handleClick} alt="IMG" />
+         <a id="a-header" href="/">
+            <img className="logo" src={appLogo} alt="IMG" />
+            <h4>AgileFlow</h4>
+         </a>
       </header>
    );
 }

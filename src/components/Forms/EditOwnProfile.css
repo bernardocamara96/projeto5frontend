@@ -1,22 +1,78 @@
 #edit_container {
    display: flex;
    justify-content: center;
-   align-items: center;
-   margin-top: 20px;
-
-   margin-left: 20%;
+   gap: 10px;
+}
+#col-img {
+   width: 50%;
+}
+.editForm {
+   width: 500px;
 }
 
-.editForm {
-   width: 300px;
-   margin-left: 20px;
+@media (max-width: 590px) {
+   #container-userProfile {
+      flex-direction: column;
+   }
+   #userStats-btns {
+      transform: translate(0%, 0%);
+      margin-left: 0;
+      width: 250px;
+   }
+   #userStatistics-container {
+      width: 250px;
+   }
+   #content-userStats {
+      flex-direction: row;
+   }
+}
+
+@media (max-width: 640px) and (min-width: 590px) {
+   #userStats-btns {
+      width: 35%;
+   }
+   #userStatistics-container {
+      width: 100%;
+   }
+}
+
+@media (max-width: 1000px) {
+   #container-userProfile {
+      width: 90%;
+   }
+   .editForm {
+      width: 99%;
+   }
+}
+
+@media (max-width: 700px) {
+   .row-editUser {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+   }
+   .agileCol {
+      width: 100%;
+   }
+   #container-userProfile {
+      width: 100%;
+   }
+   .editForm {
+      width: 250px;
+   }
+   #userLogo-editUser {
+      margin-left: 0px;
+   }
+}
+#editUserForm {
+   transform: translate(0%, 0%);
+   margin-left: 0;
 }
 
 .passForm {
    margin-bottom: 162px;
 }
 .banner_register {
-   background-color: rgb(114, 114, 114);
    padding: 15px;
    text-align: center;
    border-top-left-radius: 10px;
@@ -25,10 +81,11 @@
    display: flex;
    align-items: center;
    width: 90%;
+   gap: 30px;
 }
 
 .content_editProfile {
-   padding-top: 0px;
+   padding-top: 20px;
    padding-right: 5%;
    padding-bottom: 25px;
    padding-left: 5%;
@@ -55,10 +112,6 @@ input {
    background-color: rgb(114, 114, 114);
 }
 
-#member-registration-banner {
-   font-weight: bold;
-}
-
 #username-field {
    color: black;
 }
@@ -69,25 +122,29 @@ input {
 
 #editProfile-icon {
    cursor: pointer;
-   width: 14px;
-   height: 14px;
+   width: 23px;
+   height: 23px;
    border: none;
+   padding: 4px;
+   padding-right: 3px;
+   border-radius: 5px;
+   border: solid transparent 1px;
 }
 
 #editProfile-btn {
    background-color: transparent;
    border: none;
-   width: 20px;
-   height: 23px;
+   width: auto;
+
    cursor: pointer;
-   margin-left: 94%;
+   margin-left: 85%;
    margin-top: 2%;
-   padding: 4px;
+
    border-radius: 5px;
 }
 
-#editProfile-btn:hover {
-   background-color: rgb(94, 94, 94);
+#editProfile-icon:hover {
+   border: solid black 1px;
 }
 
 input:disabled {
@@ -95,6 +152,40 @@ input:disabled {
 }
 
 #inactivate-field {
-   height: 28.4px;
+   height: 37.6px;
    border-radius: 5px;
+}
+
+.input-editOwnprofile {
+   border: 1px solid #a1a1a1;
+}
+
+#btn-submitUserProfile,
+#btn-changePassword {
+   background-color: white;
+}
+
+#btn-changePassword:hover,
+#btn-changePassword:active {
+   background-color: #6c757d;
+}
+
+#btn-submitUserProfile:hover,
+#btn-submitUserProfile:active {
+   background-color: #0d6efd;
+}
+
+#usersProfile-p {
+   font-weight: bold;
+   margin-bottom: 0;
+}
+
+#userLogo-editUser {
+   margin-left: 100%;
+   width: 130px;
+   height: auto;
+   border-radius: 50%;
+   border: solid black 1px;
+
+   transform: translate(-50%);
 }

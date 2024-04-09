@@ -1,82 +1,62 @@
-main {
+@media (max-width: 550px) {
+   #loginForm {
+      width: 72%;
+   }
+}
+#content_login {
    display: flex;
    flex-direction: column;
-   justify-content: center;
-   align-items: center;
+   gap: 15px;
+   border-top: solid 1px rgb(0, 0, 0, 0.2);
+   padding: 20px;
 }
 
-#loginForm {
+.login-label {
+   margin-bottom: 5px;
+}
+
+#banner_login {
    display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   margin-top: 40%;
-   width: 300px;
-   margin-bottom: 16px;
-   box-shadow: 0px 0px 10px 0px black;
-}
-
-.banner_login {
-   background-color: rgb(114, 114, 114);
+   flex-direction: row;
+   gap: 30px;
    padding: 15px;
-   text-align: center;
-   border-top-left-radius: 10px;
-   border-top-right-radius: 10px;
-   padding-bottom: 10px;
-   display: flex;
    align-items: center;
-   width: 90%;
 }
 
-.content_login {
-   display: flex;
-   flex-direction: column;
-   gap: 10px;
-   width: 90%;
-   background-color: rgb(142, 142, 142);
-   padding-left: 5%;
-   padding-right: 5%;
-   padding-bottom: 25px;
-   padding-top: 25px;
-   border-bottom-left-radius: 5px;
-   border-bottom-right-radius: 5px;
+#login-btn,
+#a_registration {
+   background-color: white;
 }
 
-#login-icon {
-   max-width: 36px;
-   height: auto;
-   display: FLEX;
-   margin-right: 20px;
+#login-btn:hover {
+   background-color: #0d6efd;
 }
 
-input[type="submit"] {
-   width: 100%;
-   background-color: rgb(142, 142, 142);
-   border: solid;
-   cursor: pointer;
+#login-btn:active {
+   background-color: #0d6efd;
 }
 
-.content_login input[type="submit"] {
-   margin-top: 10px;
+#a_registration:hover {
+   background-color: #dc3545;
 }
 
-input[type="submit"]:hover {
-   background-color: rgb(114, 114, 114);
+#a_registration:active {
+   background-color: #dc3545;
+}
+#username,
+#password {
+   border: 1px solid #a1a1a1;
 }
 
-#login-footer {
-   display: flex;
-   gap: 10px;
-   flex-direction: column;
-   color: white;
+#a_forgot {
+   text-align: right;
+   color: #0d6efd;
 }
 
-.a_login {
-   color: grey;
-   cursor: pointer;
+#a_forgot:hover {
+   color: #0b52bb;
 }
 
-.a_login:hover {
-   color: rgb(165, 165, 165);
-   background-color: transparent;
+#member-login-banner {
+   font-weight: bold;
 }

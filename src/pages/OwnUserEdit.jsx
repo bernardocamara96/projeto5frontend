@@ -7,7 +7,6 @@ export default function OwnUserEdit() {
    return (
       <>
          <HeaderScrum />
-
          <EditOwnProfile />
          <Footer />
          <AlertsMessage />

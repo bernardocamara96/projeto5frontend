@@ -4,6 +4,8 @@ import alertStore from "../../stores/alertStore";
 import { useNavigate } from "react-router-dom";
 import { userStore } from "../../stores/userStore";
 import { useState } from "react";
+import logo from "../../assets/logo.png";
+import Button from "react-bootstrap/Button";
 
 export default function ConfirmationAccount({ token }) {
    const navigate = useNavigate();
@@ -54,40 +56,71 @@ export default function ConfirmationAccount({ token }) {
    return (
       <>
          {token === "notconfirmed" ? (
-            <div id="confirmationAccount_div">
-               <h1>Account Verification</h1>
-               <p>
-                  To complete your account registration, <b>please check your email inbox for a message from us.</b>{" "}
-                  Click on the confirmation link provided in the email to <b>activate your account</b> and start using
-                  our services. If you haven't received the email, please check your spam or junk folder. If you still
-                  can't find it, you can &nbsp;<b>request a new confirmation email</b> by clicking on the button below.
-               </p>
-               <button onClick={handleClick}>Resend Confirmation Email</button>
+            <div id="confirmationAccount_div" className="agileForm notConfirmed-width">
+               <div className="banner-accountConfirm">
+                  <i class="bi bi-check-circle-fill fa-lg"></i>
+                  <div>
+                     <img src={logo} alt="img" className="logo" />
+                     &nbsp;&nbsp;AgileFlow
+                  </div>
+               </div>
+               <div className="content_register">
+                  <p>
+                     To complete your account registration, <b>please check your email inbox for a message from us.</b>{" "}
+                     Click on the confirmation link provided in the email to <b>activate your account</b> and start
+                     using our services. If you haven't received the email, please check your spam or junk folder. If
+                     you still can't find it, you can &nbsp;<b>request a new confirmation email</b> by clicking on the
+                     button below.
+                  </p>
+
+                  <Button className="btn-outline-secondary" type="button" id="resend-btn" onClick={handleClick}>
+                     <i class="bi bi-arrow-repeat"></i> Resend Confirmation Email
+                  </Button>
+                  <Button className="btn-outline-primary" type="button" id="login-btn" onClick={() => navigate("/")}>
+                     <i className="fas fa-sign-in-alt login-btn"></i> Login
+                  </Button>
+               </div>
             </div>
          ) : (
-            <form id="confirmationAccount_div" style={{ width: "23%", gap: "10px" }}>
-               <h1>Account Confirmation</h1>
-               <label htmlFor="password">Your Password</label>
-               <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-               />
-               <label htmlFor="repeatPass">Repeat your Password</label>
-               <input
-                  type="password"
-                  name="repeatPass"
-                  id="repeatPass"
-                  value={repeatPass}
-                  onChange={(e) => setRepeatPass(e.target.value)}
-                  required
-               />
-               <button type="submit" style={{ width: "100%", marginTop: "10px" }} onClick={handleSubmit}>
-                  Submit
-               </button>
+            <form id="confirmationAccount_div" className="agileForm confirmed-width">
+               <div className="banner-accountConfirm">
+                  <i class="bi bi-check-circle-fill fa-lg"></i>
+                  <div>
+                     <img src={logo} alt="img" className="logo" />
+                     &nbsp;&nbsp;AgileFlow
+                  </div>
+               </div>
+               <div className="content_register">
+                  <div className="register-flex">
+                     <label htmlFor="password">Your Password</label>
+                     <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Enter your password"
+                        className="form-control"
+                        required
+                     />
+                  </div>
+                  <div className="register-flex">
+                     <label htmlFor="repeatPass">Repeat your Password</label>
+                     <input
+                        type="password"
+                        name="repeatPass"
+                        id="repeatPass"
+                        value={repeatPass}
+                        onChange={(e) => setRepeatPass(e.target.value)}
+                        placeholder="Repeat your password"
+                        className="form-control"
+                        required
+                     />
+                  </div>
+                  <Button className="btn-outline-secondary" type="submit" id="submit-pass" onClick={handleSubmit}>
+                     Submit
+                  </Button>
+               </div>
             </form>
          )}
       </>

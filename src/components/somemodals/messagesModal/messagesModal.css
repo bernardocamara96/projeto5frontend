@@ -1,8 +1,8 @@
 .messagesModal {
    position: fixed;
-   z-index: 100;
-   background-color: #ababab;
-   top: 2%;
+   z-index: 1500;
+   background-color: white;
+   top: 5%;
    padding: 30px;
    left: 50%;
    transform: translate(-50%, 0);
@@ -10,7 +10,14 @@
    display: flex;
    justify-content: center;
    align-items: center;
-   font-weight: bold;
+}
+
+#alertMessage {
+   position: fixed;
+   z-index: 1500;
+   top: 2%;
+   left: 50%;
+   transform: translate(-50%, 0);
 }
 
 .messagesModal.error {
@@ -38,27 +45,25 @@
 }
 
 .confirmButton {
-   border: solid;
-   cursor: pointer;
-   padding: 4px;
-   border-radius: 5px;
-   background-color: rgb(142, 142, 142);
    width: 50%;
-   font-weight: bold;
-}
-
-.confirmButton:hover {
-   background-color: rgb(114, 114, 114);
 }
 
 #button_Ok {
-   background-color: rgba(114, 131, 179, 0.9);
-
-   border: solid black;
+   background-color: white;
 }
 
-#button_Ok:hover {
-   background-color: rgba(81, 100, 153, 0.9);
+#button_Ok:hover,
+#button_Ok:active {
+   background-color: #0d6efd;
+}
+
+#btn-cancel-modal {
+   background-color: white;
+}
+
+#btn-cancel-modal:hover,
+#btn-cancel-modal:active {
+   background-color: #6c757d;
 }
 
 #confirmBackground {

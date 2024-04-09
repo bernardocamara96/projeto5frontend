@@ -11,6 +11,7 @@ import { deletePermanentlyUser, deleteTasksByUser } from "../utilities/services"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import AsideMenu from "../components/Menus/AsideMenu";
+import Button from "react-bootstrap/Button";
 
 export default function UserProfile() {
    const { username } = useParams();
@@ -65,29 +66,37 @@ export default function UserProfile() {
    return (
       <>
          <HeaderScrum />
+
          {user.role !== "developer" && <AsideMenu />}
-         <div id="container-userProfile">
-            <div id="userInformation">
+         <main className="scrum-main">
+            <div id="container-userProfile">
                <EditOwnProfile
                   username={username}
                   inputsDisabled={inputsDisabled}
                   setInputsDisabled={setInputsDisabled}
                />
-               <UsersStatistics
-                  username={username}
-                  inputsDisabled={inputsDisabled}
-                  setInputsDisabled={setInputsDisabled}
-               />
-            </div>
-            {console.log("username  " + username)}
-            {console.log("usernameStorage " + usernameStorage)}
-            {user.role === "productOwner" && usernameStorage !== username && (
-               <div id="container-btns-userProfile">
-                  <button onClick={handleDelete}>Permanently delete</button>
-                  <button onClick={handleDeleteTasks}> Delete tasks</button>
+               <div id="userStats-btns">
+                  <UsersStatistics
+                     username={username}
+                     inputsDisabled={inputsDisabled}
+                     setInputsDisabled={setInputsDisabled}
+                  />
+
+                  {console.log("username  " + username)}
+                  {console.log("usernameStorage " + usernameStorage)}
+                  {user.role === "productOwner" && usernameStorage !== username && (
+                     <div id="container-btns-userProfile">
+                        <Button className="btn-outline-danger " onClick={handleDelete}>
+                           Permanently delete
+                        </Button>
+                        <Button className="btn-outline-danger" onClick={handleDeleteTasks}>
+                           Delete tasks
+                        </Button>
+                     </div>
+                  )}
                </div>
-            )}
-         </div>
+            </div>
+         </main>
          <Footer />
          <AlertsMessage />
       </>

@@ -3,6 +3,8 @@ import { newPassEmail } from "../../utilities/services";
 import { useState } from "react";
 import alertStore from "../../stores/alertStore";
 import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import logo from "../../assets/logo.png";
 
 export default function ResetPassword() {
    const [email, setEmail] = useState("");
@@ -36,23 +38,38 @@ export default function ResetPassword() {
    };
    return (
       <>
-         <div id="resetPass-div">
-            <h1>Reset Password</h1>
-            <form id="resetPass-form">
-               <label htmlFor="email">Your Email</label>
-               <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-               />
-               <button type="submit" onClick={handleClick}>
-                  Reset Password
-               </button>
-            </form>
-         </div>
+         <form id="resetPass-form" className="agileForm">
+            <div id="banner_login">
+               <i className="bi bi-key-fill fa-lg"></i>
+               <span id="member-login-banner">
+                  <img src={logo} alt="img" className="logo" />
+                  &nbsp;&nbsp;AgileFlow
+               </span>
+            </div>
+            <div id="content_login">
+               <div>
+                  <label htmlFor="email" id="email-lbl-resetPass">
+                     Your Email
+                  </label>
+                  <input
+                     type="email"
+                     id="email-resetPass"
+                     name="email"
+                     value={email}
+                     onChange={(e) => setEmail(e.target.value)}
+                     placeholder="Enter your email"
+                     className="form-control register-input"
+                     required
+                  />
+               </div>
+               <Button className="btn-outline-secondary" id="btn-resetPass" type="submit" onClick={handleClick}>
+                  <i className="bi bi-key-fill"></i> Reset Password
+               </Button>
+               <Button className="btn-outline-primary" type="button" id="login-btn" onClick={() => navigate("/")}>
+                  <i class="fas fa-sign-in-alt login-btn"></i> Login
+               </Button>
+            </div>
+         </form>
       </>
    );
 }

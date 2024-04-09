@@ -36,8 +36,8 @@ export default function Scrum() {
    return (
       <>
          <HeaderScrum />
-         <main id="scrumMain">
-            {role !== "developer" && <AsideMenu />}
+         {role !== "developer" && <AsideMenu />}
+         <main id="scrumMain" className="scrum-main">
             <div id="scrum-content">
                <div className="search-container-homepage" id="search-container-homepage">
                   <input
@@ -65,7 +65,6 @@ export default function Scrum() {
                   fetchTrigger={fetchTrigger}
                   setFetchTrigger={setFetchTrigger}
                   searchTerm={searchTermHome}
-                  style={{ marginLeft: role !== "developer" && "390px" }}
                />
             </div>
          </main>

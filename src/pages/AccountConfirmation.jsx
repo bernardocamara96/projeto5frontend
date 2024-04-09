@@ -22,8 +22,13 @@ export default function AccountConfirmation() {
 
    return (
       <>
-         <LoginHeader />
-         {tokenValidated || token === "notconfirmed" ? <ConfirmationAccount token={token} /> : <h1>404 Not Found</h1>}
+         <main>
+            {tokenValidated || token === "notconfirmed" ? (
+               <ConfirmationAccount token={token} />
+            ) : (
+               <h1>404 Not Found</h1>
+            )}
+         </main>
          <Footer />
          <AlertsMessage />
       </>

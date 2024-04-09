@@ -1,33 +1,40 @@
 #userStatistics-container {
-   width: 350px;
-   margin-top: 50%;
-   transform: translate(0, -70%);
+   margin-left: 0px;
+   transform: translate(0, 0);
+   height: 260px;
+}
+
+@media (min-width: 641px) {
+   #userStatistics-container {
+      width: 220px;
+   }
 }
 
 #usersStatistics-p {
    font-weight: bold;
+   margin-bottom: 0;
+   white-space: nowrap;
 }
-
+#agileCol-userStats div {
+   white-space: nowrap;
+}
 #content-userStats {
    padding-left: 15px;
    padding-right: 15px;
    padding-bottom: 25px;
    padding-top: 20px;
-   display: flex;
-   gap: 10px;
-}
 
-.banner_register {
-   padding-top: 10px;
-   padding-bottom: 10px;
+   border-top: solid 1px rgb(0, 0, 0, 0.2);
 }
 
 .content-userStats-span {
-   height: 22px;
+   height: 24px;
+   width: 23px;
    padding-left: 5px;
    padding-right: 5px;
    border-radius: 5px;
-   background-color: rgb(186, 186, 186);
+
+   border: solid 1px rgb(0, 0, 0, 0.5);
    text-align: center;
    display: flex;
    justify-content: center;
@@ -39,4 +46,12 @@
    flex-direction: row;
    gap: 20px;
    align-items: center;
+}
+
+.col-userStats {
+   gap: 10px;
+}
+
+.col-numTasks {
+   width: 15%;
 }

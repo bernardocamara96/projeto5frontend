@@ -5,12 +5,13 @@ import AlertsMessage from "../components/somemodals/messagesModal/AlertsMessage"
 
 function App() {
    return (
-      <main>
-         <Header />
-         <Login />
+      <>
+         <main className="wrapper">
+            <Login />
+         </main>
          <Footer />
          <AlertsMessage />
-      </main>
+      </>
    );
 }
 

@@ -11,10 +11,14 @@ export default function UsersList() {
    return (
       <>
          <HeaderScrum />
+
          <div id="main-taskList">
             {user.role !== "developer" && <AsideMenu />}
-            <StandardList type="usersList" />
+            <main className="scrum-main">
+               <StandardList type="usersList" />
+            </main>
          </div>
+
          <Footer />
          <AlertsMessage />
       </>

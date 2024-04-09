@@ -31,8 +31,8 @@
    border-bottom-right-radius: 10px;
 }
 .task-item button {
-   width: 25px;
-   height: 25px;
+   width: 22px;
+   height: 22px;
    background-color: transparent;
    color: black;
    border-radius: 25px;
@@ -40,6 +40,9 @@
    cursor: pointer;
    font-size: 11px;
    font-weight: bold;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
 .task-item button:hover {
@@ -98,9 +101,15 @@
 
 .content_buttons {
    display: flex;
-   margin-left: 225px;
+   margin-left: 200px;
+   margin-right: 5px;
+   margin-bottom: 2px;
 }
 
 #description-task {
    padding-top: 1px;
+}
+
+.btn:hover {
+   color: inherit;
 }

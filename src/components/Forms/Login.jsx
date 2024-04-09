@@ -1,11 +1,12 @@
 import "./Login.css";
-import userPNG from "../../assets/user-login.png";
+import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { loginAttempt } from "../../utilities/services";
 import { useState, useEffect } from "react";
 import { userStore, usernameStore } from "../../stores/userStore";
 import filterStore from "../../stores/filterStore";
 import alertStore from "../../stores/alertStore";
+import Button from "react-bootstrap/Button";
 
 export default function Login() {
    const updateUserToken = userStore((state) => state.updateToken);
@@ -49,11 +50,6 @@ export default function Login() {
             if (response.confirmed === "true") {
                updateUserToken(response.token);
 
-               //alert("Login successful");
-               alertStore.getState().setMessage("Login successful");
-
-               handleAlert("Login successful", false);
-
                navigate("/scrum", { replace: true });
             } else {
                updateUserToken(response.auxiliarToken);
@@ -68,14 +64,17 @@ export default function Login() {
    }, []);
    return (
       <>
-         <main>
-            <form id="loginForm">
-               <div className="banner_login">
-                  <img id="login-icon" src={userPNG} alt="IMG" />
-                  <p id="member-login-banner">Member Login</p>
-               </div>
-               <div className="content_login">
-                  <label id="username-label" htmlFor="username">
+         <form id="loginForm" className="loginForm agileForm" onSubmit={handleSubmit}>
+            <div id="banner_login">
+               <i className="fas fa-sign-in-alt fa-lg" id="login-icon"></i>
+               <span id="member-login-banner">
+                  <img src={logo} alt="img" className="logo" />
+                  &nbsp;&nbsp;AgileFlow
+               </span>
+            </div>
+            <div id="content_login">
+               <div>
+                  <label htmlFor="username" className="login-label">
                      Username
                   </label>
                   <input
@@ -83,12 +82,15 @@ export default function Login() {
                      name="username"
                      id="username"
                      maxLength="25"
-                     placeholder="Enter your username"
+                     placeholder="Your username"
                      value={username}
+                     className="form-control"
                      onChange={(e) => setUsername(e.target.value)}
+                     required
                   />
-                  <div id="errorLogin"></div>
-                  <label id="password-label" htmlFor="password">
+               </div>
+               <div>
+                  <label htmlFor="password" className="login-label">
                      Password
                   </label>
                   <input
@@ -96,28 +98,24 @@ export default function Login() {
                      name="password"
                      id="password"
                      maxLength="25"
-                     placeholder="Enter your password"
+                     placeholder="Enter password"
+                     className="form-control"
                      value={password}
                      onChange={(e) => setPassword(e.target.value)}
+                     required
                   />
-                  <input type="submit" id="login" value="Login" onClick={handleSubmit} />
                </div>
-            </form>
-            <div id="login-footer">
-               <div id="signup">
-                  Don't have an account?{" "}
-                  <a className="a_login" id="a_registration" onClick={handleClick}>
-                     Sign up
-                  </a>
-               </div>
-               <div>
-                  Reset Password{" "}
-                  <a className="a_login" id="a_forgot" href="/resetPass">
-                     in here
-                  </a>
-               </div>
+               <a className="a_login" id="a_forgot" href="/resetPass">
+                  Forgot your password?
+               </a>
+               <Button className="btn-outline-primary" type="submit" id="login-btn" value="Login">
+                  <i className="fas fa-sign-in-alt login-btn"></i> Login
+               </Button>
+               <Button className="btn-outline-danger" id="a_registration" onClick={handleClick}>
+                  <i className="fas fa-user-plus a_registration"></i> Register
+               </Button>
             </div>
-         </main>
+         </form>
       </>
    );
 }

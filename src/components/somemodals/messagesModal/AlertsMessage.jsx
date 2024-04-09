@@ -14,5 +14,14 @@ export default function AlertsMessage() {
       }
    }, [visible]);
 
-   return <>{visible ? <div className={`messagesModal  ${error ? "error" : "noError"}`}>{message}</div> : null}</>;
+   return (
+      <>
+         {visible ? (
+            <div id="alertMessage" className={`alert ${error ? "alert-danger" : "alert-success"}`}>
+               <h4 class="alert-heading">{error ? "Failed" : "Success"}</h4>
+               {message}
+            </div>
+         ) : null}
+      </>
+   );
 }

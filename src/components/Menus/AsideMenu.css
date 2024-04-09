@@ -1,34 +1,56 @@
 aside {
-   background-color: rgba(233, 233, 233, 0.707);
-   border-radius: 8px;
-   padding: 0px;
+   background-color: #f1f1f1;
+   white-space: nowrap;
+   padding-top: 15px;
+   gap: 0px;
    margin-bottom: 0px;
-   text-align: center;
-   width: 19%;
+   text-align: start;
+   width: 15%;
    display: flex;
    flex-direction: column;
    box-shadow: 0px 0px 3px 1px rgb(0, 0, 0, 0.3);
-   height: 600px;
+   min-height: 96vh;
    position: fixed;
-   left: 10px;
-   top: 70px;
-}
-#difSettings-dashboard {
-   border-top-left-radius: 8px;
-   border-top-right-radius: 8px;
+   top: 50px;
+   height: 100%;
 }
 
+aside a {
+   height: 25.2px;
+   padding: 17px;
+   padding-top: 25px;
+   padding-bottom: 25px;
+}
+
+aside a:hover {
+   background-color: #cbcbcb;
+}
+aside h4 {
+   font-size: 20px;
+   margin-bottom: 0px;
+}
+@media (max-width: 1300px) {
+   aside h4 {
+      font-size: 15px;
+   }
+}
+@media (max-width: 1050px) {
+   aside {
+      width: 50px;
+   }
+   .scrum-main {
+      margin-left: 50px;
+   }
+}
 a {
-   cursor: pointer;
    text-decoration: none;
    color: black;
+   cursor: pointer;
 }
 
-a:hover {
-   background-color: rgba(153, 153, 153, 0.707);
-}
-
-#difSettings-users {
-   border-top-left-radius: 8px;
-   border-top-right-radius: 8px;
+.menu-item {
+   display: flex;
+   flex-direction: row;
+   gap: 10px;
+   align-items: center;
 }

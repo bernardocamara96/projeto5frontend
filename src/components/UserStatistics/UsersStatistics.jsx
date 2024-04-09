@@ -43,38 +43,24 @@ export default function UsersStatistics({ username, inputsDisabled, setInputsDis
    }, [username]);
 
    return (
-      <div id="userStatistics-container">
-         <div
-            className="banner_register"
-            id="banner-userStatistics"
-            style={{
-               marginTop:
-                  username !== usernameStorage && !inputsDisabled
-                     ? "22.5px"
-                     : username === usernameStorage && !inputsDisabled && "13.6px",
-            }}
-         >
+      <div id="userStatistics-container" className="agileForm">
+         <div className="banner_register" id="banner-userStatistics">
+            <i class="fas fa-chart-line fa-lg"></i>
             <p id="usersStatistics-p">User Stats</p>
          </div>
-         <div className="content_register" id="content-userStats">
-            <div className="content-userStats-div">
+         <div className="agileRow" id="content-userStats">
+            <div className="agileCol col-userStats" id="agileCol-userStats">
                <div>Active tasks:</div>
-               <div className="content-userStats-span">{totalTasks}</div>
-            </div>
-            <div className="content-userStats-div">
                <div>To Do tasks:</div>
-               <div className="content-userStats-span">{toDoTasks}</div>
-            </div>
-            <div className="content-userStats-div">
                <div>Doing tasks:</div>
-               <div className="content-userStats-span">{doingTasks}</div>
-            </div>
-            <div className="content-userStats-div">
                <div>Done tasks:</div>
-               <div className="content-userStats-span">{doneTasks}</div>
-            </div>
-            <div className="content-userStats-div">
                <div>Deleted tasks:</div>
+            </div>
+            <div className="agileCol  col-userStats col-numTasks">
+               <div className="content-userStats-span">{totalTasks}</div>
+               <div className="content-userStats-span">{toDoTasks}</div>
+               <div className="content-userStats-span">{doingTasks}</div>
+               <div className="content-userStats-span">{doneTasks}</div>
                <div className="content-userStats-span">{deletedTasks}</div>
             </div>
          </div>

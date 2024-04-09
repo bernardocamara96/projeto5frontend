@@ -4,6 +4,7 @@ import { deleteListener } from "../../utilities/services";
 import { userStore, usernameStore } from "../../stores/userStore";
 import alertStore from "../../stores/alertStore";
 import { updateTaskStatus, deleteTask, restaureTask } from "../../utilities/services";
+import { ButtonGroup, Button } from "react-bootstrap";
 
 export default function Task({
    id,
@@ -141,48 +142,48 @@ export default function Task({
                style={{ backgroundColor: priority === 1 ? "green" : priority === 2 ? "yellow" : "red" }}
             ></div>
 
-            <div
-               className="content_buttons"
+            <ButtonGroup
+               className="content_buttons "
                style={{
                   marginLeft:
                      type === "non-draggable"
-                        ? "210px"
+                        ? "200px"
                         : status === "TO DO"
                         ? username_author === username || user.role === "productOwner" || user.role === "scrumMaster"
-                           ? "255px"
-                           : "280px"
+                           ? "245px"
+                           : "270px"
                         : status === "DOING"
                         ? username_author === username || user.role === "productOwner" || user.role === "scrumMaster"
-                           ? "230px"
-                           : "255px"
+                           ? "220px"
+                           : "245px"
                         : status === "DONE"
                         ? username_author === username || user.role === "productOwner" || user.role === "scrumMaster"
-                           ? "255px"
-                           : "280px"
+                           ? "245px"
+                           : "270px"
                         : null,
                }}
             >
                {status === "TO DO" || type == "non-draggable" ? null : (
-                  <button style={{ visibility: buttonVisibility }} children="<" onClick={handlePreviousButton}></button>
+                  <Button style={{ visibility: buttonVisibility }} children="<" onClick={handlePreviousButton}></Button>
                )}
 
                {type === "non-draggable" && user.role === "productOwner" && (
-                  <button style={{ visibility: buttonVisibility }} onClick={handleRestaure}>
+                  <Button style={{ visibility: buttonVisibility }} onClick={handleRestaure}>
                      &#x21bb;
-                  </button>
+                  </Button>
                )}
                {((type != "non-draggable" &&
                   (username_author === username || user.role === "productOwner" || user.role === "scrumMaster")) ||
                   (type === "non-draggable" && user.role === "productOwner")) && (
-                  <button className="btn-dlt" style={{ visibility: buttonVisibility }} onClick={handleDelete}>
+                  <Button className="btn-dlt" style={{ visibility: buttonVisibility }} onClick={handleDelete}>
                      <img src={trashIcon} alt="del" />
-                  </button>
+                  </Button>
                )}
 
                {status === "DONE" || type === "non-draggable" ? null : (
-                  <button style={{ visibility: buttonVisibility }} children=">" onClick={handleNextButton}></button>
+                  <Button style={{ visibility: buttonVisibility }} children=">" onClick={handleNextButton}></Button>
                )}
-            </div>
+            </ButtonGroup>
          </div>
       </>
    );

@@ -182,7 +182,7 @@ export default function ColumnsContainer({ token, tasks, setTasks, fetchTrigger,
    }
    return (
       <DragDropContext onDragEnd={handleDragEnd}>
-         <div className="tasks-row" style={{ marginLeft: user.role === "developer" ? "150px" : "300px" }}>
+         <div className="tasks-row">
             <Column
                title="TO DO"
                token={token}
