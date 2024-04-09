@@ -68,3 +68,7 @@ main {
 .btn-outline-danger {
    background-color: white;
 }
+
+select {
+   cursor: pointer;
+}

@@ -25,6 +25,12 @@
    #content-userStats {
       flex-direction: row;
    }
+   #edit_container {
+      justify-content: left;
+   }
+   #container-userProfile {
+      justify-content: center;
+   }
 }
 
 @media (max-width: 640px) and (min-width: 590px) {
@@ -96,16 +102,6 @@
 }
 input {
    padding: 4px;
-}
-
-.btnChangePassword {
-   background-color: rgb(142, 142, 142);
-   border: solid;
-   cursor: pointer;
-   padding: 4px;
-   border-radius: 5px;
-
-   margin-top: 10px;
 }
 
 #btnChangePassword:hover {

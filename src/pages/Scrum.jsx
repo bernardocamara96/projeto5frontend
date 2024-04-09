@@ -36,7 +36,7 @@ export default function Scrum() {
    return (
       <>
          <HeaderScrum />
-         {role !== "developer" && <AsideMenu />}
+         <AsideMenu />
          <main id="scrumMain" className="scrum-main">
             <div id="scrum-content">
                <div className="search-container-homepage" id="search-container-homepage">

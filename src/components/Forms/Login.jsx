@@ -109,10 +109,10 @@ export default function Login() {
                   Forgot your password?
                </a>
                <Button className="btn-outline-primary" type="submit" id="login-btn" value="Login">
-                  <i className="fas fa-sign-in-alt login-btn"></i> Login
+                  <i className="fas fa-sign-in-alt login-btn"></i> &nbsp;Login
                </Button>
                <Button className="btn-outline-danger" id="a_registration" onClick={handleClick}>
-                  <i className="fas fa-user-plus a_registration"></i> Register
+                  <i className="fas fa-user-plus a_registration"></i>&nbsp; Register
                </Button>
             </div>
          </form>

@@ -6,8 +6,9 @@ import AlertsMessage from "../components/somemodals/messagesModal/AlertsMessage"
 export default function ResetPassAfter() {
    return (
       <>
-         <LoginHeader />
-         <ResetPasswordAfter />
+         <main>
+            <ResetPasswordAfter />
+         </main>
          <Footer />
          <AlertsMessage />
       </>

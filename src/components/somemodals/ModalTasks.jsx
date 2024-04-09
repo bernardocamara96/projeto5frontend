@@ -3,6 +3,7 @@ import { getAllCategories, addTaskBE } from "../../utilities/services";
 import { useEffect, useState } from "react";
 import ModalContent from "./ModalContent";
 import alertStore from "../../stores/alertStore";
+import Button from "react-bootstrap/Button";
 
 export default function ModalTasks({ token, setModalVisibility, setFetchTrigger }) {
    const [categories, setCategories] = useState([]);
@@ -69,34 +70,46 @@ export default function ModalTasks({ token, setModalVisibility, setFetchTrigger 
       <div>
          <div className="tasksModal" id="tasksModalCreate">
             <form id="taskForm">
-               <div className="row-task">
-                  <h2 id="add-task">Add Task</h2>
+               <div className="banner_register">
+                  <p id="add-task">
+                     <i class="fas fa-plus"></i>&nbsp;Add Task
+                  </p>
                </div>
-               <ModalContent
-                  categories={categories}
-                  taskTitle={taskTitle}
-                  taskDescription={taskDescription}
-                  category_type={category_type}
-                  taskPriority={taskPriority}
-                  taskStartDate={taskStartDate}
-                  taskEndDate={taskEndDate}
-                  setTaskTitle={setTaskTitle}
-                  setTaskDescription={setTaskDescription}
-                  setTaskPriority={setTaskPriority}
-                  setTaskStartDate={setTaskStartDate}
-                  setTaskEndDate={setTaskEndDate}
-                  setCategory_type={setCategory_type}
-                  modalType={"create"}
-               />
+               <div className="content_register">
+                  <ModalContent
+                     categories={categories}
+                     taskTitle={taskTitle}
+                     taskDescription={taskDescription}
+                     category_type={category_type}
+                     taskPriority={taskPriority}
+                     taskStartDate={taskStartDate}
+                     taskEndDate={taskEndDate}
+                     setTaskTitle={setTaskTitle}
+                     setTaskDescription={setTaskDescription}
+                     setTaskPriority={setTaskPriority}
+                     setTaskStartDate={setTaskStartDate}
+                     setTaskEndDate={setTaskEndDate}
+                     setCategory_type={setCategory_type}
+                     modalType={"create"}
+                  />
+               </div>
                <div className="btns-div">
-                  <div className="row-submit">
-                     <input id="save-task" type="submit" value="Save Task" onClick={handleSubmit} />
-                  </div>
-                  <div className="row-cancel">
-                     <button id="cancel-task" onClick={() => setModalVisibility(false)}>
-                        Cancel
-                     </button>
-                  </div>
+                  <Button
+                     id="save-task"
+                     type="submit"
+                     className="row-btns-modalTask btn-outline-primary"
+                     onClick={handleSubmit}
+                  >
+                     <i class="fas fa-save"></i>&nbsp; Save Task
+                  </Button>
+
+                  <Button
+                     id="cancel-task"
+                     className="row-btns-modalTask btn-outline-secondary"
+                     onClick={() => setModalVisibility(false)}
+                  >
+                     Cancel
+                  </Button>
                </div>
             </form>
          </div>

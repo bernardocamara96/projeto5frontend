@@ -326,20 +326,20 @@ export default function EditOwnProfile({ username, selectedUserRole, inputsDisab
                   {usernameStorage === username && !inputsDisabled && (
                      <>
                         <Button
-                           className="btnChangePassword btn-outline-secondary"
+                           className="btn-outline-secondary"
                            id="btn-changePassword"
                            onClick={(e) => {
                               e.preventDefault();
                               setPasswordActive(!passwordActive);
                            }}
                         >
-                           <i class="fas fa-key"></i> Change Password
+                           <i class="fas fa-key"></i>&nbsp; Change Password
                         </Button>
                      </>
                   )}
                   {!inputsDisabled && (usernameStorage === username || role === "productOwner") && (
                      <Button className="btn-outline-primary " id="btn-submitUserProfile" type="submit">
-                        <i className="fas fa-sign-in-alt login-btn"></i> Submit
+                        <i className="fas fa-sign-in-alt login-btn"></i>&nbsp; Submit
                      </Button>
                   )}
                </div>

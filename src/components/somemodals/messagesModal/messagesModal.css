@@ -1,6 +1,6 @@
 .messagesModal {
    position: fixed;
-   z-index: 1500;
+   z-index: 1600;
    background-color: white;
    top: 5%;
    padding: 30px;
@@ -14,7 +14,7 @@
 
 #alertMessage {
    position: fixed;
-   z-index: 1500;
+   z-index: 1600;
    top: 2%;
    left: 50%;
    transform: translate(-50%, 0);
@@ -70,12 +70,12 @@
    position: fixed;
    height: 100%;
    width: 100%;
-   border-radius: 8px;
+
    top: 50%;
    left: 50%;
    transform: translate(-50%, -50%);
    background-color: #1b1b1bae;
-   z-index: 98;
+   z-index: 1500;
 }
 
 #confirmModal {

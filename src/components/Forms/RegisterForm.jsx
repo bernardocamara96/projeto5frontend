@@ -94,7 +94,10 @@ export default function RegisterForm({ type }) {
             id="registrationForm"
             className="agileForm"
             onSubmit={handleSubmit}
-            style={{ marginTop: type == "productOwnerRegister" && "2vh" }}
+            style={{
+               marginTop: type === "productOwnerRegister" && "2vh",
+               marginLeft: type === "productOwnerRegister" && "44%",
+            }}
          >
             <div className="banner_register" id="banner-registerform">
                <i className="fas fa-user-plus fa-lg"></i>
@@ -227,11 +230,11 @@ export default function RegisterForm({ type }) {
                   </div>
                </div>
                <Button type="submit" id="registration" className="btn-outline-danger">
-                  <i className="fas fa-user-plus a_registration"></i> Confirm Registration
+                  <i className="fas fa-user-plus a_registration"></i>&nbsp; Confirm Registration
                </Button>
                {type === "normalRegister" && (
                   <Button className="btn-outline-primary" type="button" id="login-btn" onClick={() => navigate("/")}>
-                     <i className="fas fa-sign-in-alt login-btn"></i> Login
+                     <i className="fas fa-sign-in-alt login-btn"></i>&nbsp; Login
                   </Button>
                )}
             </div>

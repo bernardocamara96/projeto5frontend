@@ -87,10 +87,10 @@ export default function UserProfile() {
                   {user.role === "productOwner" && usernameStorage !== username && (
                      <div id="container-btns-userProfile">
                         <Button className="btn-outline-danger " onClick={handleDelete}>
-                           Permanently delete
+                           <i class="fas fa-user-times"></i>&nbsp; Permanently delete
                         </Button>
                         <Button className="btn-outline-danger" onClick={handleDeleteTasks}>
-                           Delete tasks
+                           <i class="bi bi-trash"></i>&nbsp;Delete tasks
                         </Button>
                      </div>
                   )}

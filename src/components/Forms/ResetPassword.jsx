@@ -63,10 +63,10 @@ export default function ResetPassword() {
                   />
                </div>
                <Button className="btn-outline-secondary" id="btn-resetPass" type="submit" onClick={handleClick}>
-                  <i className="bi bi-key-fill"></i> Reset Password
+                  <i className="bi bi-key-fill"></i>&nbsp; Reset Password
                </Button>
                <Button className="btn-outline-primary" type="button" id="login-btn" onClick={() => navigate("/")}>
-                  <i class="fas fa-sign-in-alt login-btn"></i> Login
+                  <i class="fas fa-sign-in-alt login-btn"></i>&nbsp; Login
                </Button>
             </div>
          </form>

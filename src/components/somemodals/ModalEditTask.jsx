@@ -6,6 +6,7 @@ import { editTaskBE, deleteListener, deleteTask, restaureTask } from "../../util
 import editPNG from "../../assets/edit.png";
 import { userStore, usernameStore } from "../../stores/userStore";
 import alertStore from "../../stores/alertStore";
+import Button from "react-bootstrap/Button";
 
 export default function ModalEditTask({ data, setModalVisibility, setFetchTrigger, modalType }) {
    const [categories, setCategories] = useState([]);
@@ -139,43 +140,72 @@ export default function ModalEditTask({ data, setModalVisibility, setFetchTrigge
       <div>
          <div className="tasksModal">
             <form id="taskForm">
-               <div className="row-task">
-                  <h2 id="add-task">{inputDisabled ? "View Task" : "Edit Task"}</h2>
-                  {(role === "scrumMaster" || role === "productOwner" || username === data.username_author) &&
-                     modalType != "deletedTask" && (
-                        <button id="edit-btn" type="button" onClick={() => setInputDisabled((prev) => !prev)}>
-                           <img id="edit-icon" src={editPNG} alt="Edit" />
-                        </button>
+               <div className="row-task ">
+                  <div className="banner_register">
+                     {inputDisabled ? (
+                        <>
+                           <p id="add-task">
+                              {" "}
+                              <i class="fas fa-eye"></i> &nbsp;View task
+                           </p>
+                        </>
+                     ) : (
+                        <>
+                           <p id="add-task">
+                              {" "}
+                              <i class="fas fa-pencil-alt"></i> &nbsp;Edit task
+                           </p>
+                        </>
                      )}
-               </div>
+                  </div>
+                  <div className="content_register">
+                     {(role === "scrumMaster" || role === "productOwner" || username === data.username_author) &&
+                        modalType != "deletedTask" && (
+                           <button id="edit-btn" type="button" onClick={() => setInputDisabled((prev) => !prev)}>
+                              <img id="edit-icon" src={editPNG} alt="Edit" />
+                           </button>
+                        )}
 
-               <ModalContent
-                  categories={categories}
-                  taskTitle={newTaskTitle}
-                  taskDescription={newTaskDescription}
-                  taskPriority={newTaskPriority}
-                  taskStartDate={newTaskStartDate}
-                  taskEndDate={newTaskEndDate}
-                  category_type={newCategory_type}
-                  username_author={data.username_author}
-                  setTaskTitle={setNewTaskTitle}
-                  setTaskDescription={setNewTaskDescription}
-                  setTaskPriority={setNewTaskPriority}
-                  setTaskStartDate={setNewTaskStartDate}
-                  setTaskEndDate={setNewTaskEndDate}
-                  setCategory_type={setNewCategory_type}
-                  inputDisabled={inputDisabled}
-               />
+                     <ModalContent
+                        categories={categories}
+                        taskTitle={newTaskTitle}
+                        taskDescription={newTaskDescription}
+                        taskPriority={newTaskPriority}
+                        taskStartDate={newTaskStartDate}
+                        taskEndDate={newTaskEndDate}
+                        category_type={newCategory_type}
+                        username_author={data.username_author}
+                        setTaskTitle={setNewTaskTitle}
+                        setTaskDescription={setNewTaskDescription}
+                        setTaskPriority={setNewTaskPriority}
+                        setTaskStartDate={setNewTaskStartDate}
+                        setTaskEndDate={setNewTaskEndDate}
+                        setCategory_type={setNewCategory_type}
+                        inputDisabled={inputDisabled}
+                     />
+                  </div>
+               </div>
                <div className="btns-div">
                   {!inputDisabled && (
                      <>
                         <div className="row-submit-edit">
-                           <input id="save-edit-task" type="submit" value="Save Task" onClick={handleSubmit} />
+                           <Button
+                              id="save-edit-task"
+                              className="row-btns-modalTask btn-outline-primary"
+                              type="submit"
+                              onClick={handleSubmit}
+                           >
+                              <i class="fas fa-save"></i>&nbsp; Save Task
+                           </Button>
                         </div>
                         <div className="row-delete">
-                           <button id="delete-task" onClick={handleDelete}>
-                              Delete task
-                           </button>
+                           <Button
+                              id="delete-task"
+                              className="row-btns-modalTask btn-outline-danger"
+                              onClick={handleDelete}
+                           >
+                              <i class="fas fa-trash"></i>&nbsp; Delete task
+                           </Button>
                         </div>
                      </>
                   )}
@@ -183,19 +213,34 @@ export default function ModalEditTask({ data, setModalVisibility, setFetchTrigge
                   {modalType === "deletedTask" && role === "productOwner" && (
                      <>
                         <div className="row-submit-edit">
-                           <input id="save-edit-task" type="submit" value="Restaure Task" onClick={handleSubmit} />
+                           <Button
+                              id="save-edit-task"
+                              className="row-btns-modalTask btn-outline-primary"
+                              type="submit"
+                              onClick={handleSubmit}
+                           >
+                              <i class="fas fa-undo"></i>&nbsp;Restaure Task
+                           </Button>
                         </div>
                         <div className="row-delete">
-                           <button id="delete-task" onClick={handleDelete}>
-                              Delete Permanently
-                           </button>
+                           <Button
+                              id="delete-task"
+                              className="row-btns-modalTask btn-outline-danger"
+                              onClick={handleDelete}
+                           >
+                              <i class="fas fa-trash"></i>&nbsp;Delete Permanently
+                           </Button>
                         </div>
                      </>
                   )}
                   <div className="row-cancel-edit">
-                     <button id="cancel-edit-task" onClick={() => setModalVisibility(false)}>
+                     <Button
+                        id="cancel-edit-task"
+                        onClick={() => setModalVisibility(false)}
+                        className="btn-outline-secondary"
+                     >
                         Cancel
-                     </button>
+                     </Button>
                   </div>
                </div>
             </form>

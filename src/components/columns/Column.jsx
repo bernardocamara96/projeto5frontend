@@ -51,7 +51,7 @@ export default function Column({ title, token, tasks, setFetchTrigger, tasksNumb
             {title === "TO DO" && (
                <>
                   <a id="add-task-btn" className="btn-add" onClick={() => setModalVisibility(true)}>
-                     Add Task
+                     <i class="fas fa-plus"></i>&nbsp;Add Task
                   </a>
                   {modalVisibility && (
                      <ModalTasks

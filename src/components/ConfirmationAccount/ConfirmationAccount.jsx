@@ -118,7 +118,7 @@ export default function ConfirmationAccount({ token }) {
                      />
                   </div>
                   <Button className="btn-outline-secondary" type="submit" id="submit-pass" onClick={handleSubmit}>
-                     Submit
+                     <i class="bi bi-arrow-right-circle fa-lg"></i>&nbsp;Submit
                   </Button>
                </div>
             </form>

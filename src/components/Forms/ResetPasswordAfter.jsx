@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import alertStore from "../../stores/alertStore";
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import Button from "react-bootstrap/Button";
 
 export default function ResetPasswordAfter() {
    const { token } = useParams();
@@ -38,31 +40,52 @@ export default function ResetPasswordAfter() {
 
    return (
       <>
-         <div id="resetPass-div">
-            <h1>Reset Password</h1>
-            <form id="resetPass-form">
-               <label htmlFor="password">New Password</label>
-               <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-               />
-               <label htmlFor="repeatPassword">Repeat Password</label>
-               <input
-                  type="password"
-                  id="repeatPassword"
-                  name="repeatPassword"
-                  value={repeatPassword}
-                  onChange={(e) => setRepeatPassword(e.target.value)}
-                  required
-               />
-               <button type="submit" onClick={handleSubmit}>
-                  Submit new password
-               </button>
-            </form>
+         <div id="resetPass-div" className="agileForm">
+            <div className="banner_register">
+               <i class="fas fa-key fa-lg"></i>
+               <span id="member-login-banner">
+                  <img src={logo} alt="img" className="logo" />
+                  &nbsp;&nbsp;AgileFlow
+               </span>
+            </div>
+            <div className="content_register">
+               <form id="resetPassAfter-form">
+                  <div className="resetPassCol">
+                     <label htmlFor="password">New Password</label>
+                     <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={password}
+                        placeholder="Enter your new password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="form-control"
+                        required
+                     />
+                  </div>
+                  <div className="resetPassCol">
+                     <label htmlFor="repeatPassword">Repeat Password</label>
+                     <input
+                        type="password"
+                        id="repeatPassword"
+                        name="repeatPassword"
+                        value={repeatPassword}
+                        placeholder="Repeat your new password"
+                        onChange={(e) => setRepeatPassword(e.target.value)}
+                        className="form-control"
+                        required
+                     />
+                  </div>
+                  <Button
+                     className="btn-outline-secondary"
+                     id="btn-submit-PassAfter"
+                     type="submit"
+                     onClick={handleSubmit}
+                  >
+                     <i class="bi bi-arrow-right-circle fa-lg"></i>&nbsp; Submit new password
+                  </Button>
+               </form>
+            </div>
          </div>
       </>
    );
