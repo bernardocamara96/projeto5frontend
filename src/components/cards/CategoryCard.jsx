@@ -99,7 +99,7 @@ export default function CategoryCard({ category_type, searchTerm }) {
    return (
       <>
          {removed ? null : categoryVisibility ? (
-            <li className="task-item-deleted column-itemWidth">
+            <li className="task-item-deleted column-itemWidth categoryCard-margin">
                <div className="contentCategories">
                   <input
                      className="categoriesTitle-style"

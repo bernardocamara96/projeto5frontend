@@ -8,6 +8,8 @@ import AddCategory from "../addCategoryDiv/AddCategory";
 import ModalEditTask from "../somemodals/ModalEditTask";
 import UserCard from "../cards/UserCard";
 import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import { useMediaQuery } from "react-responsive";
 
 export default function StandardList({ type }) {
    const user = userStore.getState().user;
@@ -22,6 +24,7 @@ export default function StandardList({ type }) {
    const [userCards, setUserCards] = useState([]);
    const navigate = useNavigate();
    const usernameStorage = usernameStore.getState().username;
+   const isComputer = useMediaQuery({ query: "(min-width: 900px)" });
 
    //fetch the deleted tasks or categories, depending on the page
    useEffect(() => {
@@ -61,21 +64,20 @@ export default function StandardList({ type }) {
       setTaskData(taskData);
    };
 
+   const handleTaskClick = (taskData) => {
+      setModalEditVisibility(true);
+      setTaskData(taskData);
+   };
    return (
-      <div
-         className="mainBoard-settings"
-         id="mainBoard-settings"
-         style={{ marginLeft: user.role === "developer" && "0px" }}
-      >
+      <div className="mainBoard-settings" id="mainBoard-settings">
          <div className="user-list">
-            <br />
-
-            <br />
             <div className="box-container" id="box-deletedTasks">
                {type === "taskList" ? (
                   <>
-                     <div id="title-deleted-tasks">
-                        <h3 id="user-list">List of Deleted Tasks</h3>
+                     <div id="title-deleted-tasks" className="banner_register">
+                        <p id="user-list">
+                           <i class="bi bi-trash"></i>&nbsp;&nbsp;List of Deleted Tasks
+                        </p>
                      </div>
                      <div className="search-container" id="search-container-deleted">
                         <input
@@ -83,14 +85,17 @@ export default function StandardList({ type }) {
                            id="taskSearch"
                            placeholder="🔍 Search tasks by title or description"
                            value={searchTerm}
+                           className="list-searchBar form-control"
                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
                      </div>
                   </>
                ) : type === "categoriesList" ? (
                   <>
-                     <div id="title-deleted-tasks">
-                        <h3 id="user-list">List of Categories</h3>
+                     <div id="title-deleted-tasks" className="banner_register">
+                        <p id="user-list">
+                           <i class="bi bi-tags"></i>&nbsp;&nbsp;List of Categories
+                        </p>
                      </div>
                      <div className="search-container" id="search-container-deleted">
                         <input
@@ -98,6 +103,7 @@ export default function StandardList({ type }) {
                            id="taskSearch"
                            placeholder="🔍 Search categories"
                            value={searchCategory}
+                           className="list-searchBar form-control"
                            onChange={(e) => setSearchCategory(e.target.value)}
                         />
                         <AddCategory setCategoryList={setCategoryList} />
@@ -106,24 +112,30 @@ export default function StandardList({ type }) {
                ) : (
                   type === "usersList" && (
                      <>
-                        <div id="title-deleted-tasks">
-                           <h3 id="user-list">List of Users</h3>
+                        <div id="title-deleted-tasks" className="banner_register">
+                           <p id="user-list">
+                              <i class="fas fa-users"></i>&nbsp;&nbsp;List of Users
+                           </p>
                         </div>
+
                         <div className="search-container" id="search-container-deleted">
                            <input
                               type="text"
                               id="taskSearch"
                               placeholder="🔍 Search users by username"
                               value={searchUser}
+                              className="list-searchBar form-control"
                               onChange={(e) => setSearchUser(e.target.value)}
                            />
                            {user.role !== "developer" && (
-                              <button
+                              <Button
                                  id="addUser-btn"
+                                 className="btn-outline-primary"
                                  onClick={() => navigate("/register", { state: { type: "productOwnerRegister" } })}
                               >
-                                 Add User
-                              </button>
+                                 <i class="fas fa-user-plus"></i>
+                                 {isComputer && <span>&nbsp;&nbsp; Add User</span>}
+                              </Button>
                            )}
                         </div>
                      </>
@@ -147,6 +159,7 @@ export default function StandardList({ type }) {
                                  status={task.status === 100 ? "TO DO" : task.status === 200 ? "DOING" : "DONE"}
                                  setFetchTrigger={setFetchTrigger}
                                  onDoubleClick={handleTaskDoubleClick}
+                                 onClick={handleTaskClick}
                                  searchTerm={searchTerm}
                               />
                            );

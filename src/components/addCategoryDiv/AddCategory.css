@@ -10,17 +10,35 @@
 #addCategory-id input {
    border-top-right-radius: 0px;
    border-bottom-right-radius: 0px;
+   height: 35px;
+   width: 200px;
 }
 
 #addCategory-id button {
    border-top-right-radius: 5px;
    border-bottom-right-radius: 5px;
-   border: transparent;
-   height: 24px;
-   width: 110px;
+   border-top-left-radius: 0px;
+   border-bottom-left-radius: 0px;
+   font-size: 14px;
+   height: 35px;
+   width: 133px;
    cursor: pointer;
+   background-color: white;
+   color: #0d6efd;
+   transition: ease-in-out 0.2s;
 }
 
-#addCategory-id button:hover {
-   background-color: rgb(201, 201, 201);
+@media (max-width: 900px) {
+   #addCategory-id input {
+      width: 80%;
+   }
+   #addCategory-id button {
+      width: 20%;
+   }
+}
+
+#addCategory-id button:hover,
+#addCategory-id button:active {
+   background-color: #0d6efd;
+   color: white;
 }

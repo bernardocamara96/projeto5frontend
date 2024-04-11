@@ -8,8 +8,14 @@ import { usernameStore } from "../../stores/userStore";
 import editPNG from "../../assets/edit.png";
 import Button from "react-bootstrap/Button";
 
-export default function EditOwnProfile({ username, selectedUserRole, inputsDisabled, setInputsDisabled }) {
-   const [passwordActive, setPasswordActive] = useState(false);
+export default function EditOwnProfile({
+   username,
+   selectedUserRole,
+   inputsDisabled,
+   setInputsDisabled,
+   passwordActive,
+   setPasswordActive,
+}) {
    const [phone, setPhone] = useState("");
    const [email, setEmail] = useState("");
    const [oldEmail, setOldEmail] = useState("");
@@ -28,6 +34,7 @@ export default function EditOwnProfile({ username, selectedUserRole, inputsDisab
 
    //function to fetch the user data to fill the form
    useEffect(() => {
+      console.log(setPasswordActive);
       fetchUserData(username)
          .then((response) => {
             if (!response.ok) {
@@ -144,258 +151,278 @@ export default function EditOwnProfile({ username, selectedUserRole, inputsDisab
    };
 
    return (
-      <div id="edit_container">
-         {!passwordActive && (
-            <form className="editForm agileForm" id="editUserForm" onSubmit={handleSubmit}>
-               <div className="banner_register">
-                  <i class="fas fa-user-edit fa-lg"></i>
-                  <p id="usersProfile-p">Edit Profile</p>
-               </div>
-               <div
-                  className="content_register content_editProfile"
-                  style={{ paddingTop: usernameStorage !== username && role !== "productOwner" && "11%" }}
-               >
-                  <div className="agileRow">
-                     <div className="agileCol" id="col-img">
-                        <img name="img_user" id="userLogo-editUser" alt="IMG" src={photo} />
-                     </div>
-                     <div className="agileCol">
-                        {(usernameStorage === username || role === "productOwner") && (
-                           <button
-                              id="editProfile-btn"
-                              type="button"
-                              onClick={() => setInputsDisabled((prev) => !prev)}
-                           >
-                              <img id="editProfile-icon" src={editPNG} alt="Edit" />
-                           </button>
-                        )}
-                     </div>
+      <>
+         <div id="edit_container">
+            {!passwordActive && (
+               <form className="editForm agileForm" id="editUserForm" onSubmit={handleSubmit}>
+                  <div className="banner_register">
+                     <p id="usersProfile-p">
+                        <i class="fas fa-user-edit fa-lg"></i>&nbsp;&nbsp;Edit Profile
+                     </p>
                   </div>
-                  <div className="agileRow row-editUser">
-                     <div className="agileCol">
-                        <label id="username-label" htmlFor="username-field">
-                           Username
-                        </label>
-                        <input
-                           type="text"
-                           name="username"
-                           id="username-field"
-                           maxLength="25"
-                           placeholder="Enter your username"
-                           value={username}
-                           className="input-editOwnprofile form-control"
-                           disabled
-                        />
+                  <div
+                     className="content_register content_editProfile"
+                     style={{ paddingTop: usernameStorage !== username && role !== "productOwner" && "11%" }}
+                  >
+                     <div className="agileRow">
+                        <div className="agileCol" id="col-img">
+                           <img name="img_user" id="userLogo-editUser" alt="IMG" src={photo} />
+                        </div>
+                        <div className="agileCol">
+                           {(usernameStorage === username || role === "productOwner") && (
+                              <button
+                                 id="editProfile-btn"
+                                 type="button"
+                                 onClick={() => setInputsDisabled((prev) => !prev)}
+                              >
+                                 <img
+                                    id="editProfile-icon"
+                                    src={editPNG}
+                                    alt="Edit"
+                                    style={{ border: !inputsDisabled && "solid black 1px" }}
+                                 />
+                              </button>
+                           )}
+                        </div>
                      </div>
-                     <div className="agileCol">
-                        <label id="phone-label" htmlFor="phone-field">
-                           Phone
-                        </label>
-                        <input
-                           type="tel"
-                           name="phone"
-                           id="phone-field"
-                           maxLength="35"
-                           placeholder="Enter your phone"
-                           value={phone}
-                           onChange={(e) => setPhone(e.target.value)}
-                           required
-                           className="input-editOwnprofile form-control"
-                           disabled={inputsDisabled}
-                        />
-                     </div>
-                  </div>
-                  <div className="agileRow row-editUser">
-                     <div className="agileCol">
-                        <label id="email-label" htmlFor="email-field">
-                           Email
-                        </label>
-                        <input
-                           type="email"
-                           name="email"
-                           id="email-field"
-                           maxLength="35"
-                           placeholder="Enter your email"
-                           value={email}
-                           onChange={(e) => setEmail(e.target.value)}
-                           required
-                           className="input-editOwnprofile form-control"
-                           disabled={inputsDisabled}
-                        />
-                     </div>
-                     <div className="agileCol">
-                        <label id="first-name-label" htmlFor="firstname-field">
-                           First Name
-                        </label>
-                        <input
-                           type="text"
-                           name="firstname"
-                           id="firstname-field"
-                           maxLength="35"
-                           placeholder="Enter your First Name"
-                           value={firstname}
-                           onChange={(e) => setFirstname(e.target.value)}
-                           required
-                           className="input-editOwnprofile form-control"
-                           disabled={inputsDisabled}
-                        />
-                     </div>
-                  </div>
-                  <div className="agileRow row-editUser">
-                     <div className="agileCol">
-                        <label id="last-name-label" htmlFor="lastname-field">
-                           Last Name
-                        </label>
-                        <input
-                           type="text"
-                           name="lastname"
-                           id="lastname-field"
-                           maxLength="35"
-                           placeholder="Enter your Last Name"
-                           value={lastname}
-                           onChange={(e) => setLastname(e.target.value)}
-                           required
-                           className="input-editOwnprofile form-control"
-                           disabled={inputsDisabled}
-                        />
-                     </div>
-                     <div className="agileCol">
-                        <label id="URL" htmlFor="photo-field">
-                           Profile Photo
-                        </label>
-                        <input
-                           type="text"
-                           name="photo"
-                           id="photo-field"
-                           maxLength="500"
-                           placeholder="Enter your Photo URL"
-                           value={photo}
-                           onChange={(e) => setPhoto(e.target.value)}
-                           required
-                           className="input-editOwnprofile form-control"
-                           disabled={inputsDisabled}
-                        />
-                     </div>
-                  </div>
-
-                  {role === "productOwner" && usernameStorage !== username && (
                      <div className="agileRow row-editUser">
                         <div className="agileCol">
-                           <label id="role-label" htmlFor="role-field">
-                              Role
+                           <label id="username-label" htmlFor="username-field">
+                              Username
                            </label>
-                           <select
-                              name="role"
-                              id="role-field"
-                              value={userRole}
-                              onChange={(e) => {
-                                 setUserRole(e.target.value);
-                                 setChangeTrigger(true);
-                                 setStatusChange(true);
-                              }}
+                           <input
+                              type="text"
+                              name="username"
+                              id="username-field"
+                              maxLength="25"
+                              placeholder="Enter your username"
+                              value={username}
                               className="input-editOwnprofile form-control"
-                              disabled={inputsDisabled}
-                           >
-                              <option value="developer">Developer</option>
-                              <option value="scrumMaster">Scrum Master</option>
-                              <option value="productOwner">Product Owner</option>
-                           </select>
+                              disabled
+                           />
                         </div>
                         <div className="agileCol">
-                           <label id="inactivate-label" htmlFor="inactivate-field">
-                              State
+                           <label id="phone-label" htmlFor="phone-field">
+                              Phone
                            </label>
-                           <select
-                              name="inactivate"
-                              id="inactivate-field"
-                              value={isDeleted}
-                              onChange={(e) => {
-                                 setIsDeleted(e.target.value);
-                                 setChangeTrigger(true);
-                                 setStatusChange(true);
-                              }}
+                           <input
+                              type="tel"
+                              name="phone"
+                              id="phone-field"
+                              maxLength="35"
+                              placeholder="Enter your phone"
+                              value={phone}
+                              onChange={(e) => setPhone(e.target.value)}
+                              required
                               className="input-editOwnprofile form-control"
                               disabled={inputsDisabled}
-                           >
-                              <option value="false">Active</option>
-                              <option value="true">Inactive</option>
-                           </select>
+                           />
                         </div>
                      </div>
-                  )}
-                  {usernameStorage === username && !inputsDisabled && (
-                     <>
-                        <Button
-                           className="btn-outline-secondary"
-                           id="btn-changePassword"
-                           onClick={(e) => {
-                              e.preventDefault();
-                              setPasswordActive(!passwordActive);
-                           }}
-                        >
-                           <i class="fas fa-key"></i>&nbsp; Change Password
-                        </Button>
-                     </>
-                  )}
-                  {!inputsDisabled && (usernameStorage === username || role === "productOwner") && (
-                     <Button className="btn-outline-primary " id="btn-submitUserProfile" type="submit">
-                        <i className="fas fa-sign-in-alt login-btn"></i>&nbsp; Submit
-                     </Button>
-                  )}
-               </div>
-            </form>
-         )}
+                     <div className="agileRow row-editUser">
+                        <div className="agileCol">
+                           <label id="email-label" htmlFor="email-field">
+                              Email
+                           </label>
+                           <input
+                              type="email"
+                              name="email"
+                              id="email-field"
+                              maxLength="35"
+                              placeholder="Enter your email"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              required
+                              className="input-editOwnprofile form-control"
+                              disabled={inputsDisabled}
+                           />
+                        </div>
+                        <div className="agileCol">
+                           <label id="first-name-label" htmlFor="firstname-field">
+                              First Name
+                           </label>
+                           <input
+                              type="text"
+                              name="firstname"
+                              id="firstname-field"
+                              maxLength="35"
+                              placeholder="Enter your First Name"
+                              value={firstname}
+                              onChange={(e) => setFirstname(e.target.value)}
+                              required
+                              className="input-editOwnprofile form-control"
+                              disabled={inputsDisabled}
+                           />
+                        </div>
+                     </div>
+                     <div className="agileRow row-editUser">
+                        <div className="agileCol">
+                           <label id="last-name-label" htmlFor="lastname-field">
+                              Last Name
+                           </label>
+                           <input
+                              type="text"
+                              name="lastname"
+                              id="lastname-field"
+                              maxLength="35"
+                              placeholder="Enter your Last Name"
+                              value={lastname}
+                              onChange={(e) => setLastname(e.target.value)}
+                              required
+                              className="input-editOwnprofile form-control"
+                              disabled={inputsDisabled}
+                           />
+                        </div>
+                        <div className="agileCol">
+                           <label id="URL" htmlFor="photo-field">
+                              Profile Photo
+                           </label>
+                           <input
+                              type="text"
+                              name="photo"
+                              id="photo-field"
+                              maxLength="500"
+                              placeholder="Enter your Photo URL"
+                              value={photo}
+                              onChange={(e) => setPhoto(e.target.value)}
+                              required
+                              className="input-editOwnprofile form-control"
+                              disabled={inputsDisabled}
+                           />
+                        </div>
+                     </div>
 
+                     {role === "productOwner" && usernameStorage !== username && (
+                        <div className="agileRow row-editUser">
+                           <div className="agileCol">
+                              <label id="role-label" htmlFor="role-field">
+                                 Role
+                              </label>
+                              <select
+                                 name="role"
+                                 id="role-field"
+                                 value={userRole}
+                                 onChange={(e) => {
+                                    setUserRole(e.target.value);
+                                    setChangeTrigger(true);
+                                    setStatusChange(true);
+                                 }}
+                                 className="input-editOwnprofile form-control"
+                                 disabled={inputsDisabled}
+                              >
+                                 <option value="developer">Developer</option>
+                                 <option value="scrumMaster">Scrum Master</option>
+                                 <option value="productOwner">Product Owner</option>
+                              </select>
+                           </div>
+                           <div className="agileCol">
+                              <label id="inactivate-label" htmlFor="inactivate-field">
+                                 State
+                              </label>
+                              <select
+                                 name="inactivate"
+                                 id="inactivate-field"
+                                 value={isDeleted}
+                                 onChange={(e) => {
+                                    setIsDeleted(e.target.value);
+                                    setChangeTrigger(true);
+                                    setStatusChange(true);
+                                 }}
+                                 className="input-editOwnprofile form-control"
+                                 disabled={inputsDisabled}
+                              >
+                                 <option value="false">Active</option>
+                                 <option value="true">Inactive</option>
+                              </select>
+                           </div>
+                        </div>
+                     )}
+                     {usernameStorage === username && !inputsDisabled && (
+                        <>
+                           <Button
+                              className="btn-outline-secondary"
+                              id="btn-changePassword"
+                              onClick={(e) => {
+                                 e.preventDefault();
+                                 setPasswordActive(!passwordActive);
+                              }}
+                           >
+                              <i class="fas fa-key"></i>&nbsp; Change Password
+                           </Button>
+                        </>
+                     )}
+                     {!inputsDisabled && (usernameStorage === username || role === "productOwner") && (
+                        <Button className="btn-outline-primary " id="btn-submitUserProfile" type="submit">
+                           <i className="fas fa-sign-in-alt login-btn"></i>&nbsp; Submit
+                        </Button>
+                     )}
+                  </div>
+               </form>
+            )}
+         </div>
          {passwordActive && (
-            <div className="editForm passForm">
+            <div className="editForm agileForm" id="editPass-form">
                <div className="banner_register">
-                  <p id="member-registration-banner">Change Password</p>
+                  <p id="change-pass-banner">
+                     <i class="fas fa-key"></i>&nbsp;&nbsp;Change Password
+                  </p>
                </div>
                <div className="content_register content_editProfile" id="content_pass">
-                  <label id="oldPassword-label" htmlFor="oldPassword-field">
-                     Old Password
-                  </label>
-                  <input
-                     type="password"
-                     name="oldPassword"
-                     id="oldPassword-field"
-                     maxLength="35"
-                     placeholder="Enter your phone"
-                     value={oldPassword}
-                     onChange={(e) => setOldPassword(e.target.value)}
-                  />
-                  <label id="newPass-label" htmlFor="newPass-field">
-                     New Password
-                  </label>
-                  <input
-                     type="password"
-                     name="newPass"
-                     id="newPass-field"
-                     maxLength="35"
-                     placeholder="Enter your phone"
-                     value={newPassword}
-                     onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                  <label id="repeatPass-label" htmlFor="repeatPass-field">
-                     Repeat Password
-                  </label>
-                  <input
-                     type="password"
-                     name="repeatPass"
-                     id="repeatPass-field"
-                     maxLength="35"
-                     placeholder="Enter your phone"
-                     value={repeatPassword}
-                     onChange={(e) => setRepeatPassword(e.target.value)}
-                  />
-                  <button className="btnChangePassword" onClick={() => setPasswordActive(false)}></button>
+                  <div className="editPass-row">
+                     <label id="oldPassword-label" htmlFor="oldPassword-field">
+                        Old Password
+                     </label>
+                     <input
+                        type="password"
+                        name="oldPassword"
+                        id="oldPassword-field"
+                        maxLength="35"
+                        placeholder="Enter your old password"
+                        className="form-control passEdit-field"
+                        value={oldPassword}
+                        onChange={(e) => setOldPassword(e.target.value)}
+                     />
+                  </div>
+                  <div className="editPass-row">
+                     <label id="newPass-label" htmlFor="newPass-field">
+                        New Password
+                     </label>
+                     <input
+                        type="password"
+                        name="newPass"
+                        id="newPass-field"
+                        maxLength="35"
+                        placeholder="Enter your new password"
+                        value={newPassword}
+                        className="form-control passEdit-field"
+                        onChange={(e) => setNewPassword(e.target.value)}
+                     />
+                  </div>
+                  <div className="editPass-row">
+                     <label id="repeatPass-label" htmlFor="repeatPass-field">
+                        Repeat Password
+                     </label>
+                     <input
+                        type="password"
+                        name="repeatPass"
+                        id="repeatPass-field"
+                        maxLength="35"
+                        placeholder="Repeat your new password"
+                        value={repeatPassword}
+                        className="form-control passEdit-field"
+                        onChange={(e) => setRepeatPassword(e.target.value)}
+                     />
+                  </div>
+                  <Button className="btnChangePassword btn-outline-secondary" onClick={() => setPasswordActive(false)}>
+                     <i class="fas fa-arrow-left"></i>&nbsp; Back to Edition
+                  </Button>
 
-                  <button className="btnChangePassword" onClick={handleSavePassword}>
-                     Save Password
-                  </button>
+                  <Button className="btnChangePassword btn-outline-primary" onClick={handleSavePassword}>
+                     <i class="fas fa-save"></i> &nbsp;Save Password
+                  </Button>
                </div>
             </div>
          )}
-      </div>
+      </>
    );
 }

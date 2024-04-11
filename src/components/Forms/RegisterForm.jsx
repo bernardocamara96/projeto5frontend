@@ -102,8 +102,14 @@ export default function RegisterForm({ type }) {
             <div className="banner_register" id="banner-registerform">
                <i className="fas fa-user-plus fa-lg"></i>
                <span id="member-registration-banner">
-                  <img src={logo} alt="img" className="logo" />
-                  &nbsp;&nbsp;AgileFlow
+                  {type === "productOwnerRegister" ? (
+                     <p id="add-user-banner">Add user</p>
+                  ) : (
+                     <>
+                        <img src={logo} alt="img" className="logo" />
+                        &nbsp;&nbsp;AgileFlow
+                     </>
+                  )}
                </span>
             </div>
 

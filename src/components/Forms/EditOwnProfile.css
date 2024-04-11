@@ -31,6 +31,11 @@
    #container-userProfile {
       justify-content: center;
    }
+   #editPass-form {
+      width: 80%;
+      margin-left: 35%;
+      margin-top: 0px;
+   }
 }
 
 @media (max-width: 640px) and (min-width: 590px) {
@@ -42,6 +47,12 @@
    }
 }
 
+@media (min-width: 590px) and (max-width: 1000px) {
+   #editPass-form {
+      width: 400px;
+      margin-left: 170px;
+   }
+}
 @media (max-width: 1000px) {
    #container-userProfile {
       width: 90%;
@@ -97,9 +108,6 @@
    padding-left: 5%;
 }
 
-#content_pass {
-   padding-top: 11%;
-}
 input {
    padding: 4px;
 }
@@ -184,4 +192,34 @@ input:disabled {
    border: solid black 1px;
 
    transform: translate(-50%);
+}
+
+@media (min-width: 1000px) {
+   #editPass-form {
+      width: 700px;
+      margin-left: 170px;
+   }
+}
+
+#change-pass-banner {
+   font-weight: bold;
+   margin-bottom: 0px;
+}
+
+.btn-outline-primary {
+   background-color: white;
+}
+
+.btn-outline-secondary {
+   background-color: white;
+}
+
+.passEdit-field {
+   border: 1px solid #a1a1a1;
+}
+
+.editPass-row {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
 }

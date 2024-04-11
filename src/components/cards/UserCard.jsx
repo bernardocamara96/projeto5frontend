@@ -41,8 +41,10 @@ export default function UserCard({
       <>
          {userVisibility && (
             <li
-               className="user-item"
-               style={{ border: isActive ? "solid black" : "solid transparent" }}
+               className={`user-item ${
+                  isDeleted ? "isDeleted-class" : isConfirmed ? "isConfirmed-class" : "isNotConfirmed-class"
+               }`}
+               style={{ border: isActive && "solid black" }}
                onDoubleClick={() => navigate(`/userProfile/${username}`, { replace: true })}
             >
                <div
@@ -55,13 +57,17 @@ export default function UserCard({
                         : "rgba(0, 60, 255, 0.7)",
                   }}
                >
-                  <h3>{username}</h3>
+                  {role === "developer" ? (
+                     <h3>Developer</h3>
+                  ) : role === "scrumMaster" ? (
+                     <h3>Scrum Master</h3>
+                  ) : (
+                     <h3>Product Owner</h3>
+                  )}
                </div>
                <div className="content" id="usercard-content">
                   <img id="userPhoto" src={photoURL} alt="userPhoto" />
-                  <div className="user-role">
-                     {role === "developer" ? "Developer" : role === "scrumMaster" ? "Scrum Master" : "Product Owner"}
-                  </div>
+                  <div className="user-role">{username}</div>
                </div>
             </li>
          )}

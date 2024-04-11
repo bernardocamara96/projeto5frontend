@@ -16,6 +16,7 @@ import Button from "react-bootstrap/Button";
 export default function UserProfile() {
    const { username } = useParams();
 
+   const [passwordActive, setPasswordActive] = useState(false);
    const user = userStore.getState().user;
    const usernameStorage = usernameStore.getState().username;
    const { setConfirmMessage, setConfirmVisible, setConfirmCallback } = alertStore();
@@ -74,27 +75,31 @@ export default function UserProfile() {
                   username={username}
                   inputsDisabled={inputsDisabled}
                   setInputsDisabled={setInputsDisabled}
+                  passwordActive={passwordActive}
+                  setPasswordActive={setPasswordActive}
                />
-               <div id="userStats-btns">
-                  <UsersStatistics
-                     username={username}
-                     inputsDisabled={inputsDisabled}
-                     setInputsDisabled={setInputsDisabled}
-                  />
+               {!passwordActive && (
+                  <div id="userStats-btns">
+                     <UsersStatistics
+                        username={username}
+                        inputsDisabled={inputsDisabled}
+                        setInputsDisabled={setInputsDisabled}
+                     />
 
-                  {console.log("username  " + username)}
-                  {console.log("usernameStorage " + usernameStorage)}
-                  {user.role === "productOwner" && usernameStorage !== username && (
-                     <div id="container-btns-userProfile">
-                        <Button className="btn-outline-danger " onClick={handleDelete}>
-                           <i class="fas fa-user-times"></i>&nbsp; Permanently delete
-                        </Button>
-                        <Button className="btn-outline-danger" onClick={handleDeleteTasks}>
-                           <i class="bi bi-trash"></i>&nbsp;Delete tasks
-                        </Button>
-                     </div>
-                  )}
-               </div>
+                     {console.log("username  " + username)}
+                     {console.log("usernameStorage " + usernameStorage)}
+                     {user.role === "productOwner" && usernameStorage !== username && (
+                        <div id="container-btns-userProfile">
+                           <Button className="btn-outline-danger " onClick={handleDelete}>
+                              <i class="fas fa-user-times"></i>&nbsp; Permanently delete
+                           </Button>
+                           <Button className="btn-outline-danger" onClick={handleDeleteTasks}>
+                              <i class="bi bi-trash"></i>&nbsp;Delete tasks
+                           </Button>
+                        </div>
+                     )}
+                  </div>
+               )}
             </div>
          </main>
          <Footer />

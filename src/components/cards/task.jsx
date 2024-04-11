@@ -130,7 +130,15 @@ export default function Task({
                <span>{category_type.substring(0, 8)}</span>
             </div>
          </div>
-         <div className="lower-side-task">
+         <div
+            className={`lower-side-task ${
+               status === "TO DO"
+                  ? "toDo-task-borderBottom"
+                  : status === "DOING"
+                  ? "doing-task-borderBottom"
+                  : status === "DONE" && "done-task-borderBottom"
+            }`}
+         >
             <div className="content">
                <p id="description-task">
                   {description.length > 42 ? description.substring(0, 38) + "..." : description}
@@ -164,24 +172,38 @@ export default function Task({
                }}
             >
                {status === "TO DO" || type == "non-draggable" ? null : (
-                  <Button style={{ visibility: buttonVisibility }} children="<" onClick={handlePreviousButton}></Button>
+                  <Button
+                     className="btn-secondary"
+                     style={{ visibility: buttonVisibility }}
+                     children="<"
+                     onClick={handlePreviousButton}
+                  ></Button>
                )}
 
                {type === "non-draggable" && user.role === "productOwner" && (
-                  <Button style={{ visibility: buttonVisibility }} onClick={handleRestaure}>
+                  <Button className="btn-secondary" style={{ visibility: buttonVisibility }} onClick={handleRestaure}>
                      &#x21bb;
                   </Button>
                )}
                {((type != "non-draggable" &&
                   (username_author === username || user.role === "productOwner" || user.role === "scrumMaster")) ||
                   (type === "non-draggable" && user.role === "productOwner")) && (
-                  <Button className="btn-dlt" style={{ visibility: buttonVisibility }} onClick={handleDelete}>
+                  <Button
+                     className="btn-dlt btn-secondary"
+                     style={{ visibility: buttonVisibility }}
+                     onClick={handleDelete}
+                  >
                      <img src={trashIcon} alt="del" />
                   </Button>
                )}
 
                {status === "DONE" || type === "non-draggable" ? null : (
-                  <Button style={{ visibility: buttonVisibility }} children=">" onClick={handleNextButton}></Button>
+                  <Button
+                     className="btn-secondary"
+                     style={{ visibility: buttonVisibility }}
+                     children=">"
+                     onClick={handleNextButton}
+                  ></Button>
                )}
             </ButtonGroup>
          </div>

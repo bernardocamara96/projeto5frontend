@@ -42,6 +42,7 @@ export default function ModalTasks({ token, setModalVisibility, setFetchTrigger 
    // Function to handle the submit of the add task form
    const handleSubmit = (e) => {
       e.preventDefault();
+
       addTaskBE(token, taskTitle, taskDescription, taskPriority, taskStartDate, taskEndDate, category_type).then(
          function (response) {
             if (response.status == 201) {
@@ -72,7 +73,7 @@ export default function ModalTasks({ token, setModalVisibility, setFetchTrigger 
             <form id="taskForm">
                <div className="banner_register">
                   <p id="add-task">
-                     <i class="fas fa-plus"></i>&nbsp;Add Task
+                     <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Task
                   </p>
                </div>
                <div className="content_register">

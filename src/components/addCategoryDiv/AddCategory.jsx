@@ -3,10 +3,13 @@ import { addCategory } from "../../utilities/services";
 import { useState } from "react";
 import { userStore } from "../../stores/userStore";
 import alertStore from "../../stores/alertStore";
+import Button from "react-bootstrap/Button";
+import { useMediaQuery } from "react-responsive";
 
 export default function AddCategory({ setCategoryList }) {
    const [category, setCategory] = useState("");
    const user = userStore.getState().user;
+   const isMobile = useMediaQuery({ query: "(max-width: 920px)" });
 
    //function to set the alert messages
    function handleAlert(message, error) {
@@ -44,11 +47,13 @@ export default function AddCategory({ setCategoryList }) {
                   type="text"
                   data-testid="category-input"
                   value={category}
+                  className="form-control"
                   onChange={(e) => setCategory(e.target.value)}
                />
-               <button data-testid="add-category-button" id="addCategory-btn" onClick={handleClick}>
-                  Add Category
-               </button>
+               <Button data-testid="add-category-button btn-outline-primary" id="addCategory-btn" onClick={handleClick}>
+                  <i class="fas fa-plus fa-sm"></i>
+                  {!isMobile && <span>&nbsp; Add Category</span>}
+               </Button>
             </div>
          )}
       </>

@@ -56,6 +56,7 @@ export default function ModalEditTask({ data, setModalVisibility, setFetchTrigge
    // Function to handle the submit of the edit task form
    const handleSubmit = (e) => {
       e.preventDefault();
+
       if (modalType !== "deletedTask") {
          editTaskBE(
             token,
@@ -74,6 +75,7 @@ export default function ModalEditTask({ data, setModalVisibility, setFetchTrigge
 
                handleAlert("Task edited successfully!", false);
             } else if (response.status === 400) {
+               console.log("Invalid data, please check the fields and try again");
                handleAlert("Error editing task :(", true);
             } else if (response.status === 403) {
                handleAlert("You don't have permission to edit this task :(", true);
@@ -146,14 +148,14 @@ export default function ModalEditTask({ data, setModalVisibility, setFetchTrigge
                         <>
                            <p id="add-task">
                               {" "}
-                              <i class="fas fa-eye"></i> &nbsp;View task
+                              <i class="fas fa-eye"></i> &nbsp;&nbsp;View task
                            </p>
                         </>
                      ) : (
                         <>
                            <p id="add-task">
                               {" "}
-                              <i class="fas fa-pencil-alt"></i> &nbsp;Edit task
+                              <i class="fas fa-pencil-alt"></i> &nbsp;&nbsp;Edit task
                            </p>
                         </>
                      )}
@@ -161,7 +163,12 @@ export default function ModalEditTask({ data, setModalVisibility, setFetchTrigge
                   <div className="content_register">
                      {(role === "scrumMaster" || role === "productOwner" || username === data.username_author) &&
                         modalType != "deletedTask" && (
-                           <button id="edit-btn" type="button" onClick={() => setInputDisabled((prev) => !prev)}>
+                           <button
+                              id="edit-btn"
+                              type="button"
+                              onClick={() => setInputDisabled((prev) => !prev)}
+                              style={{ border: !inputDisabled && "solid black 1px" }}
+                           >
                               <img id="edit-icon" src={editPNG} alt="Edit" />
                            </button>
                         )}

@@ -121,13 +121,13 @@ async function editTaskBE(token, id, title, description, priority, startDate, en
 
    // Inclui datas apenas se forem fornecidas e se não forem manda remover no back
    if (startDate && startDate !== "") taskUpdates.startDate = startDate;
-   else taskUpdates.removeStartDate = true;
    if (endDate && endDate !== "") taskUpdates.endDate = endDate;
-   else taskUpdates.removeEndDate = true;
 
    try {
+      console.log(id);
+      console.log(taskUpdates);
       return await fetch(`${baseURL}tasks/edit/${id}`, {
-         method: "PUT", // Usando PATCH para edição parcial
+         method: "PATCH", // Usando PATCH para edição parcial
          headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

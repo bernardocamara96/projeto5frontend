@@ -97,3 +97,7 @@
    display: flex;
    align-items: center;
 }
+
+#add-user-banner {
+   margin-bottom: 0px;
+}

@@ -1,5 +1,6 @@
 import Task from "./task";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 export default function NonDraggableTask({
    id,
@@ -11,15 +12,20 @@ export default function NonDraggableTask({
    startDate,
    endDate,
    onDoubleClick,
+   onClick,
    setFetchTrigger,
    status,
    searchTerm,
 }) {
    const [buttonVisibility, setButtonVisibility] = useState("hidden");
+   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
    // Function to handle the double click on a task, it will pass the task data to the parent component
    const handleDoubleClick = () => {
       onDoubleClick({ id, title, description, username_author, category_type, priority, startDate, endDate });
+   };
+   const handleClick = () => {
+      onClick({ id, title, description, username_author, category_type, priority, startDate, endDate });
    };
 
    // Function to determine task visibility based on the search term
@@ -43,6 +49,7 @@ export default function NonDraggableTask({
             <li
                className="task-item"
                onDoubleClick={handleDoubleClick}
+               onClick={isMobile && handleClick}
                onMouseEnter={() => setButtonVisibility("visible")}
                onMouseLeave={() => setButtonVisibility("hidden")}
             >

@@ -22,7 +22,8 @@
    overflow-y: auto; /* Habilita a rolagem vertical */
    display: flex;
    flex-direction: row;
-   padding: 10px; /* Espaçamento interno */
+   padding: 5px;
+   padding-bottom: 0px;
    border-radius: 8px; /* Bordas arredondadas */
    background: var(--form-background); /* Fundo levemente transparente */
 }
@@ -72,12 +73,19 @@
    border: white;
    border-radius: 25px;
    cursor: pointer;
-   transform: translate(99px, -5px);
+   margin-left: 88%;
    background-color: white;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 #deleteBtn:hover,
 .button-edit:hover {
    box-shadow: 0 0 1px 0px rgba(0, 0, 0);
    background-color: rgb(225, 225, 225);
+}
+
+.categoryCard-margin {
+   margin-bottom: 13px;
 }

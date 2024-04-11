@@ -17,6 +17,11 @@ export default function Column({ title, token, tasks, setFetchTrigger, tasksNumb
       setTaskData(taskData);
    };
 
+   const handleTaskClick = (taskData) => {
+      setModalEditVisibility(true);
+      setTaskData(taskData);
+   };
+
    return (
       <>
          <div className="col-todo">
@@ -35,6 +40,7 @@ export default function Column({ title, token, tasks, setFetchTrigger, tasksNumb
                            <DraggableTask
                               key={component.id}
                               index={index}
+                              onClick={handleTaskClick}
                               onDoubleClick={handleTaskDoubleClick}
                               {...component}
                               setFetchTrigger={setFetchTrigger}

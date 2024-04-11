@@ -11,10 +11,14 @@ export default function CategoriesList() {
    return (
       <>
          <HeaderScrum />
+
          <div id="main-taskList">
             <AsideMenu type={user.role} />
-            <StandardList type="categoriesList" />
+            <main className="scrum-main">
+               <StandardList type="categoriesList" />
+            </main>
          </div>
+
          <Footer />
          <AlertsMessage />
       </>
