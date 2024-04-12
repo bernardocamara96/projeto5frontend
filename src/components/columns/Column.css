@@ -1,45 +1,17 @@
 .col-todo {
-   background-color: rgba(233, 233, 233, 0.707);
+   background-color: #e4e4e4;
    border-radius: 8px;
    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
    flex: 1;
    padding: 0px;
-
+   padding-top: 5px;
    text-align: center;
-   height: 580px;
+   height: 100%;
    max-width: 350px;
-   min-width: 350px;
+   width: 33%;
    display: flex;
    flex-direction: column;
 }
-
-.scrolable-ul {
-   overflow-y: auto;
-   height: 100%;
-}
-/* Personaliza a barra de rolagem para elementos com .scrolable-ul */
-.scrolable-ul::-webkit-scrollbar {
-   width: 8px; /* Espessura da barra de rolagem */
-}
-
-.scrolable-ul::-webkit-scrollbar-track {
-   background: var(--tertiary-color); /* Cor do trilho da barra de rolagem */
-   border-radius: 8px;
-}
-
-.scrolable-ul::-webkit-scrollbar-thumb {
-   background: #888; /* Cor da barra de rolagem */
-   border-radius: 8px; /*Arredonda os cantos*/
-}
-
-.scrolable-ul::-webkit-scrollbar-thumb:hover {
-   background: #555; /* Cor da barra de rolagem ao passar o mouse */
-}
-
-ul {
-   padding: 0;
-}
-
 .header-list {
    display: flex;
    align-items: center;
@@ -47,9 +19,78 @@ ul {
    margin-bottom: 10px;
 }
 
+@media (max-width: 780px) {
+   .col-todo {
+      min-height: 25vh;
+      max-height: 25vh;
+      width: 100%;
+      max-width: 100%;
+   }
+   .ul-tasks {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+   }
+   .scrolable-ul-col {
+      overflow-x: auto;
+      overflow-y: hidden;
+      width: 100%;
+   }
+   .ul-tasks .task-item {
+      min-width: 200px;
+   }
+   .header-list {
+      margin-bottom: 0px;
+   }
+   #add-task-btn {
+      height: 30px;
+      font-size: 14px;
+   }
+   .search-container-homepage {
+      margin-top: 10px;
+      margin-bottom: 10px;
+   }
+   .task-item {
+      max-width: 220px;
+      min-width: 220px;
+   }
+}
+
+@media (min-width: 770px) {
+   .scrolable-ul-col {
+      overflow-y: auto;
+      height: 100%;
+      max-height: 65vh;
+   }
+}
+/* Personaliza a barra de rolagem para elementos com .scrolable-ul */
+.scrolable-ul-col::-webkit-scrollbar {
+   width: 8px;
+   height: 6px; /* Espessura da barra de rolagem */
+}
+
+.scrolable-ul-col::-webkit-scrollbar-track {
+   background: var(--tertiary-color); /* Cor do trilho da barra de rolagem */
+   border-radius: 8px;
+}
+
+.scrolable-ul-col::-webkit-scrollbar-thumb {
+   background: #888; /* Cor da barra de rolagem */
+   border-radius: 8px; /*Arredonda os cantos*/
+}
+
+.scrolable-ul-col::-webkit-scrollbar-thumb:hover {
+   background: #555; /* Cor da barra de rolagem ao passar o mouse */
+}
+
+ul {
+   padding: 0;
+}
+
 #col-todo-text {
    flex-grow: 1;
    margin-left: 50px;
+   margin-top: 5px;
 }
 
 .count-div-circle {
@@ -61,17 +102,26 @@ ul {
    margin-right: 7px;
 }
 
-#add-task-btn:hover {
-   background-color: rgba(74, 74, 74, 0.707);
+.count-div-circle h3 {
+   margin-top: 5px;
+   margin-bottom: 0px;
+   line-height: var(--bs-body-line-height);
 }
 
 #add-task-btn {
-   background-color: rgba(114, 114, 114, 0.707);
-   border-bottom-right-radius: 5px;
-   border-bottom-left-radius: 5px;
-   cursor: pointer;
-   padding: 6px;
-   font-weight: bold;
+   border-top-right-radius: 0px;
+   border-top-left-radius: 0px;
+   color: black;
+   background-color: #9c9c9c;
+}
+
+#add-task-btn:hover {
+   color: white;
+   background-color: #8d8d8d;
+}
+#add-task-btn:active {
+   color: black;
+   background-color: #8d8d8d;
 }
 
 .ul-tasks {

@@ -72,3 +72,22 @@ main {
 select {
    cursor: pointer;
 }
+
+.search-container-homepage {
+   display: flex;
+   flex-direction: row;
+   margin-top: 20px;
+   margin-left: 6%;
+   align-items: center;
+   margin-bottom: 20px;
+}
+
+#taskSearchHomepage {
+   height: 30px;
+   border: 1px solid #a1a1a1;
+   width: 50%;
+}
+
+#scrumPage-content {
+   margin-left: 3%;
+}

@@ -14,6 +14,7 @@
    overflow-y: auto; /* Enable vertical scrolling when needed */
    max-height: calc(100vh - 20px); /* Adjust as needed */
 }
+
 @media (max-width: 680px) {
    .tasksModal {
       width: 80%;

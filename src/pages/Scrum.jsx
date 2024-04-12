@@ -38,13 +38,14 @@ export default function Scrum() {
          <HeaderScrum />
          <AsideMenu />
          <main id="scrumMain" className="scrum-main">
-            <div id="scrum-content">
+            <div id="scrumPage-content">
                <div className="search-container-homepage" id="search-container-homepage">
                   <input
                      type="text"
                      id="taskSearchHomepage"
                      placeholder="🔍 Search tasks by title or description"
                      value={searchTermHome}
+                     className="form-control"
                      onChange={(e) => setSearchTermHome(e.target.value)}
                      style={{ marginLeft: user.role === "developer" && "390px" }}
                   />
@@ -68,7 +69,6 @@ export default function Scrum() {
                />
             </div>
          </main>
-         ;
          <Footer />
          <AlertsMessage />
       </>

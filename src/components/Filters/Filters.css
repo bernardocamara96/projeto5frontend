@@ -1,18 +1,25 @@
-.filter-section {
-   flex-grow: 1;
-   margin-right: 10px;
+#filter-section {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
 }
 
-.btn-filters,
 .homepage-filters {
+   background-color: #e4e4e4;
+   border: 1px solid #a1a1a1;
+   appearance: none;
+   color: var(--bs-body-color);
+   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.homepage-filters,
+.btn-filters {
    margin-left: 8px;
    border-radius: 5px;
-   height: 25px;
-   background-color: rgba(233, 233, 233, 0.707);
-   border: black 1.5px solid;
-   color: black;
+   height: 28px;
+   padding: 2px 5px;
+   text-align: center;
 }
-
 .homepage-filters:hover,
 .btn-filters:hover {
    box-shadow: 0px 0px 1px 1px black;
@@ -29,4 +36,23 @@
 #filter-btn:hover,
 #clean-filter-btn:hover {
    background-color: rgba(197, 197, 197, 0.707);
+}
+
+@media (max-width: 1000px) {
+   #taskSearchHomepage {
+      width: 50%;
+   }
+}
+
+@media (max-width: 660px) {
+   .btn-filters,
+   .homepage-filters {
+      font-size: 13px;
+   }
+   #user-filter {
+      margin-left: 5px;
+   }
+   #taskSearchHomepage {
+      width: 35%;
+   }
 }

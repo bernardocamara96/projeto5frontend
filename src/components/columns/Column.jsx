@@ -5,6 +5,7 @@ import Task from "../cards/task.jsx";
 import ModalEditTask from "../somemodals/ModalEditTask.jsx";
 import { Droppable } from "react-beautiful-dnd";
 import DraggableTask from "../cards/DraggableTask";
+import Button from "react-bootstrap/Button";
 
 export default function Column({ title, token, tasks, setFetchTrigger, tasksNumber, searchTerm }) {
    const [modalVisibility, setModalVisibility] = useState(false);
@@ -32,7 +33,7 @@ export default function Column({ title, token, tasks, setFetchTrigger, tasksNumb
                   <h3 id="todo-count">{tasksNumber}</h3>
                </div>
             </div>
-            <div className="scrolable-ul">
+            <div className="scrolable-ul-col">
                <Droppable droppableId={title} key={title} type="COLUMN">
                   {(provided) => (
                      <ul className="ul-tasks" id={title} ref={provided.innerRef} {...provided.droppableProps}>
@@ -56,9 +57,9 @@ export default function Column({ title, token, tasks, setFetchTrigger, tasksNumb
 
             {title === "TO DO" && (
                <>
-                  <a id="add-task-btn" className="btn-add" onClick={() => setModalVisibility(true)}>
+                  <Button id="add-task-btn" className="btn-add btn-secondary" onClick={() => setModalVisibility(true)}>
                      <i class="fas fa-plus"></i>&nbsp;Add Task
-                  </a>
+                  </Button>
                   {modalVisibility && (
                      <ModalTasks
                         token={token}

@@ -12,6 +12,8 @@ import {
 import { useEffect, useState } from "react";
 import { userStore } from "../../stores/userStore";
 import filterStore from "../../stores/filterStore";
+import Button from "react-bootstrap/Button";
+import { useMediaQuery } from "react-responsive";
 
 export default function Filters({ tasks, setTasks, fetchTrigger, setFetchTrigger }) {
    const user = userStore.getState().user;
@@ -20,6 +22,8 @@ export default function Filters({ tasks, setTasks, fetchTrigger, setFetchTrigger
    const [categoriesSelect, setCategoriesSelect] = useState([]);
    const [seletectedUsername, setSelectedUsername] = useState(usernameFilter);
    const [selectedCategory, setSelectedCategory] = useState(categoryFilter);
+   const isMobile = useMediaQuery({ query: "(max-width: 1000px)" });
+   const is760 = useMediaQuery({ query: "(max-width:760px" });
 
    const { setTODOtasks, setDOINGtasks, setDONEtasks } = setTasks;
    console.log(setTODOtasks);
@@ -166,7 +170,7 @@ export default function Filters({ tasks, setTasks, fetchTrigger, setFetchTrigger
                updateUsernameFilter(e.target.value);
             }}
          >
-            <option value="default">All Users</option>
+            <option value="default">{!isMobile && <span>All </span>}Users</option>
             {usersSelect.map((username) => (
                <option key={username} value={username}>
                   {username}
@@ -182,19 +186,19 @@ export default function Filters({ tasks, setTasks, fetchTrigger, setFetchTrigger
                updateCategoryFilter(e.target.value);
             }}
          >
-            <option value="default">All Categories</option>
+            <option value="default">{!isMobile && <span>All</span>} Categories</option>
             {categoriesSelect.map((category) => (
                <option key={category} value={category}>
                   {category}
                </option>
             ))}
          </select>
-         <button className="btn-filters" id="filter-btn" onClick={handleClick}>
-            Apply Filter
-         </button>
-         <button className="btn-filters" id="clean-filter-btn" onClick={cleanFilters}>
-            Clean Filter
-         </button>
+         <Button className="btn-filters btn-outline-secondary" id="filter-btn" onClick={handleClick}>
+            {is760 ? <i class="fas fa-filter"></i> : isMobile ? "Apply" : "Apply Filter"}
+         </Button>
+         <Button className="btn-filters btn-outline-secondary" id="clean-filter-btn" onClick={cleanFilters}>
+            {is760 ? <i class="fas fa-times-circle"></i> : isMobile ? "Clean" : "Clean Filter"}
+         </Button>
       </div>
    );
 }
