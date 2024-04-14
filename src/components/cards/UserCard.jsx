@@ -41,9 +41,7 @@ export default function UserCard({
       <>
          {userVisibility && (
             <li
-               className={`user-item ${
-                  isDeleted ? "isDeleted-class" : isConfirmed ? "isConfirmed-class" : "isNotConfirmed-class"
-               }`}
+               className="user-item"
                style={{ border: isActive && "solid black" }}
                onDoubleClick={() => navigate(`/userProfile/${username}`, { replace: true })}
             >
@@ -65,7 +63,13 @@ export default function UserCard({
                      <h3>Product Owner</h3>
                   )}
                </div>
-               <div className="content" id="usercard-content">
+
+               <div
+                  className={`content  ${
+                     isDeleted ? "isDeleted-class" : isConfirmed ? "isConfirmed-class" : "isNotConfirmed-class"
+                  }`}
+                  id="usercard-content"
+               >
                   <img id="userPhoto" src={photoURL} alt="userPhoto" />
                   <div className="user-role">{username}</div>
                </div>

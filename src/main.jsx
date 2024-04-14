@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import AccountConfirmation from "./pages/AccountConfirmation.jsx";
 import ResetPass from "./pages/ResetPass.jsx";
 import ResetPassAfter from "./pages/ResetPassAfter.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
    <Router>
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
          <Route path="/tasks" element={<TaskList />} />
          <Route path="/categories" element={<CategoriesList />} />
          <Route path="/dashboard" element={<Dashboard />} />
+         <Route path="/ErrorNotFound" element={<NotFound />} />
       </Routes>
    </Router>
 );

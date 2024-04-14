@@ -150,27 +150,7 @@ export default function Task({
                style={{ backgroundColor: priority === 1 ? "green" : priority === 2 ? "yellow" : "red" }}
             ></div>
 
-            <ButtonGroup
-               className="content_buttons "
-               style={{
-                  marginLeft:
-                     type === "non-draggable"
-                        ? "200px"
-                        : status === "TO DO"
-                        ? username_author === username || user.role === "productOwner" || user.role === "scrumMaster"
-                           ? "245px"
-                           : "270px"
-                        : status === "DOING"
-                        ? username_author === username || user.role === "productOwner" || user.role === "scrumMaster"
-                           ? "220px"
-                           : "245px"
-                        : status === "DONE"
-                        ? username_author === username || user.role === "productOwner" || user.role === "scrumMaster"
-                           ? "245px"
-                           : "270px"
-                        : null,
-               }}
-            >
+            <ButtonGroup className="content_buttons ">
                {status === "TO DO" || type == "non-draggable" ? null : (
                   <Button
                      className="btn-secondary"

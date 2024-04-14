@@ -17,7 +17,7 @@ export default function AsideMenu() {
                   id="difSettings-dashboard"
                   onClick={() => navigate("/dashboard", { replace: true })}
                >
-                  <i class="bi bi-bar-chart-line"></i>
+                  <i className="bi bi-bar-chart-line"></i>
                   {isAsideCollapsed ? null : <h4>App Dashboard</h4>}
                </a>
             )}
@@ -26,7 +26,7 @@ export default function AsideMenu() {
                id="difSettings-users"
                onClick={() => navigate("/users", { replace: true })}
             >
-               <i class="fas fa-users"></i>
+               <i className="fas fa-users"></i>
                {isAsideCollapsed ? null : <h4>Users</h4>}
             </a>
             {(user.role === "productOwner" || user.role === "scrumMaster") && (
@@ -36,7 +36,7 @@ export default function AsideMenu() {
                      id="difSettings-tasks"
                      onClick={() => navigate("/tasks", { replace: true })}
                   >
-                     <i class="bi bi-trash"></i>
+                     <i className="bi bi-trash"></i>
                      {isAsideCollapsed ? null : <h4>Deleted Tasks</h4>}
                   </a>
                   <a
@@ -44,7 +44,7 @@ export default function AsideMenu() {
                      id="difSettings-categories"
                      onClick={() => navigate("/categories", { replace: true })}
                   >
-                     <i class="bi bi-tags"></i>
+                     <i className="bi bi-tags"></i>
                      {isAsideCollapsed ? null : <h4>Categories</h4>}
                   </a>
                </>

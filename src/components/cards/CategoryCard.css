@@ -88,4 +88,5 @@
 
 .categoryCard-margin {
    margin-bottom: 13px;
+   max-width: 310px;
 }

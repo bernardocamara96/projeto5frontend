@@ -332,6 +332,13 @@
    }
 }
 
+@media (max-width: 750px) {
+   .task-item {
+      margin-left: 50%;
+      transform: translate(-50%, 0);
+   }
+}
+
 #addUser-btn:hover {
    border: solid 1px black;
 }

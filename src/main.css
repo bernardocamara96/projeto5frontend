@@ -91,3 +91,16 @@ select {
 #scrumPage-content {
    margin-left: 3%;
 }
+
+.notFoundDiv {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 70vh;
+}
+
+.notFoundDiv div {
+   background-color: white;
+   padding: 50px;
+   border-radius: 10px;
+}

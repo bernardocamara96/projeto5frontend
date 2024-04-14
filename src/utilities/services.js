@@ -564,6 +564,17 @@ async function auxiliarTokenValidator(token) {
       },
    });
 }
+
+async function getDashboardStats(token) {
+   return await fetch(`${baseURL}statistics/`, {
+      method: "GET",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   });
+}
 /*function orderTasks(tasks) {
    tasks.sort((a, b) => {
       if (a.priority > b.priority) {
@@ -643,4 +654,5 @@ export {
    logoutAttempt,
    recoverPassword,
    auxiliarTokenValidator,
+   getDashboardStats,
 };
