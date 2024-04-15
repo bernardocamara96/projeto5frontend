@@ -1,54 +1,38 @@
 import React, { PureComponent } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-const data = [
-   {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-   },
-   {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-   },
-   {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-   },
-   {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-   },
-];
-
 export default class LineGraphic extends PureComponent {
-   static demoUrl = "https://codesandbox.io/s/simple-line-chart-kec3v";
-
    render() {
+      const { data, isTablet, isMobile, isSmallMobile, isMobileResolution, dataName } = this.props;
+
+      const filteredData = data.filter((item, index) => {
+         return index % 4 === 0;
+      });
+
+      const formatYAxisTick = (tick) => {
+         return parseInt(tick, 10);
+      };
+
       return (
-         <ResponsiveContainer width="83%" height="100%" aspect={4.5}>
+         <ResponsiveContainer
+            width={isMobileResolution ? "100%" : "83%"}
+            height="100%"
+            aspect={isMobileResolution ? 2 : isSmallMobile ? 1.5 : isMobile ? 2.7 : isTablet ? 3.5 : 4.5}
+         >
             <LineChart
                width={500}
                height={500}
-               data={data}
+               data={isSmallMobile ? filteredData : data}
                margin={{
                   top: 30,
                   right: 15,
                }}
             >
                <CartesianGrid strokeDasharray="3 3" />
-               <XAxis dataKey="name" />
-               <YAxis ticks={[0, 2000, 4000, 6000, 8000, 10000]} />
+               <XAxis dataKey="date" interval={isSmallMobile ? 2 : isMobile ? 7 : 4} />
+               <YAxis tickFormatter={formatYAxisTick} />
                <Tooltip />
-               <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-               <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+               <Line type="monotone" dataKey={dataName} stroke="#8884d8" activeDot={{ r: 8 }} />
             </LineChart>
          </ResponsiveContainer>
       );

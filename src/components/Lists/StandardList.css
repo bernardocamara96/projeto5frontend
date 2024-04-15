@@ -319,7 +319,7 @@
    background: #555; /* Cor da barra de rolagem ao passar o mouse */
 }
 .ul-tasks {
-   min-height: 448px;
+   min-height: 100px;
 }
 
 #addUser-btn {
@@ -333,7 +333,7 @@
 }
 
 @media (max-width: 750px) {
-   .task-item {
+   .non-draggable-task {
       margin-left: 50%;
       transform: translate(-50%, 0);
    }

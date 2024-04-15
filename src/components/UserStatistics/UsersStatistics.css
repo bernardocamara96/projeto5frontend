@@ -10,6 +10,12 @@
    }
 }
 
+@media (max-width: 670px) {
+   #userStatistics-container {
+      height: 320px;
+   }
+}
+
 #usersStatistics-p {
    font-weight: bold;
    margin-bottom: 0;
@@ -19,11 +25,6 @@
    white-space: nowrap;
 }
 #content-userStats {
-   padding-left: 15px;
-   padding-right: 15px;
-   padding-bottom: 25px;
-   padding-top: 20px;
-
    border-top: solid 1px rgb(0, 0, 0, 0.2);
 }
 
@@ -53,5 +54,19 @@
 }
 
 .col-numTasks {
-   width: 15%;
+   width: 100%;
+}
+
+#flex-row-deletedTasks {
+   display: flex;
+   flex-direction: row;
+   gap: 10px;
+   align-items: center;
+   width: 100%;
+   margin-left: 20px;
+}
+
+#pie-userStatistics {
+   width: 100%;
+   height: 57%;
 }

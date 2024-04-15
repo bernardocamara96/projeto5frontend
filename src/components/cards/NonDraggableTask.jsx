@@ -47,7 +47,7 @@ export default function NonDraggableTask({
       <>
          {taskVisibility && (
             <li
-               className="task-item"
+               className="task-item non-draggable-task margin-bottom-non-dragTask"
                onDoubleClick={handleDoubleClick}
                onClick={isMobile && handleClick}
                onMouseEnter={() => setButtonVisibility("visible")}

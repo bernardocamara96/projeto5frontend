@@ -157,7 +157,7 @@ export default function EditOwnProfile({
                <form className="editForm agileForm" id="editUserForm" onSubmit={handleSubmit}>
                   <div className="banner_register">
                      <p id="usersProfile-p">
-                        <i class="fas fa-user-edit fa-lg"></i>&nbsp;&nbsp;Edit Profile
+                        <i className="fas fa-user-edit fa-lg"></i>&nbsp;&nbsp;Edit Profile
                      </p>
                   </div>
                   <div
@@ -221,23 +221,6 @@ export default function EditOwnProfile({
                      </div>
                      <div className="agileRow row-editUser">
                         <div className="agileCol">
-                           <label id="email-label" htmlFor="email-field">
-                              Email
-                           </label>
-                           <input
-                              type="email"
-                              name="email"
-                              id="email-field"
-                              maxLength="35"
-                              placeholder="Enter your email"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              required
-                              className="input-editOwnprofile form-control"
-                              disabled={inputsDisabled}
-                           />
-                        </div>
-                        <div className="agileCol">
                            <label id="first-name-label" htmlFor="firstname-field">
                               First Name
                            </label>
@@ -254,8 +237,6 @@ export default function EditOwnProfile({
                               disabled={inputsDisabled}
                            />
                         </div>
-                     </div>
-                     <div className="agileRow row-editUser">
                         <div className="agileCol">
                            <label id="last-name-label" htmlFor="lastname-field">
                               Last Name
@@ -268,6 +249,25 @@ export default function EditOwnProfile({
                               placeholder="Enter your Last Name"
                               value={lastname}
                               onChange={(e) => setLastname(e.target.value)}
+                              required
+                              className="input-editOwnprofile form-control"
+                              disabled={inputsDisabled}
+                           />
+                        </div>
+                     </div>
+                     <div className="agileRow row-editUser">
+                        <div className="agileCol">
+                           <label id="email-label" htmlFor="email-field">
+                              Email
+                           </label>
+                           <input
+                              type="email"
+                              name="email"
+                              id="email-field"
+                              maxLength="35"
+                              placeholder="Enter your email"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
                               required
                               className="input-editOwnprofile form-control"
                               disabled={inputsDisabled}
@@ -347,7 +347,7 @@ export default function EditOwnProfile({
                                  setPasswordActive(!passwordActive);
                               }}
                            >
-                              <i class="fas fa-key"></i>&nbsp; Change Password
+                              <i className="fas fa-key"></i>&nbsp; Change Password
                            </Button>
                         </>
                      )}
@@ -364,7 +364,7 @@ export default function EditOwnProfile({
             <div className="editForm agileForm" id="editPass-form">
                <div className="banner_register">
                   <p id="change-pass-banner">
-                     <i class="fas fa-key"></i>&nbsp;&nbsp;Change Password
+                     <i className="fas fa-key"></i>&nbsp;&nbsp;Change Password
                   </p>
                </div>
                <div className="content_register content_editProfile" id="content_pass">
@@ -414,7 +414,7 @@ export default function EditOwnProfile({
                      />
                   </div>
                   <Button className="btnChangePassword btn-outline-secondary" onClick={() => setPasswordActive(false)}>
-                     <i class="fas fa-arrow-left"></i>&nbsp; Back to Edition
+                     <i className="fas fa-arrow-left"></i>&nbsp; Back to Edition
                   </Button>
 
                   <Button className="btnChangePassword btn-outline-primary" onClick={handleSavePassword}>

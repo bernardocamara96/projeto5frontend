@@ -3,9 +3,7 @@ import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 
 export default class PieGraphic extends PureComponent {
    render() {
-      const { data } = this.props;
-
-      const { colors } = this.props;
+      const { data, colors, isSmallMobile, isMobileResolution } = this.props;
 
       const RADIAN = Math.PI / 180;
       const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
@@ -47,7 +45,7 @@ export default class PieGraphic extends PureComponent {
       };
 
       return (
-         <ResponsiveContainer width="100%" height="100%" aspect={1}>
+         <ResponsiveContainer width="100%" height="100%" aspect={isMobileResolution ? 1.5 : isSmallMobile ? 0.7 : 1}>
             <PieChart width={400} height={400}>
                <Pie
                   data={data}
