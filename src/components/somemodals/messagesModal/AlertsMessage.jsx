@@ -10,7 +10,7 @@ export default function AlertsMessage() {
          setTimeout(() => {
             setVisible(false);
             setMessage("");
-         }, 1200);
+         }, 1300);
       }
    }, [visible]);
 

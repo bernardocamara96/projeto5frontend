@@ -29,7 +29,7 @@ export default class LineGraphic extends PureComponent {
                }}
             >
                <CartesianGrid strokeDasharray="3 3" />
-               <XAxis dataKey="date" interval={isSmallMobile ? 2 : isMobile ? 7 : 4} />
+               <XAxis dataKey="date" interval={isSmallMobile ? 5 : isMobile ? 9 : 4} />
                <YAxis tickFormatter={formatYAxisTick} />
                <Tooltip />
                <Line type="monotone" dataKey={dataName} stroke="#8884d8" activeDot={{ r: 8 }} />

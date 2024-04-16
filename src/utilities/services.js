@@ -1,6 +1,13 @@
 import * as encryptation from "./encryptation.js";
+import alertStore from "../stores/alertStore.js";
 
 const baseURL = "http://localhost:8080/projeto5backend/rest/";
+
+function handleAlert(message, error) {
+   alertStore.getState().setMessage(message);
+   alertStore.getState().setVisible(true);
+   alertStore.getState().setError(error);
+}
 
 //function to register a user
 async function registerUser(user) {
@@ -51,6 +58,15 @@ async function fetchPhotoNameAndRedirect(token) {
          "Content-Type": "application/json",
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -63,6 +79,15 @@ async function getAllCategories(token) {
          "Content-Type": "application/json",
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -91,6 +116,15 @@ async function addTaskBE(token, title, description, priority, startDate, endDate
          token: token,
       },
       body: JSON.stringify(task),
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -104,6 +138,15 @@ async function loadTasks(token) {
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Erro na rede ao tentar carregar tarefas:", error);
@@ -124,8 +167,6 @@ async function editTaskBE(token, id, title, description, priority, startDate, en
    if (endDate && endDate !== "") taskUpdates.endDate = endDate;
 
    try {
-      console.log(id);
-      console.log(taskUpdates);
       return await fetch(`${baseURL}tasks/edit/${id}`, {
          method: "PATCH", // Usando PATCH para edição parcial
          headers: {
@@ -134,10 +175,18 @@ async function editTaskBE(token, id, title, description, priority, startDate, en
             token: token,
          },
          body: JSON.stringify(taskUpdates),
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Error updating task:", error);
-      alert("Network error or server is down. Please try again later.");
    }
 }
 
@@ -152,11 +201,19 @@ async function deleteListener(token, taskId) {
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       // Trata erros de rede ou de comunicação com o servidor
       console.error("Network error when trying to delete task:", error);
-      alert("Network error. Please check your connection and try again.");
    }
 }
 
@@ -171,10 +228,18 @@ async function updateTaskStatus(token, taskId, newStatus) {
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Error updating task status:", error);
-      alert("Failed to update task status. Please try again.");
    }
 }
 
@@ -188,6 +253,15 @@ async function createUsernameFilter(username, token) {
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Erro na rede ao tentar carregar tarefas:", error);
@@ -204,6 +278,15 @@ async function tasksByCategory(categoryType, token) {
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Erro na rede ao tentar carregar Categorias:", error);
@@ -220,6 +303,15 @@ async function loadCategories(token) {
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Erro na rede ao tentar carregar Categorias:", error);
@@ -236,6 +328,15 @@ async function loadUsers(token) {
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Erro na rede ao tentar carregar Utilizadores:", error);
@@ -253,6 +354,15 @@ async function loadTasksByUser(token, filteredUsername) {
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Erro na rede ao tentar carregar tarefas:", error);
@@ -269,6 +379,15 @@ async function loadTasksByCategory(token, category_type) {
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Erro na rede ao tentar carregar tarefas:", error);
@@ -285,6 +404,15 @@ async function loadTasksByUserAndCategory(token, filteredUsername, category_type
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Erro na rede ao tentar carregar tarefas:", error);
@@ -301,6 +429,15 @@ async function loadDeletedTasks(token) {
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Erro na rede ao tentar carregar Tarefas:", error);
@@ -316,6 +453,15 @@ async function deleteTask(taskId, token) {
          "Content-Type": "application/json",
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -328,6 +474,15 @@ async function addCategory(type, token) {
          "Content-Type": "application/json",
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -340,6 +495,15 @@ async function deleteCategory(categoryType, token) {
          "Content-Type": "application/json",
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -352,6 +516,15 @@ async function editCategory(categoryType, newCategoryType, token) {
          "Content-Type": "application/json",
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -364,6 +537,15 @@ async function restaureTask(taskId, token) {
          "Content-Type": "application/json",
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -376,6 +558,15 @@ async function fetchUserDataByUsername(username, token) {
          "Content-Type": "application/json",
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -401,6 +592,15 @@ async function editOtherUser(token, username, role, firstName, lastName, oldEmai
          userToChangeUsername: username,
       },
       body: JSON.stringify(user),
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -415,6 +615,15 @@ async function deletePermanentlyUser(token, userToDeleteUsername) {
             token: token,
             userToDeleteUsername: userToDeleteUsername,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Error deleting user:", error);
@@ -431,6 +640,15 @@ async function deleteTasksByUser(token, userToDeleteUsername) {
             "Content-Type": "application/json",
             token: token,
          },
+      }).then((response) => {
+         if (!response.ok) {
+            if (response.status === 401) {
+               handleAlert("Session expired. Please login again.", true);
+               window.location.href = "/";
+            }
+            throw new Error("Network response was not ok");
+         }
+         return response;
       });
    } catch (error) {
       console.error("Error deleting user tasks:", error);
@@ -439,14 +657,24 @@ async function deleteTasksByUser(token, userToDeleteUsername) {
 
 //function to fetch user data
 
-async function fetchUserData(username) {
+async function fetchUserData(username, token) {
    return await fetch(`${baseURL}users/info`, {
       method: "GET",
       headers: {
          Accept: "application/json",
          "Content-Type": "application/json",
          username: username,
+         token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -461,6 +689,15 @@ async function editUserData(user, token) {
          token: token,
       },
       body: JSON.stringify(user),
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -478,6 +715,15 @@ async function editPassword(oldPassword, newPassword, token) {
          token: token,
       },
       body: JSON.stringify(userNewPassword),
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -492,6 +738,15 @@ async function recoverPassword(newPassword, token) {
          newPass: newPass,
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -504,6 +759,15 @@ async function tasksNumberByUsernameAndStatus(username, status, token) {
          "Content-Type": "application/json",
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -529,6 +793,15 @@ async function userRole(token) {
          "Content-Type": "application/json",
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
    });
 }
 
@@ -573,6 +846,53 @@ async function getDashboardStats(token) {
          "Content-Type": "application/json",
          token: token,
       },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
+   });
+}
+
+async function getSessionTimeout(token, name) {
+   return await fetch(`${baseURL}users/configuration/${name}`, {
+      method: "GET",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
+         throw new Error("Network response was not ok");
+      }
+      return response;
+   });
+}
+
+async function setConfigurationValue(token, name, value) {
+   return await fetch(`${baseURL}users/configuration/${name}/${value}`, {
+      method: "PATCH",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   }).then((response) => {
+      if (response.status === 401) {
+         handleAlert("Session expired. Please login again.", true);
+         window.location.href = "/";
+      }
+
+      return response;
    });
 }
 /*function orderTasks(tasks) {
@@ -655,4 +975,6 @@ export {
    recoverPassword,
    auxiliarTokenValidator,
    getDashboardStats,
+   getSessionTimeout,
+   setConfigurationValue,
 };

@@ -5,25 +5,12 @@ import { useEffect, useState } from "react";
 import { userStore } from "../../stores/userStore";
 import alertStore from "../../stores/alertStore";
 
-export default function CategoryCard({ category_type, searchTerm }) {
-   const [tasksNumber, setTasksNumber] = useState(0);
+export default function CategoryCard({ category_type, searchTerm, tasksNumber }) {
    const user = userStore.getState().user;
    const [category_typeValue, setCategory_typeValue] = useState(category_type);
    const [atualCategory_type, setAtualCategory_type] = useState(category_type);
    const [removed, setRemoved] = useState(false);
    const { setConfirmMessage, setConfirmVisible, setConfirmCallback } = alertStore();
-
-   //fetch the number of tasks in the category
-   useEffect(() => {
-      tasksByCategory(category_type, user.token).then((response) => {
-         if (!response.ok) {
-            throw new Error("Network response was not ok");
-         }
-         return response.json().then((data) => {
-            setTasksNumber(data);
-         });
-      });
-   }, [tasksNumber]);
 
    //function to set the confirm messages
    const handleAction = (message, callback) => {

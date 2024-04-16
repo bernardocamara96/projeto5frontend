@@ -47,7 +47,7 @@ export default function Scrum() {
                      value={searchTermHome}
                      className="form-control"
                      onChange={(e) => setSearchTermHome(e.target.value)}
-                     style={{ marginLeft: user.role === "developer" && "390px" }}
+                     style={{ marginLeft: user.role === "developer" && "15%" }}
                   />
                   {user.role === "developer" ? null : (
                      <Filters

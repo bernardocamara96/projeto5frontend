@@ -35,7 +35,7 @@ export default function EditOwnProfile({
    //function to fetch the user data to fill the form
    useEffect(() => {
       console.log(setPasswordActive);
-      fetchUserData(username)
+      fetchUserData(username, token)
          .then((response) => {
             if (!response.ok) {
                throw new Error("Network response was not ok");

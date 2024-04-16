@@ -65,7 +65,16 @@ export default function UsersStatistics({ username, inputsDisabled, setInputsDis
          <div className="agileRow" id="content-userStats">
             <div className="agileCol  col-userStats col-numTasks">
                <div id="pie-userStatistics">
-                  <PieGraphic data={tasksPieData} colors={tasksPieColors} />
+                  {tasksPieData[0].value === 0 && tasksPieData[1].value === 0 && tasksPieData[2].value === 0 ? (
+                     <div
+                        className="content-userStats-span"
+                        style={{ width: "100%", border: "none", marginBottom: "20%", marginTop: "20%" }}
+                     >
+                        This user has no tasks
+                     </div>
+                  ) : (
+                     <PieGraphic data={tasksPieData} colors={tasksPieColors} />
+                  )}
                </div>
                <div id="flex-row-deletedTasks">
                   Deleted tasks: <div className="content-userStats-span">{deletedTasks}</div>

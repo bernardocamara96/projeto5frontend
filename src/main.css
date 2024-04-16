@@ -104,3 +104,27 @@ select {
    padding: 50px;
    border-radius: 10px;
 }
+
+#configurations-banner-p {
+   font-weight: bold;
+   margin-bottom: 0;
+}
+
+#form-configurations {
+   width: 304px;
+   margin-left: 5%;
+   transform: translate(0, 0);
+}
+
+#timeout-label {
+   white-space: nowrap;
+}
+
+#session-timeout-input {
+   width: 80px;
+   text-align: center;
+}
+
+#row-configurations-timeout {
+   align-items: center;
+}

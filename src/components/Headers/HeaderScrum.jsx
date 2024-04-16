@@ -29,7 +29,7 @@ export default function HeaderScrum() {
          fetchPhotoNameAndRedirect(user.token)
             .then((response) => {
                if (!response.ok) {
-                  if (response.status === 403) navigate("/", { replace: true });
+                  if (response.status === 403 || response.status === 401) navigate("/", { replace: true });
                   throw new Error("Network response was not ok");
                }
                return response.json();

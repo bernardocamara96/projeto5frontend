@@ -173,6 +173,7 @@ export default function StandardList({ type }) {
                                  category_type={category.type}
                                  setFetchTrigger={setFetchTrigger}
                                  searchTerm={searchCategory}
+                                 tasksNumber={category.tasksNumber}
                               />
                            );
                         })}

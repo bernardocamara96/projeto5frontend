@@ -12,14 +12,20 @@ export default function AsideMenu() {
       <aside className="col-leftMenu" id="aside-menu">
          <>
             {user.role === "productOwner" && (
-               <a
-                  className="menu-item set-pro"
-                  id="difSettings-dashboard"
-                  onClick={() => navigate("/dashboard", { replace: true })}
-               >
-                  <i className="bi bi-bar-chart-line"></i>
-                  {isAsideCollapsed ? null : <h4>App Dashboard</h4>}
-               </a>
+               <>
+                  <a className="menu-item set-pro" id="difSettings-dashboard" onClick={() => navigate("/dashboard")}>
+                     <i className="bi bi-bar-chart-line"></i>
+                     {isAsideCollapsed ? null : <h4>App Dashboard</h4>}
+                  </a>
+                  <a
+                     className="menu-item set-pro"
+                     id="difSettings-configurations"
+                     onClick={() => navigate("/configurations", { replace: true })}
+                  >
+                     <i class="fas fa-tools"></i>
+                     {isAsideCollapsed ? null : <h4>Configurations</h4>}
+                  </a>
+               </>
             )}
             <a
                className="menu-item set-pro"
