@@ -128,3 +128,9 @@ select {
 #row-configurations-timeout {
    align-items: center;
 }
+
+@media (max-width: 550px) {
+   #form-configurations {
+      width: 61%;
+   }
+}

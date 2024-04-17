@@ -9,6 +9,8 @@ import { userStore } from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import LineGraphic from "../components/charts/LineGraphic";
 import { useMediaQuery } from "react-responsive";
+import callbackStore from "../stores/callbackStore";
+import useDashboardWebSocket from "../components/websocket/useDashboardWebSocket";
 
 export default function Dashboard() {
    const navigate = useNavigate();
@@ -90,6 +92,16 @@ export default function Dashboard() {
 
       console.log(userByHour);
    };
+
+   useDashboardWebSocket(
+      user.token,
+      setUsersValues,
+      setTasksValues,
+      setDataPerHour,
+      setAverageTasksPerUser,
+      setAverageHoursToCompleteTask,
+      setAverageMinutesToCompleteTask
+   );
 
    useEffect(() => {
       getDashboardStats(user.token).then((response) => {
