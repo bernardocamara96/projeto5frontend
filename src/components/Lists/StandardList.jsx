@@ -184,7 +184,6 @@ export default function StandardList({ type }) {
                      {type === "usersList" &&
                         userCards.map((userCard) => {
                            return (
-                              userCard.username !== "admin" &&
                               userCard.username !== "deletedTasks" &&
                               userCard.username !== "developerTest" &&
                               userCard.username !== "scrumMasterTest" &&

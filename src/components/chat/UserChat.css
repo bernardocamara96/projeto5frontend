@@ -1,6 +1,10 @@
-.rcw-picker-icon {
+.rcw-picker-icon,
+.rcw-send-icon {
    display: none;
    visibility: hidden;
+}
+.rcw-new-message {
+   pointer-events: none;
 }
 
 .rcw-sender {
@@ -63,4 +67,43 @@
 
 .rcw-input {
    cursor: text;
+}
+
+#rwc-sender-btn img {
+   width: 30px;
+   height: 30px;
+   border-radius: 5px;
+   padding: 2px;
+}
+
+#rwc-sender-btn {
+   bottom: 105px;
+   right: 35px;
+   position: fixed;
+   border: transparent;
+   z-index: 10000;
+   border-radius: 5px;
+}
+
+#rwc-sender-input {
+   position: fixed;
+   z-index: 10000;
+   bottom: 100px;
+   right: 75px;
+   width: 100%;
+   max-width: 305px;
+   background-color: #fff;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   padding: 10px 5px;
+   resize: none;
+   height: 40px;
+}
+
+#rwc-sender-input:focus {
+   outline: none;
+}
+
+#rwc-sender-btn :hover {
+   border: 1px solid black;
 }

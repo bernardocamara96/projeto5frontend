@@ -12,6 +12,7 @@ import { useState } from "react";
 import AsideMenu from "../components/Menus/AsideMenu";
 import Button from "react-bootstrap/Button";
 import UserChat from "../components/chat/UserChat";
+import MyUserChat from "../components/chat/MyUserChat";
 
 export default function UserProfile() {
    const { username } = useParams();
@@ -78,6 +79,8 @@ export default function UserProfile() {
                   passwordActive={passwordActive}
                   setPasswordActive={setPasswordActive}
                />
+               {username != usernameStorage && <MyUserChat username={username} token={user.token} />}
+
                {!passwordActive && (
                   <div id="userStats-btns">
                      <UsersStatistics
@@ -98,7 +101,6 @@ export default function UserProfile() {
                      )}
                   </div>
                )}
-               <UserChat username={username} token={user.token} />
             </div>
          </main>
          <Footer />

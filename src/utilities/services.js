@@ -732,10 +732,7 @@ async function recoverPassword(newPassword, token) {
       },
    }).then((response) => {
       if (!response.ok) {
-         if (response.status === 401) {
-            handleAlert("Session expired. Please login again.", true);
-            window.location.href = "/";
-         }
+         window.location.href = "/";
       }
       return response;
    });
@@ -840,6 +837,8 @@ async function getDashboardStats(token) {
          if (response.status === 401) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
+         } else if (response.status === 403) {
+            window.location.href = "/";
          }
       }
       return response;
@@ -859,6 +858,8 @@ async function getSessionTimeout(token, name) {
          if (response.status === 401) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
+         } else if (response.status === 403) {
+            window.location.href = "/";
          }
       }
       return response;
@@ -876,6 +877,69 @@ async function setConfigurationValue(token, name, value) {
    }).then((response) => {
       if (response.status === 401) {
          handleAlert("Session expired. Please login again.", true);
+         window.location.href = "/";
+      } else if (response.status === 403) {
+         window.location.href = "/";
+      }
+
+      return response;
+   });
+}
+
+async function getMessages(token, username) {
+   return await fetch(`${baseURL}messages/${username}`, {
+      method: "GET",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   }).then((response) => {
+      if (response.status === 401) {
+         handleAlert("Session expired. Please login again.", true);
+         window.location.href = "/";
+      } else if (response.status === 403) {
+         window.location.href = "/";
+      }
+
+      return response;
+   });
+}
+
+async function addMessage(token, messageDto) {
+   return await fetch(`${baseURL}messages`, {
+      method: "POST",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+      body: JSON.stringify(messageDto),
+   }).then((response) => {
+      if (response.status === 401) {
+         handleAlert("Session expired. Please login again.", true);
+         window.location.href = "/";
+      } else if (response.status === 403) {
+         window.location.href = "/";
+      }
+
+      return response;
+   });
+}
+
+async function seenMessages(token, usernameSender) {
+   return await fetch(`${baseURL}messages/${usernameSender}`, {
+      method: "PUT",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   }).then((response) => {
+      if (response.status === 401) {
+         handleAlert("Session expired. Please login again.", true);
+         window.location.href = "/";
+      } else if (response.status === 403) {
          window.location.href = "/";
       }
 
@@ -965,4 +1029,7 @@ export {
    getSessionTimeout,
    setConfigurationValue,
    getUserPhotoDto,
+   getMessages,
+   addMessage,
+   seenMessages,
 };

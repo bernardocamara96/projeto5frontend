@@ -1,0 +1,133 @@
+#chatName {
+   font-weight: bold;
+   margin-bottom: 0;
+   white-space: nowrap;
+}
+
+#chatName img {
+   width: 35px;
+   height: 35px;
+   border-radius: 50%;
+   margin-right: 10px;
+   border: solid black 1px;
+}
+
+#chatForm {
+   margin-left: 0px;
+   transform: translate(0, 0);
+}
+
+#messageListContainer {
+   height: 100%;
+   max-height: 368px;
+   overflow-y: auto;
+   padding-right: 10px;
+}
+
+#content-messages-container {
+   height: 100%;
+   padding-right: 12px;
+}
+
+.rce-avatar-container .rce-avatar {
+   border-radius: 50%;
+}
+
+.rce-input-textarea {
+   min-height: 74px;
+   border-radius: 5px;
+   resize: none;
+   max-height: 74px;
+   overflow-y: auto;
+   padding: 5px 5px;
+}
+
+#content-input-messages {
+   padding: 5px;
+}
+
+.rce-container-input {
+   border: 1px solid #a1a1a1;
+   border-radius: 5px;
+   min-width: 80%;
+   max-width: 80%;
+}
+
+.rce-input-textarea::-webkit-scrollbar,
+#messageListContainer::-webkit-scrollbar {
+   width: 8px;
+   height: 6px; /* Espessura da barra de rolagem */
+}
+
+.rce-input-textarea::-webkit-scrollbar-track,
+#messageListContainer::-webkit-scrollbar-track {
+   background: var(--tertiary-color); /* Cor do trilho da barra de rolagem */
+   border-radius: 8px;
+}
+
+.rce-input-textarea::-webkit-scrollbar-thumb,
+#messageListContainer::-webkit-scrollbar-thumb {
+   background: #888; /* Cor da barra de rolagem */
+   border-radius: 8px; /*Arredonda os cantos*/
+}
+
+.rce-input-textarea::-webkit-scrollbar-thumb:hover,
+#messageListContainer::-webkit-scrollbar-thumb:hover {
+   background: #555; /* Cor da barra de rolagem ao passar o mouse */
+}
+
+#button-reply {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+}
+
+#reply-row {
+   align-items: center;
+}
+
+@media (max-width: 1420px) {
+   .rce-container-mbox {
+      min-width: 250px;
+   }
+}
+
+@media (max-width: 1420px) {
+   .rce-container-mbox {
+      min-width: 200px;
+      max-width: 200px;
+   }
+   #chatForm {
+      width: 260px;
+   }
+   #reply-row {
+      gap: 10px;
+   }
+}
+
+@media (max-width: 550px) {
+   #reply-row {
+      flex-direction: row;
+   }
+}
+
+#chatForm {
+   max-height: 551.2px;
+}
+
+.custom-left-message .rce-mbox {
+   background-color: #c3e7a3;
+   /* Customize background color for left messages */
+}
+
+.custom-left-message .rce-mbox-left-notch {
+   fill: #c3e7a3;
+}
+
+.custom-right-message .rce-mbox {
+   background-color: #b0daeb; /* Customize background color for right messages */
+}
+
+.custom-right-message .rce-mbox-right-notch {
+   fill: #b0daeb; /* Customize background color for right messages */
+}
