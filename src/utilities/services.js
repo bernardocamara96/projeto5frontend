@@ -64,7 +64,25 @@ async function fetchPhotoNameAndRedirect(token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
+      }
+      return response;
+   });
+}
+
+async function getUserPhotoDto(token, username) {
+   return await fetch(`${baseURL}users/photoandname/${username}`, {
+      method: "GET",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   }).then((response) => {
+      if (!response.ok) {
+         if (response.status === 401) {
+            handleAlert("Session expired. Please login again.", true);
+            window.location.href = "/";
+         }
       }
       return response;
    });
@@ -85,7 +103,6 @@ async function getAllCategories(token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -122,7 +139,6 @@ async function addTaskBE(token, title, description, priority, startDate, endDate
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -144,7 +160,6 @@ async function loadTasks(token) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -181,7 +196,6 @@ async function editTaskBE(token, id, title, description, priority, startDate, en
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -207,7 +221,6 @@ async function deleteListener(token, taskId) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -234,7 +247,6 @@ async function updateTaskStatus(token, taskId, newStatus) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -259,7 +271,6 @@ async function createUsernameFilter(username, token) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -284,7 +295,6 @@ async function tasksByCategory(categoryType, token) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -309,7 +319,6 @@ async function loadCategories(token) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -334,7 +343,6 @@ async function loadUsers(token) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -360,7 +368,6 @@ async function loadTasksByUser(token, filteredUsername) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -385,7 +392,6 @@ async function loadTasksByCategory(token, category_type) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -410,7 +416,6 @@ async function loadTasksByUserAndCategory(token, filteredUsername, category_type
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -435,7 +440,6 @@ async function loadDeletedTasks(token) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -459,7 +463,6 @@ async function deleteTask(taskId, token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -480,7 +483,6 @@ async function addCategory(type, token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -501,7 +503,6 @@ async function deleteCategory(categoryType, token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -522,7 +523,6 @@ async function editCategory(categoryType, newCategoryType, token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -543,7 +543,6 @@ async function restaureTask(taskId, token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -564,7 +563,6 @@ async function fetchUserDataByUsername(username, token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -598,7 +596,6 @@ async function editOtherUser(token, username, role, firstName, lastName, oldEmai
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -621,7 +618,6 @@ async function deletePermanentlyUser(token, userToDeleteUsername) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -646,7 +642,6 @@ async function deleteTasksByUser(token, userToDeleteUsername) {
                handleAlert("Session expired. Please login again.", true);
                window.location.href = "/";
             }
-            throw new Error("Network response was not ok");
          }
          return response;
       });
@@ -672,7 +667,6 @@ async function fetchUserData(username, token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -695,7 +689,6 @@ async function editUserData(user, token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -721,7 +714,6 @@ async function editPassword(oldPassword, newPassword, token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -744,7 +736,6 @@ async function recoverPassword(newPassword, token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -765,7 +756,6 @@ async function tasksNumberByUsernameAndStatus(username, status, token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -799,7 +789,6 @@ async function userRole(token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -852,7 +841,6 @@ async function getDashboardStats(token) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -872,7 +860,6 @@ async function getSessionTimeout(token, name) {
             handleAlert("Session expired. Please login again.", true);
             window.location.href = "/";
          }
-         throw new Error("Network response was not ok");
       }
       return response;
    });
@@ -977,4 +964,5 @@ export {
    getDashboardStats,
    getSessionTimeout,
    setConfigurationValue,
+   getUserPhotoDto,
 };

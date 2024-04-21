@@ -19,7 +19,11 @@
    margin-bottom: 10px;
 }
 
-@media (max-width: 780px) {
+.ul-tasks .task-item {
+   min-width: 210px;
+}
+
+@media (max-width: 860px) {
    .col-todo {
       min-height: 25vh;
       max-height: 25vh;
@@ -36,9 +40,7 @@
       overflow-y: hidden;
       width: 100%;
    }
-   .ul-tasks .task-item {
-      min-width: 200px;
-   }
+
    .header-list {
       margin-bottom: 0px;
    }

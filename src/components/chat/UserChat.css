@@ -1,0 +1,66 @@
+.rcw-picker-icon {
+   display: none;
+   visibility: hidden;
+}
+
+.rcw-sender {
+   align-items: center;
+}
+
+.rcw-send {
+   margin-left: 10px;
+}
+
+.rcw-new-message {
+   width: 100%;
+   max-width: 305px;
+}
+.rcw-conversation-container .rcw-title {
+   font-size: 30px;
+   padding: 0;
+}
+
+.rcw-conversation-container .avatar {
+   width: 50px;
+   height: 50px;
+}
+
+.rcw-conversation-container .rcw-header {
+   padding-bottom: 15px;
+}
+
+.rcw-widget-container {
+   max-width: 370px;
+}
+
+@media screen and (max-width: 800px) {
+   .rcw-widget-container {
+      height: 93%;
+      margin: 0, 0, 0, 0;
+      top: 50px;
+   }
+}
+
+@media screen and (max-width: 750px) {
+   .rcw-widget-container {
+      height: 93%;
+      margin: 0, 0, 0, 0;
+      top: 50px;
+      width: 100%;
+   }
+}
+
+@media screen and (max-width: 550px) {
+   .rcw-widget-container {
+      height: 89.9vh;
+      margin: 0, 0, 0, 0;
+      top: 50px;
+      width: 100%;
+      max-width: none;
+      left: 50px;
+   }
+}
+
+.rcw-input {
+   cursor: text;
+}

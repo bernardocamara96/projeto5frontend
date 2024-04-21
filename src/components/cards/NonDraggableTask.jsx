@@ -18,7 +18,10 @@ export default function NonDraggableTask({
    searchTerm,
 }) {
    const [buttonVisibility, setButtonVisibility] = useState("hidden");
-   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+   const screenWidth = window.innerWidth;
+   const screenHeight = window.innerHeight;
+   const resolution = screenWidth / screenHeight;
+   const isMobileResolution = resolution < 0.75;
 
    // Function to handle the double click on a task, it will pass the task data to the parent component
    const handleDoubleClick = () => {
@@ -49,7 +52,7 @@ export default function NonDraggableTask({
             <li
                className="task-item non-draggable-task margin-bottom-non-dragTask"
                onDoubleClick={handleDoubleClick}
-               onClick={isMobile && handleClick}
+               onClick={isMobileResolution && handleClick}
                onMouseEnter={() => setButtonVisibility("visible")}
                onMouseLeave={() => setButtonVisibility("hidden")}
             >

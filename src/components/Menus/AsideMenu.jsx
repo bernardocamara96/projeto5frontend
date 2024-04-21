@@ -22,7 +22,7 @@ export default function AsideMenu() {
                      id="difSettings-configurations"
                      onClick={() => navigate("/configurations", { replace: true })}
                   >
-                     <i class="fas fa-tools"></i>
+                     <i className="fas fa-tools"></i>
                      {isAsideCollapsed ? null : <h4>Configurations</h4>}
                   </a>
                </>

@@ -136,3 +136,9 @@
 .margin-bottom-non-dragTask {
    margin-bottom: 14px;
 }
+
+@media (max-width: 860px) {
+   .task-item {
+      margin-top: 10px;
+   }
+}

@@ -11,9 +11,6 @@
 }
 
 @media (max-width: 590px) {
-   #container-userProfile {
-      flex-direction: column;
-   }
    #userStats-btns {
       transform: translate(0%, 0%);
       margin-left: 0;
@@ -38,6 +35,15 @@
    }
 }
 
+#container-btns-userProfile {
+   max-width: 220px;
+}
+
+@media (max-width: 1430px) {
+   #container-userProfile {
+      flex-direction: column;
+   }
+}
 @media (max-width: 640px) and (min-width: 590px) {
    #userStats-btns {
       width: 35%;
@@ -53,16 +59,16 @@
       margin-left: 170px;
    }
 }
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
    #container-userProfile {
-      width: 90%;
+      width: 45%;
    }
    .editForm {
       width: 99%;
    }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 880px) {
    .row-editUser {
       display: flex;
       flex-direction: column;
@@ -79,6 +85,9 @@
    }
    #userLogo-editUser {
       margin-left: 0px;
+   }
+   #edit_container {
+      justify-content: left;
    }
 }
 #editUserForm {

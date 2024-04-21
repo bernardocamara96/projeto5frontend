@@ -10,12 +10,6 @@
    }
 }
 
-@media (max-width: 670px) {
-   #userStatistics-container {
-      height: 320px;
-   }
-}
-
 #usersStatistics-p {
    font-weight: bold;
    margin-bottom: 0;

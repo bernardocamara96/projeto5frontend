@@ -134,3 +134,13 @@ select {
       width: 61%;
    }
 }
+
+@media screen and (max-width: 800px) {
+   .rcw-widget-container {
+      height: 90%;
+      height: 90vh;
+
+      margin: 50px, 0, 0, 0;
+      max-width: none;
+   }
+}

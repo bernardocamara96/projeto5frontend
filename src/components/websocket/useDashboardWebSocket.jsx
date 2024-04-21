@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import callbackStore from "../../stores/callbackStore";
+import { useEffect } from "react";
 
 function useDashboardWebSocket(
    token,
@@ -11,15 +10,12 @@ function useDashboardWebSocket(
    setAverageMinutesToCompleteTask
 ) {
    const WS_URL = `ws://localhost:8080/projeto5backend/websocket/dashboard/${token}`;
-   const [statisticsDto, setStatisticsDto] = useState(null);
-   const [websocket, setWebsocket] = useState(null);
 
    useEffect(() => {
       const socket = new WebSocket(WS_URL);
 
       socket.onopen = () => {
          console.log("The websocket connection is open");
-         setWebsocket(socket);
       };
 
       socket.onmessage = (event) => {

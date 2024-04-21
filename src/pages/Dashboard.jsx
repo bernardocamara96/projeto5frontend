@@ -9,7 +9,6 @@ import { userStore } from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import LineGraphic from "../components/charts/LineGraphic";
 import { useMediaQuery } from "react-responsive";
-import callbackStore from "../stores/callbackStore";
 import useDashboardWebSocket from "../components/websocket/useDashboardWebSocket";
 
 export default function Dashboard() {
@@ -17,7 +16,7 @@ export default function Dashboard() {
    const user = userStore.getState().user;
    const [usersPieData, setUsersPieData] = useState([
       { name: "Confirmed", value: 0 },
-      { name: "Not Confirmed", value: 0 },
+      { name: "Unconfirmed", value: 0 },
    ]);
    const [tasksPieData, setTasksPieData] = useState([
       { name: "TO DO", value: 0 },
@@ -43,7 +42,7 @@ export default function Dashboard() {
       // Create a new array with the updated value
       const updatedData = [
          { name: "Confirmed", value: confirmedUsers }, // Update value for confirmed users
-         { name: "Not Confirmed", value: notConfirmedUsers }, // Leave other value unchanged
+         { name: "Unconfirmed", value: notConfirmedUsers }, // Leave other value unchanged
       ];
       // Set the state with the new array
       setUsersPieData(updatedData);
@@ -195,7 +194,8 @@ export default function Dashboard() {
                   <div>
                      <div className="flex-row-charts" style={{ marginTop: isMobileResolution && "5px" }}>
                         <div className="tasks-number-per-user">
-                           Average task completion time: {averageHoursToCompleteTask} hours and{" "}
+                           Average task completion time:{" "}
+                           {averageHoursToCompleteTask != 0 && averageHoursToCompleteTask + " hours and "}
                            {averageMinutesToCompleteTask} minutes
                         </div>
                         <div className="tasks-number-per-user graph-label">

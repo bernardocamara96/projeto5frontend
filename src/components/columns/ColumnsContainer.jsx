@@ -1,6 +1,6 @@
 import Column from "./Column";
 import "./ColumnsContainer.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
    loadTasks,
    updateTaskStatus,
@@ -11,13 +11,18 @@ import {
 import { userStore } from "../../stores/userStore";
 import { DragDropContext } from "react-beautiful-dnd";
 import filterStore from "../../stores/filterStore";
+import useTasksWebSocket from "../websocket/useTasksWebSocket";
+import useTasksStore from "../../stores/tasksStore";
 
 export default function ColumnsContainer({ token, tasks, setTasks, fetchTrigger, setFetchTrigger, searchTerm }) {
    const { TODOtasks, DOINGtasks, DONEtasks } = tasks;
    const { setTODOtasks, setDOINGtasks, setDONEtasks } = setTasks;
    const { usernameFilter, categoryFilter } = filterStore.getState();
-
    const user = userStore.getState().user;
+
+   const { tasksArray, updateTasks, socketTrigger, otherTrigger } = useTasksStore();
+
+   useTasksWebSocket(user.token);
 
    // Function to handle the drag and drop of the tasks
    const handleDragEnd = (result) => {
@@ -114,7 +119,8 @@ export default function ColumnsContainer({ token, tasks, setTasks, fetchTrigger,
                if (response.ok) {
                   response.json().then((tasksFromServer) => {
                      const tasks = tasksFromServer;
-                     console.log(tasks);
+
+                     updateTasks(tasks);
                      auxiliarFilterFunction(tasks);
                   });
                } else if (response.status === 403) {
@@ -129,6 +135,7 @@ export default function ColumnsContainer({ token, tasks, setTasks, fetchTrigger,
                   response.json().then((tasksFromServer) => {
                      const tasks = tasksFromServer;
 
+                     updateTasks(tasks);
                      auxiliarFilterFunction(tasks);
                   });
                } else if (response.status === 403) {
@@ -142,7 +149,7 @@ export default function ColumnsContainer({ token, tasks, setTasks, fetchTrigger,
                if (response.ok) {
                   response.json().then((tasksFromServer) => {
                      const tasks = tasksFromServer;
-
+                     updateTasks(tasks);
                      auxiliarFilterFunction(tasks);
                   });
                } else if (response.status === 403) {
@@ -156,6 +163,7 @@ export default function ColumnsContainer({ token, tasks, setTasks, fetchTrigger,
                if (response.ok) {
                   response.json().then((tasksFromServer) => {
                      const tasks = tasksFromServer;
+                     updateTasks(tasks);
                      auxiliarFilterFunction(tasks);
                   });
                } else if (response.status === 403) {
@@ -166,7 +174,11 @@ export default function ColumnsContainer({ token, tasks, setTasks, fetchTrigger,
             });
          }
       }
-   }, [fetchTrigger]);
+   }, [fetchTrigger, otherTrigger]);
+
+   useEffect(() => {
+      auxiliarFilterFunction(tasksArray);
+   }, [socketTrigger, fetchTrigger]);
 
    //auxiliar function to filter the tasks
    function auxiliarFilterFunction(tasks) {

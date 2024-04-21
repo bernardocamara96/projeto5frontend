@@ -10,10 +10,12 @@ import UserCard from "../cards/UserCard";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useMediaQuery } from "react-responsive";
+import useTasksStore from "../../stores/tasksStore";
+import useTasksWebSocket from "../websocket/useTasksWebSocket";
 
 export default function StandardList({ type }) {
    const user = userStore.getState().user;
-   const [deletedTasks, setDeletedTasks] = useState([]);
+
    const [fetchTrigger, setFetchTrigger] = useState(false);
    const [categoryList, setCategoryList] = useState([]);
    const [taskData, setTaskData] = useState({});
@@ -25,16 +27,18 @@ export default function StandardList({ type }) {
    const navigate = useNavigate();
    const usernameStorage = usernameStore.getState().username;
    const isComputer = useMediaQuery({ query: "(min-width: 900px)" });
+   const { deletedTasksArray, updateDeletedTasks } = useTasksStore();
+
+   type === "taskList" && useTasksWebSocket(user.token);
 
    //fetch the deleted tasks or categories, depending on the page
    useEffect(() => {
       if (type === "taskList") {
          loadDeletedTasks(user.token).then((response) => {
             if (!response.ok) {
-               throw new Error("Network response was not ok");
             }
             return response.json().then((data) => {
-               setDeletedTasks(data);
+               updateDeletedTasks(data);
             });
          });
       } else if (type === "categoriesList") {
@@ -144,7 +148,7 @@ export default function StandardList({ type }) {
                <div id="scrollable-div">
                   <ul className="ul-tasks" id="DELETED_COLUMN">
                      {type === "taskList" &&
-                        deletedTasks.map((task) => {
+                        deletedTasksArray.map((task) => {
                            return (
                               <NonDraggableTask
                                  key={task.id}

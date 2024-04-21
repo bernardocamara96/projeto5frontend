@@ -4,7 +4,6 @@ import Footer from "../components/Footers/Footer";
 import AlertsMessage from "../components/somemodals/messagesModal/AlertsMessage";
 import { useParams } from "react-router-dom";
 import UsersStatistics from "../components/UserStatistics/UsersStatistics";
-
 import { userStore, usernameStore } from "../stores/userStore";
 import alertStore from "../stores/alertStore";
 import { deletePermanentlyUser, deleteTasksByUser } from "../utilities/services";
@@ -12,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import AsideMenu from "../components/Menus/AsideMenu";
 import Button from "react-bootstrap/Button";
+import UserChat from "../components/chat/UserChat";
 
 export default function UserProfile() {
    const { username } = useParams();
@@ -68,7 +68,7 @@ export default function UserProfile() {
       <>
          <HeaderScrum />
 
-         {user.role !== "developer" && <AsideMenu />}
+         <AsideMenu />
          <main className="scrum-main">
             <div id="container-userProfile">
                <EditOwnProfile
@@ -86,8 +86,6 @@ export default function UserProfile() {
                         setInputsDisabled={setInputsDisabled}
                      />
 
-                     {console.log("username  " + username)}
-                     {console.log("usernameStorage " + usernameStorage)}
                      {user.role === "productOwner" && usernameStorage !== username && (
                         <div id="container-btns-userProfile">
                            <Button className="btn-outline-danger " onClick={handleDelete}>
@@ -100,6 +98,7 @@ export default function UserProfile() {
                      )}
                   </div>
                )}
+               <UserChat username={username} token={user.token} />
             </div>
          </main>
          <Footer />
