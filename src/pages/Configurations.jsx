@@ -7,10 +7,12 @@ import { getSessionTimeout, setConfigurationValue } from "../utilities/services"
 import { useEffect, useState } from "react";
 import alertStore from "../stores/alertStore";
 import { userStore } from "../stores/userStore";
+import notificationsStore from "../stores/notificationsStore";
 
 export default function Configurations() {
    const [timeout, setTimeout] = useState(0);
    const token = userStore.getState().user.token;
+   const setSeeNotifications = notificationsStore((state) => state.setSeeNotifications);
 
    function handleAlert(message, error) {
       alertStore.getState().setMessage(message);
@@ -45,7 +47,7 @@ export default function Configurations() {
 
          <div id="main-taskList">
             <AsideMenu />
-            <main className="scrum-main">
+            <main className="scrum-main" onClick={() => setSeeNotifications(false)}>
                <form className="agileForm" id="form-configurations" onSubmit={handleSubmit}>
                   <div className="banner_register">
                      <p id="configurations-banner-p">

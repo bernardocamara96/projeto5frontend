@@ -1,0 +1,53 @@
+#notifications-card-container {
+   display: flex;
+   align-items: center;
+
+   border-radius: 10px;
+   padding: 5px 10px;
+   width: 260px;
+   z-index: 1001;
+   border: 1px solid #a1a1a1;
+   gap: 10px;
+   cursor: pointer;
+   font-size: 14px;
+}
+
+#notifications-card-container img {
+   width: 25px;
+   height: 25px;
+   border-radius: 50%;
+}
+
+#notifications-card-container span {
+   font-weight: bold;
+}
+
+#notification-text {
+   overflow-wrap: break-word;
+   width: 245px;
+}
+
+#notifications-header {
+   align-items: center;
+   gap: 5px;
+}
+
+#notifications-timestamp {
+   font-size: 13px;
+}
+
+.notification-seen {
+   background-color: white;
+}
+
+.notification-seen:hover {
+   background-color: rgb(220, 220, 220);
+}
+
+.notification-notSeen {
+   background-color: rgb(214, 214, 255);
+}
+
+.notification-notSeen:hover {
+   background-color: rgb(185, 185, 254);
+}

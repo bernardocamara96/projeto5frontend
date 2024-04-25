@@ -2,14 +2,16 @@ import "./AsideMenu.css";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { userStore } from "../../stores/userStore";
+import notificationsStore from "../../stores/notificationsStore";
 
 export default function AsideMenu() {
    const navigate = useNavigate();
    const isAsideCollapsed = useMediaQuery({ maxWidth: 1110 });
    const user = userStore.getState().user;
+   const setSeeNotifications = notificationsStore((state) => state.setSeeNotifications);
 
    return (
-      <aside className="col-leftMenu" id="aside-menu">
+      <aside className="col-leftMenu" id="aside-menu" onClick={() => setSeeNotifications(false)}>
          <>
             {user.role === "productOwner" && (
                <>

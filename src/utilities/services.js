@@ -928,7 +928,7 @@ async function addMessage(token, messageDto) {
 }
 
 async function seenMessages(token, usernameSender) {
-   return await fetch(`${baseURL}messages/${usernameSender}`, {
+   return await fetch(`${baseURL}messages/saw/${usernameSender}`, {
       method: "PUT",
       headers: {
          Accept: "application/json",
@@ -946,6 +946,67 @@ async function seenMessages(token, usernameSender) {
       return response;
    });
 }
+
+async function seenMessagesByRecipient(token) {
+   return await fetch(`${baseURL}messages/saw`, {
+      method: "PUT",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   }).then((response) => {
+      if (response.status === 401) {
+         handleAlert("Session expired. Please login again.", true);
+         window.location.href = "/";
+      } else if (response.status === 403) {
+         window.location.href = "/";
+      }
+
+      return response;
+   });
+}
+
+async function getMessagesNumber(token) {
+   return await fetch(`${baseURL}messages/number`, {
+      method: "GET",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   }).then((response) => {
+      if (response.status === 401) {
+         handleAlert("Session expired. Please login again.", true);
+         window.location.href = "/";
+      } else if (response.status === 403) {
+         window.location.href = "/";
+      }
+
+      return response;
+   });
+}
+
+async function getNotifications(token) {
+   return await fetch(`${baseURL}messages/notifications`, {
+      method: "GET",
+      headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+         token: token,
+      },
+   }).then((response) => {
+      if (response.status === 401) {
+         handleAlert("Session expired. Please login again.", true);
+         window.location.href = "/";
+      } else if (response.status === 403) {
+         window.location.href = "/";
+      }
+
+      return response;
+   });
+}
+
 /*function orderTasks(tasks) {
    tasks.sort((a, b) => {
       if (a.priority > b.priority) {
@@ -1032,4 +1093,7 @@ export {
    getMessages,
    addMessage,
    seenMessages,
+   getMessagesNumber,
+   getNotifications,
+   seenMessagesByRecipient,
 };

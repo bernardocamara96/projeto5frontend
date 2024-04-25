@@ -3,7 +3,6 @@ import { Widget, addUserMessage, addResponseMessage } from "react-chat-widget";
 import "react-chat-widget/lib/styles.css";
 import { getUserPhotoDto } from "../../utilities/services";
 import "./UserChat.css";
-import { ChatFeed, Message } from "react-chat-ui";
 
 export default function UserChat({ username, token }) {
    const [userPhoto, setUserPhoto] = useState("");

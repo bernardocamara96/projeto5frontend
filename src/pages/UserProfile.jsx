@@ -13,15 +13,16 @@ import AsideMenu from "../components/Menus/AsideMenu";
 import Button from "react-bootstrap/Button";
 import UserChat from "../components/chat/UserChat";
 import MyUserChat from "../components/chat/MyUserChat";
+import notificationsStore from "../stores/notificationsStore";
 
 export default function UserProfile() {
    const { username } = useParams();
-
    const [passwordActive, setPasswordActive] = useState(false);
    const user = userStore.getState().user;
    const usernameStorage = usernameStore.getState().username;
    const { setConfirmMessage, setConfirmVisible, setConfirmCallback } = alertStore();
    const navigate = useNavigate();
+   const setSeeNotifications = notificationsStore((state) => state.setSeeNotifications);
 
    const [inputsDisabled, setInputsDisabled] = useState(true);
 
@@ -67,10 +68,10 @@ export default function UserProfile() {
    }
    return (
       <>
-         <HeaderScrum />
+         <HeaderScrum userProfile={true} />
 
          <AsideMenu />
-         <main className="scrum-main">
+         <main className="scrum-main" onClick={() => setSeeNotifications(false)}>
             <div id="container-userProfile">
                <EditOwnProfile
                   username={username}

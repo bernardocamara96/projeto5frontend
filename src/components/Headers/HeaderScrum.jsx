@@ -5,12 +5,22 @@ import { userStore } from "../../stores/userStore";
 import filterStore from "../../stores/filterStore";
 import alertStore from "../../stores/alertStore";
 import { useState, useEffect } from "react";
-import { fetchPhotoNameAndRedirect, logoutAttempt } from "../../utilities/services";
+import {
+   fetchPhotoNameAndRedirect,
+   logoutAttempt,
+   getMessagesNumber,
+   getNotifications,
+   seenMessagesByRecipient,
+} from "../../utilities/services";
 import ConfirmMessage from "../somemodals/messagesModal/ConfirmMessage";
 import { usernameStore } from "../../stores/userStore";
 import { useMediaQuery } from "react-responsive";
+import Button from "react-bootstrap/Button";
+import useMessageWebSocket from "../websocket/useMessageWebSocket";
+import UnseenMessages from "../Lists/UnseenMessages";
+import notificationsStore from "../../stores/notificationsStore";
 
-export default function HeaderScrum() {
+export default function HeaderScrum({ userProfile }) {
    const navigate = useNavigate();
    const { updateUsernameFilter, updateCategoryFilter } = filterStore.getState();
    const { setConfirmMessage, setConfirmVisible, setConfirmCallback } = alertStore();
@@ -20,12 +30,19 @@ export default function HeaderScrum() {
    const user = userStore.getState().user;
    const usernameStorage = usernameStore.getState().username;
    usernameStore((state) => state.updateUsername);
-   const isTablet = useMediaQuery({ maxWidth: 450 });
-   const isMobile = useMediaQuery({ maxWidth: 350 });
+   const isTablet = useMediaQuery({ maxWidth: 570 });
+   const isMobile = useMediaQuery({ maxWidth: 450 });
+   const [notificationsNumber, setNotificationsNumber] = useState(0);
+   const [notifications, setNotifications] = useState([]);
+   const { seeNotifications, setSeeNotifications } = notificationsStore();
+   const [english, setEnglish] = useState(true);
+
+   useMessageWebSocket(user.token, usernameStorage, setNotificationsNumber);
 
    //if the token exists it will fetch the photo and name of the user and set it to the state to put in the Header
    useEffect(() => {
       if (user.token) {
+         setSeeNotifications(false);
          fetchPhotoNameAndRedirect(user.token)
             .then((response) => {
                if (!response.ok) {
@@ -34,7 +51,7 @@ export default function HeaderScrum() {
                }
                return response.json();
             })
-            .then(function (data) {
+            .then(function(data) {
                setUserPhoto(data.photoUrl);
                setUsername(data.name);
                updateRole(data.role);
@@ -42,10 +59,29 @@ export default function HeaderScrum() {
             .catch((error) => {
                console.error("Error fetching data:", error);
             });
+         {
+            userProfile
+               ? setTimeout(() => {
+                    getMessagesNumber(user.token).then((response) => {
+                       if (response.ok) {
+                          response.json().then((data) => {
+                             setNotificationsNumber(data);
+                          });
+                       }
+                    });
+                 }, 100)
+               : getMessagesNumber(user.token).then((response) => {
+                    if (response.ok) {
+                       response.json().then((data) => {
+                          setNotificationsNumber(data);
+                       });
+                    }
+                 });
+         }
       } else {
          navigate("/", { replace: true });
       }
-   });
+   }, []);
 
    //function to set the confirm messages
    const handleAction = (message, callback) => {
@@ -62,9 +98,28 @@ export default function HeaderScrum() {
          sessionStorage.clear();
       });
    }
+
+   const handleNotificationsClick = () => {
+      if (!seeNotifications) {
+         getNotifications(user.token).then((response) => {
+            if (response.ok) {
+               response.json().then((data) => {
+                  console.log(data);
+                  if (data.length > 0) {
+                     setSeeNotifications(true);
+                     setNotifications(data);
+                     seenMessagesByRecipient(user.token);
+                     setNotificationsNumber(0);
+                  }
+               });
+            }
+         });
+      } else setSeeNotifications(false);
+   };
+
    return (
       <>
-         <header>
+         <header onClick={() => setSeeNotifications(false)}>
             <div id="logo-div">
                <img
                   className="logo"
@@ -91,27 +146,34 @@ export default function HeaderScrum() {
                </a>
             </div>
 
-            <div id="right-aligned" onClick={() => navigate(`/userProfile/${usernameStorage}`, { replace: true })}>
-               <a>
+            <div id="right-aligned">
+               <div id="languages-row">
+                  <div style={{ fontWeight: !english && "bold" }} onClick={() => setEnglish(false)}>
+                     PT
+                  </div>
+                  <div style={{ fontWeight: english && "bold" }} onClick={() => setEnglish(true)}>
+                     EN
+                  </div>
+               </div>
+               <Button className="btn-dark" id="btn-notifications" onClick={handleNotificationsClick}>
+                  <i class="fas fa-bell fa-lg"></i>
+                  {notificationsNumber > 0 && <span id="notifications-number">{notificationsNumber}</span>}
+               </Button>
+               <a onClick={() => navigate(`/userProfile/${usernameStorage}`, { replace: true })}>
                   <h4>
                      <span id="usernameDisplay" data-testid="usernameDisplay">
                         {username}
                      </span>
                   </h4>
                </a>
-
-               <a
-                  id="userPhotolink"
-                  onClick={() => {
-                     updateUserProfileType("header");
-                  }}
-               >
+               <a id="userPhotolink" onClick={() => navigate(`/userProfile/${usernameStorage}`, { replace: true })}>
                   <div className="user-photo-div">
                      <img id="userPhoto" src={userPhoto} alt="" />
                   </div>
                </a>
             </div>
          </header>
+         {seeNotifications && <UnseenMessages notifications={notifications} />}
          <ConfirmMessage />
       </>
    );

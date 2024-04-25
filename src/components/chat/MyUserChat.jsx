@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { MessageList, Input } from "react-chat-elements";
+import { MessageList } from "react-chat-elements";
 import "react-chat-elements/dist/main.css";
 import "./MyUserChat.css";
 import { getUserPhotoDto } from "../../utilities/services";
 import { Button } from "react-bootstrap";
 import { getMessages, addMessage, seenMessages } from "../../utilities/services";
 import { usernameStore } from "../../stores/userStore";
+import useMessageWebSocket from "../websocket/useMessageWebSocket";
 
 export default function MyChat({ username, token }) {
    const [name, setName] = useState("");
@@ -14,8 +15,18 @@ export default function MyChat({ username, token }) {
    const [messageText, setMessageText] = useState("");
    const usernameStorage = usernameStore.getState().username;
    const messageListContainerRef = useRef(null);
+   const [userChat, setUserChat] = useState("");
 
    useEffect(() => {
+      getUserPhotoDto(token, username).then((response) => {
+         if (response.ok) {
+            response.json().then((data) => {
+               setUserChat(data.firstName);
+               //setDeleted(data.deleted);
+               //setConfirmed(data.confirmed);
+            });
+         }
+      });
       getUserPhotoDto(token, usernameStorage).then((response) => {
          if (response.ok) {
             response.json().then((data) => {
@@ -38,6 +49,7 @@ export default function MyChat({ username, token }) {
                   status: message.senderUsername === username ? null : message.seen ? "read" : "received",
                   avatar: message.senderPhoto,
                   className: message.senderUsername === username ? "custom-left-message" : "custom-right-message",
+                  date: message.sendDate,
                }));
                setMessages(formattedMessages);
             });
@@ -60,28 +72,34 @@ export default function MyChat({ username, token }) {
       };
       addMessage(token, messageDto).then((response) => {
          if (response.ok) {
-            const newMessage = {
-               position: "right",
-               type: "text",
-               title: usernameStorage,
-               text: messageText,
-               status: "received",
-               avatar: userPhoto,
-               className: "custom-right-message",
-            };
-            setMessages([...messages, newMessage]);
-            setMessageText("");
-
-            if (messageListContainerRef.current) {
-               messageListContainerRef.current.scrollTop = messageListContainerRef.current.scrollHeight;
-            }
+            return response.json().then((data) => {
+               console.log(data);
+               const newMessage = {
+                  position: "right",
+                  type: "text",
+                  title: usernameStorage,
+                  text: messageText,
+                  status: data ? "read" : "received",
+                  avatar: userPhoto,
+                  className: "custom-right-message",
+                  date: new Date(),
+               };
+               setMessages([...messages, newMessage]);
+            });
          }
       });
+      setMessageText("");
    };
+   useMessageWebSocket(token, username, setMessages);
    return (
       <div className="agileForm" id="chatForm">
          <div className="banner_register">
-            <i className="fas fa-comment"></i>
+            <p id="banner-messages-p">
+               <i className="fas fa-comment"></i>
+               <b>
+                  &nbsp;&nbsp;Chat with <span>{userChat}</span>
+               </b>
+            </p>
          </div>
          <div className="content_register" id="content-messages-container">
             <div id="messageListContainer" ref={messageListContainerRef}>
@@ -89,12 +107,12 @@ export default function MyChat({ username, token }) {
             </div>
             <div className="content_register" id="content-input-messages">
                <div className="agileRow" id="reply-row">
-                  <Input
+                  <textarea
+                     id="sender-message-input"
                      placeholder="Type here..."
-                     multiline={true}
                      value={messageText}
                      onChange={(e) => setMessageText(e.target.value)}
-                  ></Input>
+                  ></textarea>
                   <Button className="btn-outline-primary" id="button-reply" onClick={handleClick}>
                      <i className="fas fa-reply"></i>
                   </Button>

@@ -53,25 +53,25 @@
    max-width: 80%;
 }
 
-.rce-input-textarea::-webkit-scrollbar,
+#sender-message-input::-webkit-scrollbar,
 #messageListContainer::-webkit-scrollbar {
    width: 8px;
    height: 6px; /* Espessura da barra de rolagem */
 }
 
-.rce-input-textarea::-webkit-scrollbar-track,
+#sender-message-input::-webkit-scrollbar-track,
 #messageListContainer::-webkit-scrollbar-track {
    background: var(--tertiary-color); /* Cor do trilho da barra de rolagem */
    border-radius: 8px;
 }
 
-.rce-input-textarea::-webkit-scrollbar-thumb,
+#sender-message-input::-webkit-scrollbar-thumb,
 #messageListContainer::-webkit-scrollbar-thumb {
    background: #888; /* Cor da barra de rolagem */
    border-radius: 8px; /*Arredonda os cantos*/
 }
 
-.rce-input-textarea::-webkit-scrollbar-thumb:hover,
+#sender-message-input::-webkit-scrollbar-thumb:hover,
 #messageListContainer::-webkit-scrollbar-thumb:hover {
    background: #555; /* Cor da barra de rolagem ao passar o mouse */
 }
@@ -130,4 +130,27 @@
 
 .custom-right-message .rce-mbox-right-notch {
    fill: #b0daeb; /* Customize background color for right messages */
+}
+
+#sender-message-input {
+   min-height: 74px;
+   resize: none;
+   width: 250px;
+   padding-left: 5px;
+   padding-right: 5px;
+   border-radius: 5px;
+   border: 1px solid #a1a1a1;
+}
+
+textarea:focus {
+   border: 1px solid #a1a1a1;
+   outline: none;
+}
+
+#banner-messages-p {
+   margin-bottom: 0;
+}
+
+#banner-messages-p span {
+   color: rgb(36, 57, 151);
 }

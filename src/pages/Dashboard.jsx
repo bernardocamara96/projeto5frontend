@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import LineGraphic from "../components/charts/LineGraphic";
 import { useMediaQuery } from "react-responsive";
 import useDashboardWebSocket from "../components/websocket/useDashboardWebSocket";
+import notificationsStore from "../stores/notificationsStore";
 
 export default function Dashboard() {
    const navigate = useNavigate();
@@ -37,6 +38,7 @@ export default function Dashboard() {
    const screenHeight = window.innerHeight;
    const resolution = screenWidth / screenHeight;
    const isMobileResolution = resolution < 0.75;
+   const setSeeNotifications = notificationsStore((state) => state.setSeeNotifications);
 
    const setUsersValues = (confirmedUsers, notConfirmedUsers) => {
       // Create a new array with the updated value
@@ -125,7 +127,7 @@ export default function Dashboard() {
       <>
          <HeaderScrum />
          <AsideMenu />
-         <main className="scrum-main">
+         <main className="scrum-main" onClick={() => setSeeNotifications(false)}>
             <div id="dashboard-body">
                <div className="containerPieDiv">
                   <div id="banner-PieDiv" className="banner_register">

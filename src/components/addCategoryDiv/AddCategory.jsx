@@ -24,6 +24,7 @@ export default function AddCategory({ setCategoryList }) {
          addCategory(category, user.token).then((response) => {
             if (response.ok) {
                return response.json().then((response) => {
+                  response.tasksNumber = 0;
                   setCategoryList((prevList) => [...prevList, response]);
                   setCategory("");
 

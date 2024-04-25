@@ -12,6 +12,7 @@ export default function AccountConfirmation() {
    const { token } = useParams();
    const [tokenValidated, setTokenValidated] = useState(false);
    const navigate = useNavigate();
+   const [english, setEnglish] = useState(true);
 
    useEffect(() => {
       auxiliarTokenValidator(token).then((response) => {
@@ -25,6 +26,14 @@ export default function AccountConfirmation() {
 
    return (
       <>
+         <div id="languages-row-login">
+            <div style={{ fontWeight: !english && "bold" }} onClick={() => setEnglish(false)}>
+               PT
+            </div>
+            <div style={{ fontWeight: english && "bold" }} onClick={() => setEnglish(true)}>
+               EN
+            </div>
+         </div>
          <main>
             <ConfirmationAccount token={token} />
          </main>

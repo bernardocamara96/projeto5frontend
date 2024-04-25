@@ -9,10 +9,10 @@ import Filters from "../components/Filters/Filters.jsx";
 import AlertsMessage from "../components/somemodals/messagesModal/AlertsMessage.jsx";
 import { userRole } from "../utilities/services.js";
 import { useNavigate } from "react-router-dom";
+import notificationsStore from "../stores/notificationsStore.js";
 
 export default function Scrum() {
    const user = userStore.getState().user;
-
    const [fetchTrigger, setFetchTrigger] = useState(false);
    const [searchTermHome, setSearchTermHome] = useState("");
    const [TODOtasks, setTODOtasks] = useState([]);
@@ -20,6 +20,7 @@ export default function Scrum() {
    const [DONEtasks, setDONEtasks] = useState([]);
    const [role, setRole] = useState("developer");
    const navigate = useNavigate();
+   const setSeeNotifications = notificationsStore((state) => state.setSeeNotifications);
 
    useEffect(() => {
       userRole(user.token).then((response) => {
@@ -37,7 +38,7 @@ export default function Scrum() {
       <>
          <HeaderScrum />
          <AsideMenu />
-         <main id="scrumMain" className="scrum-main">
+         <main id="scrumMain" className="scrum-main" onClick={() => setSeeNotifications(false)}>
             <div id="scrumPage-content">
                <div className="search-container-homepage" id="search-container-homepage">
                   <input
