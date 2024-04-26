@@ -7,12 +7,13 @@ import { auxiliarTokenValidator } from "../utilities/services";
 import { useState, useEffect } from "react";
 import NotFound from "./NotFound";
 import { useNavigate } from "react-router-dom";
+import translationStore from "../stores/translationStore";
 
 export default function AccountConfirmation() {
    const { token } = useParams();
    const [tokenValidated, setTokenValidated] = useState(false);
    const navigate = useNavigate();
-   const [english, setEnglish] = useState(true);
+   const { locale, updateLocale } = translationStore();
 
    useEffect(() => {
       auxiliarTokenValidator(token).then((response) => {
@@ -27,10 +28,10 @@ export default function AccountConfirmation() {
    return (
       <>
          <div id="languages-row-login">
-            <div style={{ fontWeight: !english && "bold" }} onClick={() => setEnglish(false)}>
+            <div style={{ fontWeight: locale === "pt" && "bold" }} onClick={() => updateLocale("pt")}>
                PT
             </div>
-            <div style={{ fontWeight: english && "bold" }} onClick={() => setEnglish(true)}>
+            <div style={{ fontWeight: locale === "en" && "bold" }} onClick={() => updateLocale("en")}>
                EN
             </div>
          </div>

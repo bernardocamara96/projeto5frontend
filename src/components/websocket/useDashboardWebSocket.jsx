@@ -7,7 +7,9 @@ function useDashboardWebSocket(
    setDataPerHour,
    setAverageTasksPerUser,
    setAverageHoursToCompleteTask,
-   setAverageMinutesToCompleteTask
+   setAverageMinutesToCompleteTask,
+   setPrevUsersData,
+   setPrevTasksNumberByState
 ) {
    const WS_URL = `ws://localhost:8080/projeto5backend/websocket/dashboard/${token}`;
 
@@ -26,6 +28,8 @@ function useDashboardWebSocket(
 
          setUsersValues(message.confirmedUsers, message.notConfirmedUsers);
          setTasksValues(message.tasksNumberByState[0], message.tasksNumberByState[1], message.tasksNumberByState[2]);
+         setPrevUsersData([message.confirmedUsers, message.notConfirmedUsers]);
+         setPrevTasksNumberByState(message.tasksNumberByState);
          setAverageTasksPerUser(message.averageTasksNumberByUser);
          setAverageHoursToCompleteTask(Math.floor(message.averageConclusionTime));
          setAverageMinutesToCompleteTask(Math.floor((message.averageConclusionTime % 1) * 60));

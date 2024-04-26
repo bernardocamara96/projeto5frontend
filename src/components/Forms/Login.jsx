@@ -7,6 +7,9 @@ import { userStore, usernameStore } from "../../stores/userStore";
 import filterStore from "../../stores/filterStore";
 import alertStore from "../../stores/alertStore";
 import Button from "react-bootstrap/Button";
+import translationStore from "../../stores/translationStore";
+import languages from "../../translations";
+import { IntlProvider, FormattedMessage } from "react-intl";
 
 export default function Login() {
    const updateUserToken = userStore((state) => state.updateToken);
@@ -16,6 +19,7 @@ export default function Login() {
    const [password, setPassword] = useState("");
    const updateRole = userStore((state) => state.updateRole);
    const navigate = useNavigate();
+   const { locale, updateLocale } = translationStore();
 
    const handleClick = (e) => {
       e.preventDefault();
@@ -33,23 +37,24 @@ export default function Login() {
    const handleSubmit = (e) => {
       e.preventDefault();
       loginAttempt(username, password)
-         .then(function (response) {
+         .then(function(response) {
             if (response.status == 200) {
                return response.json();
             } else if (response.status == 401) {
                //alert("Login failed, please check your credentials");
-               handleAlert("Login failed, please check your credentials", true);
+               if (locale === "en") handleAlert("Login failed, please check your credentials", true);
+               else if (locale === "pt") handleAlert("Falha no login, verifique suas credenciais", true);
             } else {
                //alert("Login failed");
 
-               handleAlert("Login failed", true);
+               if (locale === "en") handleAlert("Login failed", true);
+               else if (locale === "pt") handleAlert("Falha no login", true);
             }
          })
          .then((response) => {
             updateUsername(username);
             if (response.confirmed === "true") {
                updateUserToken(response.token);
-
                navigate("/scrum", { replace: true });
             } else {
                updateUserToken(response.auxiliarToken);
@@ -58,64 +63,63 @@ export default function Login() {
          });
    };
 
-   // Clear filters and user storage
-   useEffect(() => {
-      sessionStorage.clear();
-   }, []);
    return (
       <>
-         <form id="loginForm" className="loginForm agileForm" onSubmit={handleSubmit}>
-            <div id="banner_login">
-               <i className="fas fa-sign-in-alt fa-lg" id="login-icon"></i>
-               <span id="member-login-banner">
-                  <img src={logo} alt="img" className="logo" />
-                  &nbsp;&nbsp;AgileFlow
-               </span>
-            </div>
-            <div id="content_login">
-               <div>
-                  <label htmlFor="username" className="login-label">
-                     Username
-                  </label>
-                  <input
-                     type="text"
-                     name="username"
-                     id="username"
-                     maxLength="25"
-                     placeholder="Your username"
-                     value={username}
-                     className="form-control"
-                     onChange={(e) => setUsername(e.target.value)}
-                     required
-                  />
+         <IntlProvider locale={locale} messages={languages[locale]}>
+            <form id="loginForm" className="loginForm agileForm" onSubmit={handleSubmit}>
+               <div id="banner_login">
+                  <i className="fas fa-sign-in-alt fa-lg" id="login-icon"></i>
+                  <span id="member-login-banner">
+                     <img src={logo} alt="img" className="logo" />
+                     &nbsp;&nbsp;AgileFlow
+                  </span>
                </div>
-               <div>
-                  <label htmlFor="password" className="login-label">
-                     Password
-                  </label>
-                  <input
-                     type="password"
-                     name="password"
-                     id="password"
-                     maxLength="25"
-                     placeholder="Enter password"
-                     className="form-control"
-                     value={password}
-                     onChange={(e) => setPassword(e.target.value)}
-                     required
-                  />
+               <div id="content_login">
+                  <div>
+                     <label htmlFor="username" className="login-label">
+                        <FormattedMessage id="username" />
+                     </label>
+                     <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        maxLength="25"
+                        placeholder={languages[locale]["username-placeholder"]}
+                        value={username}
+                        className="form-control"
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                     />
+                  </div>
+                  <div>
+                     <label htmlFor="password" className="login-label">
+                        <FormattedMessage id="password" />
+                     </label>
+                     <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        maxLength="25"
+                        placeholder={languages[locale]["password-placeholder"]}
+                        className="form-control"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                     />
+                  </div>
+                  <a className="a_login" id="a_forgot" href="/resetPass">
+                     <FormattedMessage id="forgot-password" />
+                  </a>
+                  <Button className="btn-outline-primary" type="submit" id="login-btn" value="Login">
+                     <i className="fas fa-sign-in-alt login-btn"></i> &nbsp;
+                     <FormattedMessage id="login" />
+                  </Button>
+                  <Button className="btn-outline-danger" id="a_registration" onClick={handleClick}>
+                     <i className="fas fa-user-plus a_registration"></i>&nbsp; <FormattedMessage id="register" />
+                  </Button>
                </div>
-               <a className="a_login" id="a_forgot" href="/resetPass">
-                  Forgot your password?
-               </a>
-               <Button className="btn-outline-primary" type="submit" id="login-btn" value="Login">
-                  <i className="fas fa-sign-in-alt login-btn"></i> &nbsp;Login
-               </Button>
-               <Button className="btn-outline-danger" id="a_registration" onClick={handleClick}>
-                  <i className="fas fa-user-plus a_registration"></i>&nbsp; Register
-               </Button>
-            </div>
-         </form>
+            </form>
+         </IntlProvider>
       </>
    );
 }

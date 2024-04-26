@@ -19,6 +19,9 @@ import Button from "react-bootstrap/Button";
 import useMessageWebSocket from "../websocket/useMessageWebSocket";
 import UnseenMessages from "../Lists/UnseenMessages";
 import notificationsStore from "../../stores/notificationsStore";
+import translationStore from "../../stores/translationStore";
+import languages from "../../translations";
+import { IntlProvider, FormattedMessage } from "react-intl";
 
 export default function HeaderScrum({ userProfile }) {
    const navigate = useNavigate();
@@ -35,7 +38,7 @@ export default function HeaderScrum({ userProfile }) {
    const [notificationsNumber, setNotificationsNumber] = useState(0);
    const [notifications, setNotifications] = useState([]);
    const { seeNotifications, setSeeNotifications } = notificationsStore();
-   const [english, setEnglish] = useState(true);
+   const { locale, updateLocale } = translationStore();
 
    useMessageWebSocket(user.token, usernameStorage, setNotificationsNumber);
 
@@ -95,7 +98,10 @@ export default function HeaderScrum({ userProfile }) {
       handleAction("Are you sure you want to exit the app?", () => {
          logoutAttempt(user.token);
          navigate("/", { replace: true });
-         sessionStorage.clear();
+         sessionStorage.removeItem("username-storage");
+         sessionStorage.removeItem("filter-storage");
+         sessionStorage.removeItem("user-storage");
+         sessionStorage.removeItem("tasks-storage");
       });
    }
 
@@ -119,62 +125,74 @@ export default function HeaderScrum({ userProfile }) {
 
    return (
       <>
-         <header onClick={() => setSeeNotifications(false)}>
-            <div id="logo-div">
-               <img
-                  className="logo"
-                  id="logo-header"
-                  src={appLogo}
-                  alt="IMG"
-                  onClick={() => navigate("/scrum", { replace: true })}
-               />
-               {!isMobile && (
-                  <span id="app-name" onClick={() => navigate("/scrum", { replace: true })}>
-                     <b>AgileFlow</b>
-                  </span>
-               )}
-            </div>
-
-            <div className="topnav">
-               {!isTablet && (
-                  <a id="nav-home" className="active" onClick={() => navigate("/scrum", { replace: true })}>
-                     Homepage
-                  </a>
-               )}
-               <a id="nav-exit" onClick={clickOnExit}>
-                  Exit
-               </a>
-            </div>
-
-            <div id="right-aligned">
-               <div id="languages-row">
-                  <div style={{ fontWeight: !english && "bold" }} onClick={() => setEnglish(false)}>
-                     PT
-                  </div>
-                  <div style={{ fontWeight: english && "bold" }} onClick={() => setEnglish(true)}>
-                     EN
-                  </div>
-               </div>
-               <Button className="btn-dark" id="btn-notifications" onClick={handleNotificationsClick}>
-                  <i class="fas fa-bell fa-lg"></i>
-                  {notificationsNumber > 0 && <span id="notifications-number">{notificationsNumber}</span>}
-               </Button>
-               <a onClick={() => navigate(`/userProfile/${usernameStorage}`, { replace: true })}>
-                  <h4>
-                     <span id="usernameDisplay" data-testid="usernameDisplay">
-                        {username}
+         <IntlProvider locale={locale} messages={languages[locale]}>
+            <header onClick={() => setSeeNotifications(false)}>
+               <div id="logo-div">
+                  <img
+                     className="logo"
+                     id="logo-header"
+                     src={appLogo}
+                     alt="IMG"
+                     onClick={() => navigate("/scrum", { replace: true })}
+                  />
+                  {!isMobile && (
+                     <span id="app-name" onClick={() => navigate("/scrum", { replace: true })}>
+                        <b>AgileFlow</b>
                      </span>
-                  </h4>
-               </a>
-               <a id="userPhotolink" onClick={() => navigate(`/userProfile/${usernameStorage}`, { replace: true })}>
-                  <div className="user-photo-div">
-                     <img id="userPhoto" src={userPhoto} alt="" />
+                  )}
+               </div>
+
+               <div className="topnav">
+                  {!isTablet && (
+                     <a id="nav-home" className="active" onClick={() => navigate("/scrum", { replace: true })}>
+                        <FormattedMessage id="homepage" />
+                     </a>
+                  )}
+                  <a id="nav-exit" onClick={clickOnExit}>
+                     <FormattedMessage id="exit" />
+                  </a>
+               </div>
+
+               <div id="right-aligned">
+                  <div id="languages-row">
+                     <div
+                        style={{ fontWeight: locale === "pt" && "bold" }}
+                        onClick={() => {
+                           updateLocale("pt");
+                        }}
+                     >
+                        PT
+                     </div>
+                     <div
+                        style={{ fontWeight: locale === "en" && "bold" }}
+                        onClick={() => {
+                           updateLocale("en");
+                        }}
+                     >
+                        EN
+                     </div>
                   </div>
-               </a>
-            </div>
-         </header>
-         {seeNotifications && <UnseenMessages notifications={notifications} />}
-         <ConfirmMessage />
+                  <Button className="btn-dark" id="btn-notifications" onClick={handleNotificationsClick}>
+                     <i class="fas fa-bell fa-lg"></i>
+                     {notificationsNumber > 0 && <span id="notifications-number">{notificationsNumber}</span>}
+                  </Button>
+                  <a onClick={() => navigate(`/userProfile/${usernameStorage}`, { replace: true })}>
+                     <h4>
+                        <span id="usernameDisplay" data-testid="usernameDisplay">
+                           {username}
+                        </span>
+                     </h4>
+                  </a>
+                  <a id="userPhotolink" onClick={() => navigate(`/userProfile/${usernameStorage}`, { replace: true })}>
+                     <div className="user-photo-div">
+                        <img id="userPhoto" src={userPhoto} alt="" />
+                     </div>
+                  </a>
+               </div>
+            </header>
+            {seeNotifications && <UnseenMessages notifications={notifications} />}
+            <ConfirmMessage />
+         </IntlProvider>
       </>
    );
 }

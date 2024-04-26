@@ -8,6 +8,9 @@ import { userStore } from "../../stores/userStore.js";
 import Button from "react-bootstrap/Button";
 import logo from "../../assets/logo.png";
 import userPNG from "../../assets/user-login.png";
+import languages from "../../translations/index.js";
+import { IntlProvider, FormattedMessage } from "react-intl";
+import translationStore from "../../stores/translationStore.js";
 
 export default function RegisterForm({ type }) {
    const [role, setRole] = useState("developer");
@@ -19,6 +22,7 @@ export default function RegisterForm({ type }) {
    const [photo, setPhoto] = useState("");
    const { updateToken, updateRole } = userStore();
    const navigate = useNavigate();
+   const { locale, updateLocale } = translationStore();
 
    // Function to set the alert messages
    function handleAlert(message, error) {
@@ -89,162 +93,174 @@ export default function RegisterForm({ type }) {
    }
 
    return (
-      <div id="register_container">
-         <form
-            id="registrationForm"
-            className="agileForm"
-            onSubmit={handleSubmit}
-            style={{
-               marginTop: type === "productOwnerRegister" && "2vh",
-               marginLeft: type === "productOwnerRegister" && "44%",
-            }}
-         >
-            <div className="banner_register" id="banner-registerform">
-               <i className="fas fa-user-plus fa-lg"></i>
-               <span id="member-registration-banner">
-                  {type === "productOwnerRegister" ? (
-                     <p id="add-user-banner">Add user</p>
-                  ) : (
-                     <>
-                        <img src={logo} alt="img" className="logo" />
-                        &nbsp;&nbsp;AgileFlow
-                     </>
-                  )}
-               </span>
-            </div>
+      <IntlProvider locale={locale} messages={languages[locale]}>
+         <div id="register_container">
+            <form
+               id="registrationForm"
+               className="agileForm"
+               onSubmit={handleSubmit}
+               style={{
+                  marginTop: type === "productOwnerRegister" && "2vh",
+                  marginLeft: type === "productOwnerRegister" && "44%",
+               }}
+            >
+               <div className="banner_register" id="banner-registerform">
+                  <i className="fas fa-user-plus fa-lg"></i>
+                  <span id="member-registration-banner">
+                     {type === "productOwnerRegister" ? (
+                        <p id="add-user-banner">
+                           {" "}
+                           <FormattedMessage id="add-user" />
+                        </p>
+                     ) : (
+                        <>
+                           <img src={logo} alt="img" className="logo" />
+                           &nbsp;&nbsp;AgileFlow
+                        </>
+                     )}
+                  </span>
+               </div>
 
-            <div className="content_register" id="content-register">
-               <img src={isValidURL(photo) ? photo : userPNG} alt="userLogo" id="userLogo-register" />
-               {type === "productOwnerRegister" && (
+               <div className="content_register" id="content-register">
+                  <img src={isValidURL(photo) ? photo : userPNG} alt="userLogo" id="userLogo-register" />
+                  {type === "productOwnerRegister" && (
+                     <div className="agileRow">
+                        <label id="role-label" htmlFor="role-field">
+                           <FormattedMessage id="role" />
+                        </label>
+                        <select
+                           name="role"
+                           id="role-field"
+                           className="form-control"
+                           value={role}
+                           onChange={(e) => setRole(e.target.value)}
+                        >
+                           <option value="developer">
+                              <FormattedMessage id="developer" />
+                           </option>
+                           <option value="scrumMaster">
+                              <FormattedMessage id="scrumMaster" />
+                           </option>
+                           <option value="productOwner">
+                              <FormattedMessage id="productOwner" />
+                           </option>
+                        </select>
+                     </div>
+                  )}
                   <div className="agileRow">
-                     <label id="role-label" htmlFor="role-field">
-                        Role
-                     </label>
-                     <select
-                        name="role"
-                        id="role-field"
-                        className="form-control"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                     >
-                        <option value="developer">Developer</option>
-                        <option value="scrumMaster">Scrum Master</option>
-                        <option value="productOwner">Product Owner</option>
-                     </select>
+                     <div className="agileCol">
+                        <label id="username-label" htmlFor="username-field">
+                           <FormattedMessage id="username" />
+                        </label>
+                        <input
+                           type="text"
+                           name="username"
+                           id="username-field"
+                           maxLength="25"
+                           placeholder={languages[locale]["username-placeholder"]}
+                           value={username}
+                           className="form-control register-input"
+                           onChange={(e) => setUsername(e.target.value)}
+                           required
+                        />
+                     </div>
+                     <div className="agileCol">
+                        <label id="phone-label" htmlFor="phone-field">
+                           <FormattedMessage id="phone" />
+                        </label>
+                        <input
+                           type="tel"
+                           name="phone"
+                           id="phone-field"
+                           maxLength="35"
+                           placeholder={languages[locale]["phone-placeholder"]}
+                           value={phone}
+                           className="form-control register-input"
+                           onChange={(e) => setPhone(e.target.value)}
+                           required
+                        />
+                     </div>
                   </div>
-               )}
-               <div className="agileRow">
-                  <div className="agileCol">
-                     <label id="username-label" htmlFor="username-field">
-                        Username
-                     </label>
-                     <input
-                        type="text"
-                        name="username"
-                        id="username-field"
-                        maxLength="25"
-                        placeholder="Enter your username"
-                        value={username}
-                        className="form-control register-input"
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                     />
+                  <div className="agileRow">
+                     <div className="agileCol">
+                        <label id="email-label" htmlFor="email-field">
+                           <FormattedMessage id="email" />
+                        </label>
+                        <input
+                           type="email"
+                           name="email"
+                           id="email-field"
+                           maxLength="35"
+                           placeholder={languages[locale]["email-placeholder"]}
+                           value={email}
+                           className="form-control register-input"
+                           onChange={(e) => setEmail(e.target.value)}
+                           required
+                        />
+                     </div>
+                     <div className="agileCol">
+                        <label id="first-name-label" htmlFor="firstname-field">
+                           <FormattedMessage id="firstName" />
+                        </label>
+                        <input
+                           type="text"
+                           name="firstname"
+                           id="firstname-field"
+                           maxLength="35"
+                           placeholder={languages[locale]["firstName-placeholder"]}
+                           value={firstname}
+                           className="form-control register-input"
+                           onChange={(e) => setFirstname(e.target.value)}
+                           required
+                        />
+                     </div>
                   </div>
-                  <div className="agileCol">
-                     <label id="phone-label" htmlFor="phone-field">
-                        Phone
-                     </label>
-                     <input
-                        type="tel"
-                        name="phone"
-                        id="phone-field"
-                        maxLength="35"
-                        placeholder="Enter your phone"
-                        value={phone}
-                        className="form-control register-input"
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                     />
+                  <div className="agileRow">
+                     <div className="agileCol">
+                        <label id="last-name-label" htmlFor="lastname-field">
+                           <FormattedMessage id="lastName" />
+                        </label>
+                        <input
+                           type="text"
+                           name="lastname"
+                           id="lastname-field"
+                           maxLength="35"
+                           placeholder={languages[locale]["lastName-placeholder"]}
+                           value={lastname}
+                           className="form-control register-input"
+                           onChange={(e) => setLastname(e.target.value)}
+                           required
+                        />
+                     </div>
+                     <div className="agileCol">
+                        <label id="URL" htmlFor="photo-field">
+                           <FormattedMessage id="profilePhoto" />
+                        </label>
+                        <input
+                           type="text"
+                           name="photo"
+                           id="photo-field"
+                           maxLength="500"
+                           placeholder={languages[locale]["profilePhoto-placeholder"]}
+                           value={photo}
+                           className="form-control register-input"
+                           onChange={(e) => setPhoto(e.target.value)}
+                           required
+                        />
+                     </div>
                   </div>
-               </div>
-               <div className="agileRow">
-                  <div className="agileCol">
-                     <label id="email-label" htmlFor="email-field">
-                        Email
-                     </label>
-                     <input
-                        type="email"
-                        name="email"
-                        id="email-field"
-                        maxLength="35"
-                        placeholder="Enter your email"
-                        value={email}
-                        className="form-control register-input"
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                     />
-                  </div>
-                  <div className="agileCol">
-                     <label id="first-name-label" htmlFor="firstname-field">
-                        First Name
-                     </label>
-                     <input
-                        type="text"
-                        name="firstname"
-                        id="firstname-field"
-                        maxLength="35"
-                        placeholder="Enter your First Name"
-                        value={firstname}
-                        className="form-control register-input"
-                        onChange={(e) => setFirstname(e.target.value)}
-                        required
-                     />
-                  </div>
-               </div>
-               <div className="agileRow">
-                  <div className="agileCol">
-                     <label id="last-name-label" htmlFor="lastname-field">
-                        Last Name
-                     </label>
-                     <input
-                        type="text"
-                        name="lastname"
-                        id="lastname-field"
-                        maxLength="35"
-                        placeholder="Enter your Last Name"
-                        value={lastname}
-                        className="form-control register-input"
-                        onChange={(e) => setLastname(e.target.value)}
-                        required
-                     />
-                  </div>
-                  <div className="agileCol">
-                     <label id="URL" htmlFor="photo-field">
-                        Profile Photo
-                     </label>
-                     <input
-                        type="text"
-                        name="photo"
-                        id="photo-field"
-                        maxLength="500"
-                        placeholder="Enter your Photo URL"
-                        value={photo}
-                        className="form-control register-input"
-                        onChange={(e) => setPhoto(e.target.value)}
-                        required
-                     />
-                  </div>
-               </div>
-               <Button type="submit" id="registration" className="btn-outline-danger">
-                  <i className="fas fa-user-plus a_registration"></i>&nbsp; Confirm Registration
-               </Button>
-               {type === "normalRegister" && (
-                  <Button className="btn-outline-primary" type="button" id="login-btn" onClick={() => navigate("/")}>
-                     <i className="fas fa-sign-in-alt login-btn"></i>&nbsp; Login
+                  <Button type="submit" id="registration" className="btn-outline-danger">
+                     <i className="fas fa-user-plus a_registration"></i>&nbsp;{" "}
+                     <FormattedMessage id="confirmRegistration" />
                   </Button>
-               )}
-            </div>
-         </form>
-      </div>
+                  {type === "normalRegister" && (
+                     <Button className="btn-outline-primary" type="button" id="login-btn" onClick={() => navigate("/")}>
+                        <i className="fas fa-sign-in-alt login-btn"></i>&nbsp; <FormattedMessage id="login" />
+                     </Button>
+                  )}
+               </div>
+            </form>
+         </div>
+      </IntlProvider>
    );
 }

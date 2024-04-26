@@ -32,11 +32,11 @@
 
 .tasks-number-per-user {
    margin-left: 1%;
-   width: 33%;
+   width: 40%;
    background-color: rgb(182, 182, 182);
    display: flex;
    justify-content: center;
-   padding: 1px;
+   padding: 1px 8px;
    border-radius: 10px;
    font-weight: bold;
    font-size: 13.5px;

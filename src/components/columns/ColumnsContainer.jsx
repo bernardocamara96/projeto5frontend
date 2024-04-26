@@ -13,13 +13,14 @@ import { DragDropContext } from "react-beautiful-dnd";
 import filterStore from "../../stores/filterStore";
 import useTasksWebSocket from "../websocket/useTasksWebSocket";
 import useTasksStore from "../../stores/tasksStore";
+import translationStore from "../../stores/translationStore";
 
 export default function ColumnsContainer({ token, tasks, setTasks, fetchTrigger, setFetchTrigger, searchTerm }) {
    const { TODOtasks, DOINGtasks, DONEtasks } = tasks;
    const { setTODOtasks, setDOINGtasks, setDONEtasks } = setTasks;
    const { usernameFilter, categoryFilter } = filterStore.getState();
    const user = userStore.getState().user;
-
+   const { locale } = translationStore();
    const { tasksArray, updateTasks, socketTrigger, otherTrigger } = useTasksStore();
 
    useTasksWebSocket(user.token);
@@ -99,6 +100,7 @@ export default function ColumnsContainer({ token, tasks, setTasks, fetchTrigger,
 
       if (source.droppableId !== destination.droppableId) {
          const taskId = draggableId;
+
          const newStatus = destination.droppableId === "TO DO" ? 100 : destination.droppableId === "DOING" ? 200 : 300;
          updateTaskStatus(token, taskId, newStatus).then((response) => {
             if (response.ok) {
@@ -196,26 +198,29 @@ export default function ColumnsContainer({ token, tasks, setTasks, fetchTrigger,
       <DragDropContext onDragEnd={handleDragEnd}>
          <div className="tasks-row">
             <Column
-               title="TO DO"
+               title={locale === "en" ? "TO DO" : "POR FAZER"}
                token={token}
                tasks={TODOtasks}
                setFetchTrigger={setFetchTrigger}
                tasksNumber={TODOtasks.length}
                searchTerm={searchTerm}
+               id="TO DO"
             />
             <Column
-               title="DOING"
+               title={locale === "en" ? "DOING" : "EM PROGRESSO"}
                tasks={DOINGtasks}
                setFetchTrigger={setFetchTrigger}
                tasksNumber={DOINGtasks.length}
                searchTerm={searchTerm}
+               id="DOING"
             />
             <Column
-               title="DONE"
+               title={locale === "en" ? "DONE" : "FEITO"}
                tasks={DONEtasks}
                setFetchTrigger={setFetchTrigger}
                tasksNumber={DONEtasks.length}
                searchTerm={searchTerm}
+               id="DONE"
             />
          </div>
       </DragDropContext>

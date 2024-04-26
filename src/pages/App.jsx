@@ -1,18 +1,36 @@
 import Login from "../components/Forms/Login";
-import Header from "../components/Headers/LoginHeader";
 import Footer from "../components/Footers/Footer";
 import AlertsMessage from "../components/somemodals/messagesModal/AlertsMessage";
-import { useState } from "react";
+import { useEffect } from "react";
+import translationStore from "../stores/translationStore";
 
 function App() {
-   const [english, setEnglish] = useState(true);
+   const { locale, updateLocale } = translationStore();
+
+   // Clear filters and user storage
+   useEffect(() => {
+      sessionStorage.removeItem("username-storage");
+      sessionStorage.removeItem("filter-storage");
+      sessionStorage.removeItem("user-storage");
+      sessionStorage.removeItem("tasks-storage");
+   }, []);
    return (
       <>
          <div id="languages-row-login">
-            <div style={{ fontWeight: !english && "bold" }} onClick={() => setEnglish(false)}>
+            <div
+               style={{ fontWeight: locale === "pt" && "bold" }}
+               onClick={() => {
+                  updateLocale("pt");
+               }}
+            >
                PT
             </div>
-            <div style={{ fontWeight: english && "bold" }} onClick={() => setEnglish(true)}>
+            <div
+               style={{ fontWeight: locale === "en" && "bold" }}
+               onClick={() => {
+                  updateLocale("en");
+               }}
+            >
                EN
             </div>
          </div>

@@ -11,18 +11,22 @@ import LineGraphic from "../components/charts/LineGraphic";
 import { useMediaQuery } from "react-responsive";
 import useDashboardWebSocket from "../components/websocket/useDashboardWebSocket";
 import notificationsStore from "../stores/notificationsStore";
+import translationStore from "../stores/translationStore";
+import languages from "../translations";
+import { IntlProvider, FormattedMessage } from "react-intl";
 
 export default function Dashboard() {
    const navigate = useNavigate();
+   const { locale } = translationStore();
    const user = userStore.getState().user;
    const [usersPieData, setUsersPieData] = useState([
-      { name: "Confirmed", value: 0 },
-      { name: "Unconfirmed", value: 0 },
+      { name: locale === "en" ? "Confirmed" : "Confirmado", value: 0 },
+      { name: locale === "en" ? "Unconfirmed" : "Não Confirmados", value: 0 },
    ]);
    const [tasksPieData, setTasksPieData] = useState([
-      { name: "TO DO", value: 0 },
-      { name: "DOING", value: 0 },
-      { name: "DONE", value: 0 },
+      { name: locale === "en" ? "TO DO" : "POR FAZER", value: 0 },
+      { name: locale === "en" ? "DOING" : "EM PROGRESSO", value: 0 },
+      { name: locale === "en" ? "DONE" : "FEITO", value: 0 },
    ]);
    const [averageTasksPerUser, setAverageTasksPerUser] = useState(0);
    const [averageHoursToCompleteTask, setAverageHoursToCompleteTask] = useState(0);
@@ -40,22 +44,26 @@ export default function Dashboard() {
    const isMobileResolution = resolution < 0.75;
    const setSeeNotifications = notificationsStore((state) => state.setSeeNotifications);
 
+   const [prevUsersData, setPrevUsersData] = useState([0, 0]);
+   const [prevTasksNumberByState, setPrevTasksNumberByState] = useState([0, 0, 0]);
+
    const setUsersValues = (confirmedUsers, notConfirmedUsers) => {
       // Create a new array with the updated value
       const updatedData = [
-         { name: "Confirmed", value: confirmedUsers }, // Update value for confirmed users
-         { name: "Unconfirmed", value: notConfirmedUsers }, // Leave other value unchanged
+         { name: locale === "en" ? "Confirmed" : "Confirmado", value: confirmedUsers }, // Update value for confirmed users
+         { name: locale === "en" ? "Unconfirmed" : "Não Confirmado", value: notConfirmedUsers }, // Leave other value unchanged
       ];
       // Set the state with the new array
       setUsersPieData(updatedData);
    };
 
    const setTasksValues = (toDo_tasks, doing_tasks, done_tasks) => {
+      console.log(locale);
       // Create a new array with the updated value
       const updatedData = [
-         { name: "TO DO", value: toDo_tasks },
-         { name: "DOING", value: doing_tasks },
-         { name: "DONE", value: done_tasks },
+         { name: locale === "en" ? "TO DO" : "POR FAZER", value: toDo_tasks },
+         { name: locale === "en" ? "DOING" : "EM PROGRESSO", value: doing_tasks },
+         { name: locale === "en" ? "DONE" : "FEITO", value: done_tasks },
       ];
       // Set the state with the new array
       setTasksPieData(updatedData);
@@ -67,11 +75,7 @@ export default function Dashboard() {
       let newDates = [];
 
       dates.forEach((item) => {
-         let date = new Date(item);
-
-         let formattedDate = date.getDate() + " " + date.toLocaleTimeString("en-US", { hour: "numeric", hour12: true });
-
-         newDates.push(formattedDate);
+         newDates.push(item);
       });
 
       for (let i = 0; i < newDates.length; i++) {
@@ -101,7 +105,9 @@ export default function Dashboard() {
       setDataPerHour,
       setAverageTasksPerUser,
       setAverageHoursToCompleteTask,
-      setAverageMinutesToCompleteTask
+      setAverageMinutesToCompleteTask,
+      setPrevUsersData,
+      setPrevTasksNumberByState
    );
 
    useEffect(() => {
@@ -112,103 +118,114 @@ export default function Dashboard() {
             return response.json().then((data) => {
                setUsersValues(data.confirmedUsers, data.notConfirmedUsers);
                setTasksValues(data.tasksNumberByState[0], data.tasksNumberByState[1], data.tasksNumberByState[2]);
+               setPrevUsersData([data.confirmedUsers, data.notConfirmedUsers]);
+               setPrevTasksNumberByState(data.tasksNumberByState);
                setAverageTasksPerUser(data.averageTasksNumberByUser);
                setAverageHoursToCompleteTask(Math.floor(data.averageConclusionTime));
                setAverageMinutesToCompleteTask(Math.floor((data.averageConclusionTime % 1) * 60));
                setDataPerHour("users", data.appHoursArray, data.numberOfUsersRegisterByHour);
                setDataPerHour("tasks", data.appHoursArray, data.cumulativeTasksNumberByHour);
-               console.log(data);
             });
          }
       });
    }, []);
 
+   useEffect(() => {
+      setUsersValues(prevUsersData[0], prevUsersData[1]);
+      setTasksValues(prevTasksNumberByState[0], prevTasksNumberByState[1], prevTasksNumberByState[2]);
+   }, [locale]);
+
    return (
       <>
-         <HeaderScrum />
-         <AsideMenu />
-         <main className="scrum-main" onClick={() => setSeeNotifications(false)}>
-            <div id="dashboard-body">
-               <div className="containerPieDiv">
-                  <div id="banner-PieDiv" className="banner_register">
-                     <span>
-                        <i class="fas fa-users"></i>&nbsp;&nbsp;Users
-                     </span>
-                  </div>
-                  <div className="flex-row-charts" style={{ flexDirection: isMobileResolution && "column" }}>
-                     <div
-                        id="pieDiv"
-                        style={{ height: isMobileResolution && "23vh", width: isMobileResolution && "100%" }}
-                     >
-                        <PieGraphic
-                           data={usersPieData}
-                           colors={usersPieColors}
-                           isSmallMobile={isSmallMobile}
-                           isMobileResolution={isMobileResolution}
-                        />
+         <IntlProvider locale={locale} messages={languages[locale]}>
+            <HeaderScrum />
+            <AsideMenu />
+            <main className="scrum-main" onClick={() => setSeeNotifications(false)}>
+               <div id="dashboard-body">
+                  <div className="containerPieDiv">
+                     <div id="banner-PieDiv" className="banner_register">
+                        <span>
+                           <i class="fas fa-users"></i>&nbsp;&nbsp;
+                           <FormattedMessage id="users" />
+                        </span>
                      </div>
+                     <div className="flex-row-charts" style={{ flexDirection: isMobileResolution && "column" }}>
+                        <div
+                           id="pieDiv"
+                           style={{ height: isMobileResolution && "23vh", width: isMobileResolution && "100%" }}
+                        >
+                           <PieGraphic
+                              data={usersPieData}
+                              colors={usersPieColors}
+                              isSmallMobile={isSmallMobile}
+                              isMobileResolution={isMobileResolution}
+                           />
+                        </div>
 
-                     <LineGraphic
-                        data={userByHour}
-                        isTablet={isTablet}
-                        isMobile={isMobile}
-                        isSmallMobile={isSmallMobile}
-                        isMobileResolution={isMobileResolution}
-                        dataName="users"
-                     />
-                  </div>
-                  <div className="flex-row-charts" style={{ marginTop: isMobileResolution && "5px" }}>
-                     <div className="tasks-number-per-user">
-                        Average number of tasks per user: {averageTasksPerUser}
-                     </div>
-                     <div className="tasks-number-per-user graph-label">
-                        Chart: Number of registered users over time (day and hour)
-                     </div>
-                  </div>
-               </div>
-               <div className="containerPieDiv">
-                  <div id="banner-PieDiv" className="banner_register">
-                     <span>
-                        <i class="fas fa-tasks"></i>&nbsp;&nbsp;Tasks
-                     </span>
-                  </div>
-                  <div className="flex-row-charts" style={{ flexDirection: isMobileResolution && "column" }}>
-                     <div
-                        id="pieDiv"
-                        style={{ height: isMobileResolution && "23vh", width: isMobileResolution && "100%" }}
-                     >
-                        <PieGraphic
-                           data={tasksPieData}
-                           colors={tasksPieColors}
+                        <LineGraphic
+                           data={userByHour}
+                           isTablet={isTablet}
+                           isMobile={isMobile}
                            isSmallMobile={isSmallMobile}
                            isMobileResolution={isMobileResolution}
+                           dataName="users"
                         />
                      </div>
-                     <LineGraphic
-                        data={tasksByHour}
-                        isTablet={isTablet}
-                        isMobile={isMobile}
-                        isSmallMobile={isSmallMobile}
-                        isMobileResolution={isMobileResolution}
-                        dataName="tasks"
-                     />
-                  </div>
-                  <div>
                      <div className="flex-row-charts" style={{ marginTop: isMobileResolution && "5px" }}>
                         <div className="tasks-number-per-user">
-                           Average task completion time:{" "}
-                           {averageHoursToCompleteTask != 0 && averageHoursToCompleteTask + " hours and "}
-                           {averageMinutesToCompleteTask} minutes
+                           <FormattedMessage id="average-number-of-tasks" />
+                           {averageTasksPerUser}
                         </div>
                         <div className="tasks-number-per-user graph-label">
-                           Chart: Number of tasks completed over time (day and hour)
+                           <FormattedMessage id="chart-users" />
+                        </div>
+                     </div>
+                  </div>
+                  <div className="containerPieDiv">
+                     <div id="banner-PieDiv" className="banner_register">
+                        <span>
+                           <i class="fas fa-tasks"></i>&nbsp;&nbsp; <FormattedMessage id="tasks" />
+                        </span>
+                     </div>
+                     <div className="flex-row-charts" style={{ flexDirection: isMobileResolution && "column" }}>
+                        <div
+                           id="pieDiv"
+                           style={{ height: isMobileResolution && "23vh", width: isMobileResolution && "100%" }}
+                        >
+                           <PieGraphic
+                              data={tasksPieData}
+                              colors={tasksPieColors}
+                              isSmallMobile={isSmallMobile}
+                              isMobileResolution={isMobileResolution}
+                           />
+                        </div>
+                        <LineGraphic
+                           data={tasksByHour}
+                           isTablet={isTablet}
+                           isMobile={isMobile}
+                           isSmallMobile={isSmallMobile}
+                           isMobileResolution={isMobileResolution}
+                           dataName="tasks"
+                        />
+                     </div>
+                     <div>
+                        <div className="flex-row-charts" style={{ marginTop: isMobileResolution && "5px" }}>
+                           <div className="tasks-number-per-user">
+                              <FormattedMessage id="average-task-completion" />
+                              {averageHoursToCompleteTask != 0 &&
+                                 averageHoursToCompleteTask + languages[locale]["hours-and"]}
+                              {averageMinutesToCompleteTask} {languages[locale]["minutes"]}
+                           </div>
+                           <div className="tasks-number-per-user graph-label">
+                              <FormattedMessage id="chart-tasks" />
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
-            </div>
-         </main>
-         <Footer />
+            </main>
+            <Footer />
+         </IntlProvider>
       </>
    );
 }

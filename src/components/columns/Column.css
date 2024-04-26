@@ -23,7 +23,7 @@
    min-width: 210px;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 920px) {
    .col-todo {
       width: 100%;
       max-width: 100%;
@@ -127,7 +127,7 @@ ul {
    background-color: #8d8d8d;
 }
 
-@media (min-width: 860px) {
+@media (min-width: 920px) {
    .ul-tasks {
       margin-top: 11px;
    }

@@ -71,9 +71,9 @@ function useTasksWebSocket(token) {
          } else if (message.startsWith("taskPermDelete:")) {
             var json = message.substring("taskPermDelete: ".length);
 
-            var taskDto = JSON.parse(json);
+            var id = JSON.parse(json);
 
-            deleteDeletedTaskById(taskDto.id);
+            deleteDeletedTaskById(id);
 
             // Handle the task status message
          } else if (message.startsWith("newTask:")) {

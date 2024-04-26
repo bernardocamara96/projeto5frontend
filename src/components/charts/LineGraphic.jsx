@@ -6,7 +6,7 @@ export default class LineGraphic extends PureComponent {
       const { data, isTablet, isMobile, isSmallMobile, isMobileResolution, dataName } = this.props;
 
       const filteredData = data.filter((item, index) => {
-         return index % 4 === 0;
+         return index % 2 === 0;
       });
 
       const formatYAxisTick = (tick) => {
@@ -29,7 +29,7 @@ export default class LineGraphic extends PureComponent {
                }}
             >
                <CartesianGrid strokeDasharray="3 3" />
-               <XAxis dataKey="date" interval={isSmallMobile ? 5 : isMobile ? 9 : 4} />
+               <XAxis dataKey="date" interval={isSmallMobile ? 1 : isMobile ? 2 : 1} />
                <YAxis tickFormatter={formatYAxisTick} />
                <Tooltip />
                <Line type="monotone" dataKey={dataName} stroke="#8884d8" activeDot={{ r: 8 }} />

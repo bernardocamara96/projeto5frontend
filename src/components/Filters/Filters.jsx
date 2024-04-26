@@ -14,6 +14,9 @@ import { userStore } from "../../stores/userStore";
 import filterStore from "../../stores/filterStore";
 import Button from "react-bootstrap/Button";
 import { useMediaQuery } from "react-responsive";
+import translationStore from "../../stores/translationStore";
+import languages from "../../translations";
+import { IntlProvider, FormattedMessage } from "react-intl";
 
 export default function Filters({ tasks, setTasks, fetchTrigger, setFetchTrigger }) {
    const user = userStore.getState().user;
@@ -22,7 +25,8 @@ export default function Filters({ tasks, setTasks, fetchTrigger, setFetchTrigger
    const [categoriesSelect, setCategoriesSelect] = useState([]);
    const [seletectedUsername, setSelectedUsername] = useState(usernameFilter);
    const [selectedCategory, setSelectedCategory] = useState(categoryFilter);
-   const isMobile = useMediaQuery({ query: "(max-width: 1000px)" });
+   const { locale } = translationStore();
+   const isMobile = useMediaQuery({ query: "(max-width: 1270px)" });
    const is760 = useMediaQuery({ query: "(max-width:760px" });
 
    const { setTODOtasks, setDOINGtasks, setDONEtasks } = setTasks;
@@ -160,45 +164,76 @@ export default function Filters({ tasks, setTasks, fetchTrigger, setFetchTrigger
       setDONEtasks(componentsByStatus.DONE);
    }
    return (
-      <div id="filter-section">
-         <select
-            className="homepage-filters"
-            id="user-filter"
-            value={seletectedUsername}
-            onChange={(e) => {
-               setSelectedUsername(e.target.value);
-               updateUsernameFilter(e.target.value);
-            }}
-         >
-            <option value="default">{!isMobile && <span>All </span>}Users</option>
-            {usersSelect.map((username) => (
-               <option key={username} value={username}>
-                  {username}
+      <IntlProvider locale={locale} messages={languages[locale]}>
+         <div id="filter-section">
+            <select
+               className="homepage-filters"
+               id="user-filter"
+               value={seletectedUsername}
+               onChange={(e) => {
+                  setSelectedUsername(e.target.value);
+                  updateUsernameFilter(e.target.value);
+               }}
+            >
+               <option value="default">
+                  {" "}
+                  <FormattedMessage id="all-users" />
                </option>
-            ))}
-         </select>
-         <select
-            className="homepage-filters"
-            id="category-filter"
-            value={selectedCategory}
-            onChange={(e) => {
-               setSelectedCategory(e.target.value);
-               updateCategoryFilter(e.target.value);
-            }}
-         >
-            <option value="default">{!isMobile && <span>All</span>} Categories</option>
-            {categoriesSelect.map((category) => (
-               <option key={category} value={category}>
-                  {category}
+               {usersSelect.map((username) => (
+                  <option key={username} value={username}>
+                     {username}
+                  </option>
+               ))}
+            </select>
+            <select
+               className="homepage-filters"
+               id="category-filter"
+               value={selectedCategory}
+               onChange={(e) => {
+                  setSelectedCategory(e.target.value);
+                  updateCategoryFilter(e.target.value);
+               }}
+            >
+               <option value="default">
+                  <FormattedMessage id="all-categories" />
                </option>
-            ))}
-         </select>
-         <Button className="btn-filters btn-outline-secondary" id="filter-btn" onClick={handleClick}>
-            {is760 ? <i class="fas fa-filter"></i> : isMobile ? "Apply" : "Apply Filter"}
-         </Button>
-         <Button className="btn-filters btn-outline-secondary" id="clean-filter-btn" onClick={cleanFilters}>
-            {is760 ? <i class="fas fa-times-circle"></i> : isMobile ? "Clean" : "Clean Filter"}
-         </Button>
-      </div>
+               {categoriesSelect.map((category) => (
+                  <option key={category} value={category}>
+                     {category}
+                  </option>
+               ))}
+            </select>
+            <Button className="btn-filters btn-outline-secondary" id="filter-btn" onClick={handleClick}>
+               {is760 ? (
+                  <i class="fas fa-filter"></i>
+               ) : isMobile ? (
+                  locale === "en" ? (
+                     "Apply"
+                  ) : (
+                     "Aplicar"
+                  )
+               ) : locale === "en" ? (
+                  "Apply Filter"
+               ) : (
+                  "Aplicar"
+               )}
+            </Button>
+            <Button className="btn-filters btn-outline-secondary" id="clean-filter-btn" onClick={cleanFilters}>
+               {is760 ? (
+                  <i class="fas fa-times-circle"></i>
+               ) : isMobile ? (
+                  locale === "en" ? (
+                     "Clean"
+                  ) : (
+                     "Limpar"
+                  )
+               ) : locale === "en" ? (
+                  "Clean Filter"
+               ) : (
+                  "Limpar"
+               )}
+            </Button>
+         </div>
+      </IntlProvider>
    );
 }

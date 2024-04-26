@@ -8,11 +8,15 @@ import { useEffect, useState } from "react";
 import alertStore from "../stores/alertStore";
 import { userStore } from "../stores/userStore";
 import notificationsStore from "../stores/notificationsStore";
+import translationStore from "../stores/translationStore";
+import languages from "../translations";
+import { IntlProvider, FormattedMessage } from "react-intl";
 
 export default function Configurations() {
    const [timeout, setTimeout] = useState(0);
    const token = userStore.getState().user.token;
    const setSeeNotifications = notificationsStore((state) => state.setSeeNotifications);
+   const { locale } = translationStore();
 
    function handleAlert(message, error) {
       alertStore.getState().setMessage(message);
@@ -43,41 +47,43 @@ export default function Configurations() {
 
    return (
       <>
-         <HeaderScrum />
+         <IntlProvider locale={locale} messages={languages[locale]}>
+            <HeaderScrum />
 
-         <div id="main-taskList">
-            <AsideMenu />
-            <main className="scrum-main" onClick={() => setSeeNotifications(false)}>
-               <form className="agileForm" id="form-configurations" onSubmit={handleSubmit}>
-                  <div className="banner_register">
-                     <p id="configurations-banner-p">
-                        <i class="fas fa-tools"></i>&nbsp;&nbsp;Configurations
-                     </p>
-                  </div>
-                  <div className="content_register">
-                     <div className="agileRow" id="row-configurations-timeout">
-                        <label htmlFor="session-timeout" id="timeout-label">
-                           Session timeout (mins)
-                        </label>
-                        <input
-                           type="text"
-                           name="session-timeout"
-                           className="form-control"
-                           id="session-timeout-input"
-                           value={timeout}
-                           onChange={(e) => setTimeout(e.target.value)}
-                        />
+            <div id="main-taskList">
+               <AsideMenu />
+               <main className="scrum-main" onClick={() => setSeeNotifications(false)}>
+                  <form className="agileForm" id="form-configurations" onSubmit={handleSubmit}>
+                     <div className="banner_register">
+                        <p id="configurations-banner-p">
+                           <i class="fas fa-tools"></i>&nbsp;&nbsp; <FormattedMessage id="configurations" />
+                        </p>
                      </div>
-                     <Button className="btn-outline-primary" type="submit">
-                        Save
-                     </Button>
-                  </div>
-               </form>
-            </main>
-         </div>
+                     <div className="content_register">
+                        <div className="agileRow" id="row-configurations-timeout">
+                           <label htmlFor="session-timeout" id="timeout-label">
+                              <FormattedMessage id="session-timeout" />
+                           </label>
+                           <input
+                              type="text"
+                              name="session-timeout"
+                              className="form-control"
+                              id="session-timeout-input"
+                              value={timeout}
+                              onChange={(e) => setTimeout(e.target.value)}
+                           />
+                        </div>
+                        <Button className="btn-outline-primary" type="submit">
+                           <FormattedMessage id="save" />
+                        </Button>
+                     </div>
+                  </form>
+               </main>
+            </div>
 
-         <Footer />
-         <AlertsMessage />
+            <Footer />
+            <AlertsMessage />
+         </IntlProvider>
       </>
    );
 }

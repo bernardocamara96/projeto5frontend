@@ -143,3 +143,13 @@ select {
    display: flex;
    gap: 10px;
 }
+
+#languages-row-login div {
+   cursor: pointer;
+}
+
+@media (max-width: 655px) {
+   #container-userProfile {
+      flex-direction: column;
+   }
+}

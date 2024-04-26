@@ -1,9 +1,11 @@
 import "./messagesModal.css";
 import { useEffect } from "react";
 import alertStore from "../../../stores/alertStore";
+import translationStore from "../../../stores/translationStore";
 
 export default function AlertsMessage() {
    const { error, message, visible, setVisible, setMessage } = alertStore((state) => state);
+   const { locale } = translationStore();
 
    useEffect(() => {
       if (visible) {
@@ -18,7 +20,9 @@ export default function AlertsMessage() {
       <>
          {visible ? (
             <div id="alertMessage" className={`alert ${error ? "alert-danger" : "alert-success"}`}>
-               <h4 class="alert-heading">{error ? "Failed" : "Success"}</h4>
+               <h4 class="alert-heading">
+                  {error ? (locale === "en" ? "Failed" : "Erro") : locale === "en" ? "Seccess" : "Sucesso"}
+               </h4>
                {message}
             </div>
          ) : null}

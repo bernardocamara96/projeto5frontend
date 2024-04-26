@@ -70,7 +70,8 @@ export default function Task({
 
    //function to handle the next button inside the task
    const handleNextButton = (e) => {
-      var newStatus = status === "TO DO" ? 200 : status === "DOING" ? 300 : null;
+      var newStatus =
+         status === "TO DO" || status === "PARA FAZER" ? 200 : status === "DOING" || status === "FAZENDO" ? 300 : null;
 
       updateTaskStatus(user.token, id, newStatus).then((response) => {
          if (response.ok) {
@@ -83,7 +84,8 @@ export default function Task({
 
    //function to handle the previous button inside the task
    const handlePreviousButton = (e) => {
-      var newStatus = status === "DONE" ? 200 : status === "DOING" ? 100 : null;
+      var newStatus =
+         status === "DONE" || status === "FEITO" ? 200 : status === "DOING" || status === "FAZENDO" ? 100 : null;
 
       updateTaskStatus(user.token, id, newStatus).then((response) => {
          if (response.ok) {
@@ -150,7 +152,7 @@ export default function Task({
                style={{ backgroundColor: priority === 1 ? "green" : priority === 2 ? "yellow" : "red" }}
             ></div>
 
-            <ButtonGroup className="content_buttons ">
+            <ButtonGroup className="content_buttons " style={{ marginBottom: user.role === "scrumMaster" && "24px" }}>
                {status === "TO DO" || type == "non-draggable" ? null : (
                   <Button
                      className="btn-secondary"

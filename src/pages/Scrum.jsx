@@ -10,6 +10,9 @@ import AlertsMessage from "../components/somemodals/messagesModal/AlertsMessage.
 import { userRole } from "../utilities/services.js";
 import { useNavigate } from "react-router-dom";
 import notificationsStore from "../stores/notificationsStore.js";
+import { IntlProvider, FormattedMessage } from "react-intl";
+import translationStore from "../stores/translationStore.js";
+import languages from "../translations/index.js";
 
 export default function Scrum() {
    const user = userStore.getState().user;
@@ -21,6 +24,7 @@ export default function Scrum() {
    const [role, setRole] = useState("developer");
    const navigate = useNavigate();
    const setSeeNotifications = notificationsStore((state) => state.setSeeNotifications);
+   const { locale } = translationStore();
 
    useEffect(() => {
       userRole(user.token).then((response) => {
@@ -44,7 +48,7 @@ export default function Scrum() {
                   <input
                      type="text"
                      id="taskSearchHomepage"
-                     placeholder="🔍 Search tasks by title or description"
+                     placeholder={languages[locale]["search-tasks-placeholder"]}
                      value={searchTermHome}
                      className="form-control"
                      onChange={(e) => setSearchTermHome(e.target.value)}

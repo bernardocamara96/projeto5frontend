@@ -6,7 +6,7 @@
    width: 90%;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 920px) {
    .tasks-row {
       flex-direction: column;
    }

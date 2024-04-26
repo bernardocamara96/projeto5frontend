@@ -14,6 +14,9 @@ import Button from "react-bootstrap/Button";
 import UserChat from "../components/chat/UserChat";
 import MyUserChat from "../components/chat/MyUserChat";
 import notificationsStore from "../stores/notificationsStore";
+import { IntlProvider, FormattedMessage } from "react-intl";
+import translationStore from "../stores/translationStore";
+import languages from "../translations";
 
 export default function UserProfile() {
    const { username } = useParams();
@@ -23,8 +26,8 @@ export default function UserProfile() {
    const { setConfirmMessage, setConfirmVisible, setConfirmCallback } = alertStore();
    const navigate = useNavigate();
    const setSeeNotifications = notificationsStore((state) => state.setSeeNotifications);
-
    const [inputsDisabled, setInputsDisabled] = useState(true);
+   const { locale } = translationStore();
 
    //function to set the confirm modals
    const handleAction = (message, callback) => {
@@ -91,14 +94,17 @@ export default function UserProfile() {
                      />
 
                      {user.role === "productOwner" && usernameStorage !== username && (
-                        <div id="container-btns-userProfile">
-                           <Button className="btn-outline-danger " onClick={handleDelete}>
-                              <i class="fas fa-user-times"></i>&nbsp; Permanently delete
-                           </Button>
-                           <Button className="btn-outline-danger" onClick={handleDeleteTasks}>
-                              <i class="bi bi-trash"></i>&nbsp;Delete tasks
-                           </Button>
-                        </div>
+                        <IntlProvider locale={locale} messages={languages[locale]}>
+                           <div id="container-btns-userProfile">
+                              <Button className="btn-outline-danger " onClick={handleDelete}>
+                                 <i class="fas fa-user-times"></i>&nbsp; <FormattedMessage id="permanently-delete" />
+                              </Button>
+                              <Button className="btn-outline-danger" onClick={handleDeleteTasks}>
+                                 <i class="bi bi-trash"></i>&nbsp;
+                                 <FormattedMessage id="delete-tasks" />
+                              </Button>
+                           </div>
+                        </IntlProvider>
                      )}
                   </div>
                )}

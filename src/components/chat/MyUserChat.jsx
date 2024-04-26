@@ -7,6 +7,9 @@ import { Button } from "react-bootstrap";
 import { getMessages, addMessage, seenMessages } from "../../utilities/services";
 import { usernameStore } from "../../stores/userStore";
 import useMessageWebSocket from "../websocket/useMessageWebSocket";
+import translationStore from "../../stores/translationStore";
+import languages from "../../translations";
+import { IntlProvider, FormattedMessage } from "react-intl";
 
 export default function MyChat({ username, token }) {
    const [name, setName] = useState("");
@@ -16,6 +19,7 @@ export default function MyChat({ username, token }) {
    const usernameStorage = usernameStore.getState().username;
    const messageListContainerRef = useRef(null);
    const [userChat, setUserChat] = useState("");
+   const { locale } = translationStore();
 
    useEffect(() => {
       getUserPhotoDto(token, username).then((response) => {
@@ -92,33 +96,35 @@ export default function MyChat({ username, token }) {
    };
    useMessageWebSocket(token, username, setMessages);
    return (
-      <div className="agileForm" id="chatForm">
-         <div className="banner_register">
-            <p id="banner-messages-p">
-               <i className="fas fa-comment"></i>
-               <b>
-                  &nbsp;&nbsp;Chat with <span>{userChat}</span>
-               </b>
-            </p>
-         </div>
-         <div className="content_register" id="content-messages-container">
-            <div id="messageListContainer" ref={messageListContainerRef}>
-               <MessageList className="message-list" lockable={true} toBottomHeight={"100%"} dataSource={messages} />
+      <IntlProvider locale={locale} messages={languages[locale]}>
+         <div className="agileForm" id="chatForm">
+            <div className="banner_register">
+               <p id="banner-messages-p">
+                  <i className="fas fa-comment"></i>
+                  <b>
+                     &nbsp;&nbsp; <FormattedMessage id="chat-with" /> <span>{userChat}</span>
+                  </b>
+               </p>
             </div>
-            <div className="content_register" id="content-input-messages">
-               <div className="agileRow" id="reply-row">
-                  <textarea
-                     id="sender-message-input"
-                     placeholder="Type here..."
-                     value={messageText}
-                     onChange={(e) => setMessageText(e.target.value)}
-                  ></textarea>
-                  <Button className="btn-outline-primary" id="button-reply" onClick={handleClick}>
-                     <i className="fas fa-reply"></i>
-                  </Button>
+            <div className="content_register" id="content-messages-container">
+               <div id="messageListContainer" ref={messageListContainerRef}>
+                  <MessageList className="message-list" lockable={true} toBottomHeight={"100%"} dataSource={messages} />
+               </div>
+               <div className="content_register" id="content-input-messages">
+                  <div className="agileRow" id="reply-row">
+                     <textarea
+                        id="sender-message-input"
+                        placeholder={languages[locale]["chat-placeholder"]}
+                        value={messageText}
+                        onChange={(e) => setMessageText(e.target.value)}
+                     ></textarea>
+                     <Button className="btn-outline-primary" id="button-reply" onClick={handleClick}>
+                        <i className="fas fa-reply"></i>
+                     </Button>
+                  </div>
                </div>
             </div>
          </div>
-      </div>
+      </IntlProvider>
    );
 }
