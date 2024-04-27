@@ -15,6 +15,7 @@ import useTasksWebSocket from "../websocket/useTasksWebSocket";
 import languages from "../../translations";
 import translationStore from "../../stores/translationStore";
 import { IntlProvider, FormattedMessage } from "react-intl";
+import useCategoriesWebSocket from "../websocket/useCategoriesWebSocket";
 
 export default function StandardList({ type }) {
    const user = userStore.getState().user;
@@ -64,6 +65,8 @@ export default function StandardList({ type }) {
          });
       }
    }, [fetchTrigger]);
+
+   type === "categoriesList" && useCategoriesWebSocket(user.token, setCategoryList);
 
    //function to handle the double click on a task, it will create the modal to edit the task
    const handleTaskDoubleClick = (taskData) => {
