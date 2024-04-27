@@ -14,6 +14,10 @@ export default function UserCard({
 }) {
    const [isActive, setIsActive] = useState(false);
    const navigate = useNavigate();
+   const screenWidth = window.innerWidth;
+   const screenHeight = window.innerHeight;
+   const resolution = screenWidth / screenHeight;
+   const isMobileResolution = resolution < 0.75;
 
    // Function to set the user as non active, so the black border disappears
    useEffect(
@@ -33,6 +37,11 @@ export default function UserCard({
 
    const [userVisibility, setUserVisibility] = useState(() => determineUserVisibility(searchTerm));
 
+   const handleClcik = () => {
+      if (isMobileResolution) {
+         navigate(`/userProfile/${username}`, { replace: true });
+      }
+   };
    //   // Update user visibility whenever searchTerm changes
    useEffect(() => {
       setUserVisibility(determineUserVisibility(searchTerm));
@@ -44,6 +53,7 @@ export default function UserCard({
                className="user-item"
                style={{ border: isActive && "solid black" }}
                onDoubleClick={() => navigate(`/userProfile/${username}`, { replace: true })}
+               onClick={handleClcik}
             >
                <div
                   className="banner"

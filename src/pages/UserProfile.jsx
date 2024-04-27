@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import AsideMenu from "../components/Menus/AsideMenu";
 import Button from "react-bootstrap/Button";
-import UserChat from "../components/chat/UserChat";
 import MyUserChat from "../components/chat/MyUserChat";
 import notificationsStore from "../stores/notificationsStore";
 import { IntlProvider, FormattedMessage } from "react-intl";

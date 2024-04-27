@@ -16,7 +16,7 @@ import ConfirmMessage from "../somemodals/messagesModal/ConfirmMessage";
 import { usernameStore } from "../../stores/userStore";
 import { useMediaQuery } from "react-responsive";
 import Button from "react-bootstrap/Button";
-import useMessageWebSocket from "../websocket/useMessageWebSocket";
+import useNotificationsWebSocket from "../websocket/useNotificationsWebSocket";
 import UnseenMessages from "../Lists/UnseenMessages";
 import notificationsStore from "../../stores/notificationsStore";
 import translationStore from "../../stores/translationStore";
@@ -40,7 +40,7 @@ export default function HeaderScrum({ userProfile }) {
    const { seeNotifications, setSeeNotifications } = notificationsStore();
    const { locale, updateLocale } = translationStore();
 
-   useMessageWebSocket(user.token, usernameStorage, setNotificationsNumber);
+   useNotificationsWebSocket(user.token, setNotificationsNumber);
 
    //if the token exists it will fetch the photo and name of the user and set it to the state to put in the Header
    useEffect(() => {

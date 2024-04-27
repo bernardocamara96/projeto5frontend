@@ -68,33 +68,31 @@ export default function MyChat({ username, token }) {
       }
    }, [messages]);
 
+   const { sendMsg } = useMessageWebSocket(token, username, setMessages);
+
    const handleClick = () => {
       const messageDto = {
          text: messageText,
          senderUsername: usernameStorage,
          recipientUsername: username,
       };
-      addMessage(token, messageDto).then((response) => {
-         if (response.ok) {
-            return response.json().then((data) => {
-               console.log(data);
-               const newMessage = {
-                  position: "right",
-                  type: "text",
-                  title: usernameStorage,
-                  text: messageText,
-                  status: data ? "read" : "received",
-                  avatar: userPhoto,
-                  className: "custom-right-message",
-                  date: new Date(),
-               };
-               setMessages([...messages, newMessage]);
-            });
-         }
-      });
+
+      sendMsg(messageDto);
+      const newMessage = {
+         position: "right",
+         type: "text",
+         title: usernameStorage,
+         text: messageText,
+         status: "received",
+         avatar: userPhoto,
+         className: "custom-right-message",
+         date: new Date(),
+      };
+      setMessages([...messages, newMessage]);
+
       setMessageText("");
    };
-   useMessageWebSocket(token, username, setMessages);
+
    return (
       <IntlProvider locale={locale} messages={languages[locale]}>
          <div className="agileForm" id="chatForm">

@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function useMessageWebSocket(token, username, setMessages) {
    const WS_URL = `ws://localhost:8080/projeto5backend/websocket/message/${token}/${username}`;
+
+   const [sendMsg, setSendMsg] = useState(null);
 
    useEffect(() => {
       const socket = new WebSocket(WS_URL);
@@ -41,6 +43,7 @@ function useMessageWebSocket(token, username, setMessages) {
             var json = message.substring("Messages number: ".length);
             var messagesNumber = JSON.parse(json);
             setMessages(messagesNumber);
+            console.log(messagesNumber);
          }
       };
 
@@ -49,13 +52,21 @@ function useMessageWebSocket(token, username, setMessages) {
       };
 
       socket.onclose = () => {
-         console.log("The websocket connection is closed");
+         console.log(`The websocket ${token}/${username}connection is closed`);
       };
+
+      function sendMessage(messageDto) {
+         socket.send(JSON.stringify(messageDto));
+         console.log("Message sent to server:", messageDto);
+      }
+
+      setSendMsg(() => sendMessage);
 
       return () => {
          socket.close();
       };
    }, []);
+   return { sendMsg };
 }
 
 export default useMessageWebSocket;
