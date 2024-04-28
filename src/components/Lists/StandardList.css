@@ -326,9 +326,9 @@
    width: 15%;
 }
 
-@media (max-width: 1060px) {
+@media (max-width: 1270px) {
    #addUser-btn span {
-      font-size: 12px;
+      font-size: 11px;
    }
 }
 

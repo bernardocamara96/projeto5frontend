@@ -26,6 +26,9 @@
    background-color: white;
    color: #0d6efd;
    transition: ease-in-out 0.2s;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 @media (max-width: 900px) {

@@ -29,7 +29,7 @@ export default function StandardList({ type }) {
    const [userCards, setUserCards] = useState([]);
    const navigate = useNavigate();
    const usernameStorage = usernameStore.getState().username;
-   const isComputer = useMediaQuery({ query: "(min-width: 900px)" });
+   const isComputer = useMediaQuery({ query: "(min-width: 1115px)" });
    const { deletedTasksArray, updateDeletedTasks } = useTasksStore();
    const { locale } = translationStore();
 
