@@ -72,5 +72,6 @@
    "average-task-completion": "Average task completion time: ",
    "chart-tasks": "Chart: Number of tasks completed over time",
    "hours-and": " hours and ",
-   "minutes": " minutes"
+   "minutes": " minutes",
+   "save": "Save"
 }

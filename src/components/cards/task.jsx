@@ -5,6 +5,7 @@ import { userStore, usernameStore } from "../../stores/userStore";
 import alertStore from "../../stores/alertStore";
 import { updateTaskStatus, deleteTask, restaureTask } from "../../utilities/services";
 import { ButtonGroup, Button } from "react-bootstrap";
+import { useMediaQuery } from "react-responsive";
 
 export default function Task({
    id,
@@ -20,7 +21,7 @@ export default function Task({
 }) {
    const user = userStore.getState().user;
    const username = usernameStore.getState().username;
-
+   const isTablet = useMediaQuery({ query: "(max-width: 1100px)" });
    const { setConfirmMessage, setConfirmVisible, setConfirmCallback } = alertStore();
 
    //function to set the confirm messages
@@ -124,7 +125,9 @@ export default function Task({
                      : status === "DONE" && "rgb(0,128,0,0.65)",
             }}
          >
-            <h3 id="title-task-banner">{title.length > 10 ? title.substring(0, 10) + "..." : title}</h3>
+            <h3 id="title-task-banner">
+               {title.length > 10 ? (isTablet ? title.substring(0, 5) + ".." : title.substring(0, 10) + "..") : title}
+            </h3>
             <div className="category_author">
                <span style={{ marginRight: "30px" }}>
                   {username_author === "deletedTasks" ? "Deleted user" : username_author.substring(0, 11)}
@@ -143,7 +146,7 @@ export default function Task({
          >
             <div className="content">
                <p id="description-task">
-                  {description.length > 42 ? description.substring(0, 38) + "..." : description}
+                  {description.length > 42 ? description.substring(0, 38) + ".." : description}
                </p>
             </div>
 
@@ -152,7 +155,10 @@ export default function Task({
                style={{ backgroundColor: priority === 1 ? "green" : priority === 2 ? "yellow" : "red" }}
             ></div>
 
-            <ButtonGroup className="content_buttons " style={{ marginBottom: user.role === "scrumMaster" && "24px" }}>
+            <ButtonGroup
+               className="content_buttons "
+               style={{ marginBottom: user.role === "scrumMaster" && type === "non-draggable" && "24px" }}
+            >
                {status === "TO DO" || type == "non-draggable" ? null : (
                   <Button
                      className="btn-secondary"

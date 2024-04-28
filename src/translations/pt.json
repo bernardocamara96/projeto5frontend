@@ -72,5 +72,6 @@
    "average-task-completion": "Tempo médio para acabar uma tarefa: ",
    "chart-tasks": "Gráfico: Número de tarefas feitas ao longo do tempo",
    "hours-and": " horas e ",
-   "minutes": " minutos"
+   "minutes": " minutos",
+   "save": "Guardar"
 }

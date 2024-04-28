@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import alertStore from "../../stores/alertStore";
 
 function useMessageWebSocket(token, username, setMessages) {
    const WS_URL = `ws://localhost:8080/projeto5backend/websocket/message/${token}/${username}`;
-
+   const navigate = useNavigate();
    const [sendMsg, setSendMsg] = useState(null);
+
+   function handleAlert(message, error) {
+      alertStore.getState().setMessage(message);
+      alertStore.getState().setVisible(true);
+      alertStore.getState().setError(error);
+   }
 
    useEffect(() => {
       const socket = new WebSocket(WS_URL);
@@ -44,6 +52,9 @@ function useMessageWebSocket(token, username, setMessages) {
             var messagesNumber = JSON.parse(json);
             setMessages(messagesNumber);
             console.log(messagesNumber);
+         } else if (message.startsWith("Token has expired")) {
+            handleAlert("Token has expired", true);
+            navigate("/", { replace: true });
          }
       };
 

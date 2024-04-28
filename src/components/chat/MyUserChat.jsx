@@ -59,7 +59,7 @@ export default function MyChat({ username, token }) {
             });
          }
       });
-   }, []);
+   }, [username]);
 
    useEffect(() => {
       // Scroll to the bottom of the message list after messages are updated
